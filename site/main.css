@@ -10,6 +10,8 @@
 
 :root {
 	--color: #222;
+	--link-color: #22f;
+	--link-visited-color: #44f;
 }
 
 body {
@@ -17,4 +19,22 @@ body {
 	font-family: sans-serif;
 }
 
+/*-------- overall apppearance --------*/
+
+a {
+	color: var(--link-color);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:visited {
+	color: var(--link-visited-color);
+}
+
+p {
+	text-indent: 1em;
+}
 
