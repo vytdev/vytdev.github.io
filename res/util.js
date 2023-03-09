@@ -65,6 +65,15 @@ util.register("math", function(require, module, exports, global) {
 
 var math = require(module.id);
 
+
+// the ratio of the circumference of a circle to its diameter
+exports.PI   = 3.14159265358979323846;
+
+// the Euler's number, it is the base of the natural logarithms
+exports.E    = 2.71828182845904523536;
+
+
+
 exports.pow = function(x, y) {
 	var n = 1;
 	for (var c = 0; c < y; c++) n = n * x;
