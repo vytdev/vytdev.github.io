@@ -10,6 +10,9 @@
 # markdown files to HTML.
 markdown>=3.4.1
 
+# Module needed for highlighting code blocks
+pygments>=2.14.0
+
 # This is used when saving the output HTML after converting it using the above
 # module. It is used to save HTML files with required metadata and headers, and
 # preset layouts.

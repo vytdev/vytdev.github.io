@@ -9,10 +9,10 @@
 	<meta name="description" content="{{ doc.about }}"/>
 	<meta name="author" content="{{ doc.author }}"/>
 	<meta name="generator" content="python3"/>
-	<title>{% if not doc.home %}{{ doc.title }}{% if doc.category %} — {{ doc.category }}{% endif %} | {% endif %}VYT Docs</title>
+	<title>{% if not doc.home %}{{ doc.title }}{% endif %}{% if doc.category != "." %} — {{ doc.category }} | {% else %} — {% endif %}VYT Docs</title>
 	
 	<script src="{{ 'jquery.js'|url }}"></script>
-	<script id="helperscript" data-webroot="{{ ''|url }}" src="{{ 'util.js'|url }}"></script>
+	<script id="helperscript" data-webroot="{{ '.'|url }}" src="{{ 'util.js'|url }}"></script>
 	<script src="{{ 'dex.js'|url }}"></script>
 	
 	<link rel="manifest" href="{{ 'manifest.json'|url }}"/>
