@@ -9,7 +9,8 @@
 	<meta name="description" content="{{ doc.about }}"/>
 	<meta name="author" content="{{ doc.author }}"/>
 	<meta name="generator" content="python3"/>
-	<title>{% if not doc.home %}{{ doc.title }}{% endif %}{% if doc.category != "." %} — {{ doc.category }} | {% else %} — {% endif %}VYT Docs</title>
+	<meta name="theme-color" content="#c2ffff"/>
+	<title>{% if not doc.home %}{{ doc.title }}{% endif %}{% if doc.category %}{% if doc.home %}{{ doc.category }} — {% else %} — {{ doc.category }} | {% endif %}{% endif %}VYT Docs</title>
 	
 	<script src="{{ 'jquery.js'|url }}"></script>
 	<script id="helperscript" data-webroot="{{ '.'|url }}" src="{{ 'util.js'|url }}"></script>
@@ -22,6 +23,8 @@
 	<link rel="license" href="{{ 'license.txt'|url }}"/>
 	<link rel="canonical" href="https://vytdev.github.io/{{ doc.loc }}"/>
 </head><body>
+
+{{ doc.toc }}
 
 {{ doc.content }}
 

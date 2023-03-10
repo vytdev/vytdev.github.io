@@ -10,13 +10,19 @@
 
 :root {
 	--color: #222;
-	--link-color: #22f;
-	--link-visited-color: #44f;
+	--link-color: #0af;
+	--link-visited-color: #6af;
 }
 
 body {
 	color: var(--color);
 	font-family: sans-serif;
+	font-size: 85%;
+}
+
+.toc li {
+	list-style: square;
+	margin: 0;
 }
 
 /*-------- overall apppearance --------*/
@@ -46,6 +52,8 @@ a.headerlink {
 p {
 	text-indent: 1em;
 }
+
+
 
 /*-------- code highlighting --------*/
 /*
