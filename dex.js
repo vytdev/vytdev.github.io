@@ -1,1 +1,1 @@
-util.index={"files":{"index.html":{"about":"","author":"","title":"","loc":"index.html","content":"<h1 id=\"test\">Test<a class=\"headerlink\" href=\"#test\" title=\"Permanent link\">&para;</a></h1>\n<p>This site is still under development.</p>","category":".","home":false}},"glosary":{},"date":"Thu, 09 Mar 2023 04:21:51 +0000"}
+util.index={"files":{"index.html":{"about":"","author":"","title":"","loc":"index.html","category":null,"home":true,"toc":[{"level":1,"id":"tests","name":"Tests","children":[]}]}},"glosary":{},"date":"Fri, 10 Mar 2023 02:53:04 +0000"}
