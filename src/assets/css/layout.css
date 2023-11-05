@@ -131,6 +131,34 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 	display: block;
 }
 
+/* --- cookie notice ------------------------------------------- */
+
+#cookie-notice {
+	display: none;
+	position: fixed;
+	bottom: 8px;
+	right: 8px;
+	width: 250px;
+	height: 230px;
+	box-shadow: 0 0 2px 0 rgba(0, 0, 0, .75);
+	z-index: 12;
+	padding: 8px;
+	background-color: var(--cookie-notice-bg);
+	border: 1px solid var(--generic-border);
+	border-radius: 3px;
+}
+
+#cookie-notice h3 {
+	margin: 0;
+}
+
+#cookie-notice button {
+	width: 100%;
+	border: 1px solid var(--generic-border);
+	color: var(--fade-color);
+	background-color: var(--generic-bg);
+}
+
 /* --- search bar ---------------------------------------------- */
 
 .search {
