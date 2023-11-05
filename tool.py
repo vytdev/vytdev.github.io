@@ -26,6 +26,7 @@ DB_FOLDER     = "db"
 
 f_creation = os.path.join(DB_FOLDER, "creation.json")
 f_redirect = os.path.join(DB_FOLDER, "redirect.json")
+f_deletion = os.path.join(DB_FOLDER, "deletions.json")
 
 domain = "vytdev.github.io"
 
@@ -44,8 +45,11 @@ parser.add_argument("-d", "--deploy", action="store_true", help="deploy to GitHu
 subs = parser.add_subparsers(dest="sub")
 # mv sub command
 mv = subs.add_parser("mv", help="move documents")
-mv.add_argument("src", help="source path of the document")
+mv.add_argument("src", help="path of the source document")
 mv.add_argument("dest", help="where to place the document")
+# rm sub command
+rm = subs.add_parser("rm", help="delete documents")
+rm.add_argument("doc", help="path to the document")
 # get args
 args = parser.parse_args()
 
@@ -55,6 +59,7 @@ os.chdir(os.path.normpath(os.path.dirname(__file__)))
 # mv sub command
 if args.sub == "mv":
 	import json
+	import time
 
 	# load redirect mappings
 	if os.path.exists(f_redirect):
@@ -62,6 +67,13 @@ if args.sub == "mv":
 			r_redirect = json.load(f)
 	else:
 		r_redirect = {}
+
+	# load creation time records
+	if os.path.exists(f_creation):
+		with open(f_creation, "r", encoding="utf-8") as f:
+			r_creation = json.load(f)
+	else:
+		r_creation = {}
 
 	# check if markdown
 	if not args.src.endswith(".md"):
@@ -77,15 +89,25 @@ if args.sub == "mv":
 	if not os.path.isfile(src):
 		exit("page not found")
 
-	# create redirect key
+	# create record key
 	a = os.path.normpath(args.src.replace("\\", "/"))[:-2] + "html"
 	b = os.path.normpath(args.dest.replace("\\", "/"))[:-2] + "html"
 	r_redirect[a] = b
+
+	# confirm before moving
+	if input("are you sure you want to move this page? [y/n]: ").lower()[0] != "y":
+		print("aborting ...")
+		exit(0)
 
 	# remove redirect from record if already exists for path
 	if dest in r_redirect:
 		del r_redirect[dest]
 
+	# move creation time
+	r_creation[b] = r_creation.get(a, time.time())
+	if a in r_creation: del r_creation[a]
+
+	# ensure parent dir exist
 	dirname = os.path.dirname(dest)
 	if not os.path.isdir(dirname):
 		os.makedirs(dirname)
@@ -96,7 +118,65 @@ if args.sub == "mv":
 	print("updating records ...")
 	with open(f_redirect, "w", encoding="utf-8") as f:
 		json.dump(r_redirect, f, separators=(",", ":"))
+	with open(f_creation, "w", encoding="utf-8") as f:
+		json.dump(r_creation, f, separators=(",", ":"))
 
+	print("%s has been moved to: %s" % (a, b))
+	exit(0)
+
+# rm sub command
+if args.sub == "rm":
+	import json
+
+	# load deletion records
+	if os.path.exists(f_deletion):
+		with open(f_deletion, "r", encoding="utf-8") as f:
+			r_deletion = json.load(f)
+	else:
+		r_deletion = []
+
+	# load creation time records
+	if os.path.exists(f_creation):
+		with open(f_creation, "r", encoding="utf-8") as f:
+			r_creation = json.load(f)
+	else:
+		r_creation = {}
+
+	# check if markdown
+	if not args.doc.endswith(".md"):
+		exit("doc not a markdown document")
+
+	# paths to use
+	doc = os.path.normpath(os.path.join(DOCS_FOLDER, args.doc))
+
+	# source page not found
+	if not os.path.isfile(doc):
+		exit("page not found")
+
+	# get record key
+	key = os.path.normpath(args.doc.replace("\\", "/"))[:-2] + "html"
+
+	# confirm before deleting
+	if input("are you sure you want to delete this page? [y/n]: ").lower()[0] != "y":
+		print("aborting ...")
+		exit(0)
+
+	# put it to record
+	if key not in r_deletion: r_deletion.append(key)
+
+	# remove creation time
+	if key in r_creation: del r_creation[key]
+
+	os.unlink(doc)
+
+	# update records
+	print("updating records ...")
+	with open(f_deletion, "w", encoding="utf-8") as f:
+		json.dump(r_deletion, f, separators=(",", ":"))
+	with open(f_creation, "w", encoding="utf-8") as f:
+		json.dump(r_creation, f, separators=(",", ":"))
+
+	print("%s has been deleted" % (key))
 	exit(0)
 
 # do clean up
@@ -530,6 +610,8 @@ if args.build:
 	base_template = env.get_template("base.jinja2")
 	# redirect template
 	redirect_template = env.get_template("redirect.jinja2")
+	# deleted pages template
+	deleted_pages_template = env.get_template("deleted.jinja2")
 	# sitemap template
 	sitemap_template = env.get_template("sitemap.xml")
 
@@ -639,6 +721,16 @@ if args.build:
 	else:
 		r_creation = {}
 
+	# new creation records to remove records of docs that not exist
+	r_n_creation = {}
+
+	# load list of deleted documents
+	if os.path.exists(f_deletion):
+		with open(f_deletion, "r", encoding="utf-8") as f:
+			r_deletion = json.load(f)
+	else:
+		r_deletion = {}
+
 	# load redirect mappings
 	if os.path.exists(f_redirect):
 		with open(f_redirect, "r", encoding="utf-8") as f:
@@ -712,7 +804,7 @@ if args.build:
 				creation = r_creation[dstr]
 			else:
 				creation = time.time()
-				r_creation[dstr] = creation
+			r_n_creation[dstr] = creation
 
 			# get writters list
 			authors = []
@@ -842,9 +934,9 @@ if args.build:
 					meta=stringify(doc)
 				))
 
+	# create redirect pages
 	print("creating redirects ...")
 
-	# create redirect pages
 	for key, val in r_redirect.items():
 		print("%s -> %s" % (key, val))
 
@@ -857,6 +949,23 @@ if args.build:
 		with open(path, "w", encoding="utf-8") as f:
 			f.write(redirect_template.render(
 				link=os.path.relpath(val, start=key + "/..")
+			))
+
+	# create deleted pages
+	print("creating deleted pages ...")
+
+	for key in r_deletion:
+		print("%s" % (key))
+
+		path = os.path.join(OUTPUT_FOLDER, key)
+		dirname = os.path.dirname(path)
+
+		if not os.path.isdir(dirname):
+			os.makedirs(dirname)
+
+		with open(path, "w", encoding="utf-8") as f:
+			f.write(deleted_pages_template.render(
+				loc=key
 			))
 
 	# finalize and write index
@@ -888,7 +997,7 @@ if args.build:
 	# save records
 	print("storing records ...")
 	with open(f_creation, "w", encoding="utf-8") as f:
-		json.dump(r_creation, f, separators=(",", ":"))
+		json.dump(r_n_creation, f, separators=(",", ":"))
 
 	print("build done")
 
@@ -935,7 +1044,7 @@ if args.deploy:
 	except ImportError:
 		exit("failed to load required dependencies for deployment")
 
-	if input("are you sure you want to deploy this site? [y/n]: ").lower() != "y":
+	if input("are you sure you want to deploy this site? [y/n]: ").lower()[0] != "y":
 		exit(0)
 
 	# add last commit hash that had been deployed like MKDocs do so its easily
