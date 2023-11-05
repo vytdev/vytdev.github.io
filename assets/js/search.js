@@ -57,9 +57,6 @@ var k1 = 1.5;
 var k2 = 0.5;
 var k3 = 1.0;
 
-// how many items will be shown to users at a time
-var displayBufferSize = 32;
-
 // get placeholders
 var msg = document.getElementById("msg-status");
 var resultDisplay = document.getElementById("search-results");
@@ -181,32 +178,35 @@ if (q && q.length) {
 		}
 
 		// display to users
-		var dots = "", idx = 0;
+		var idx = 0;
 
 		function displayResults() {
-			for ( ; idx < displayBufferSize; idx++) {
-				if (idx >= result.length) { break; }
-				var item = result[idx];
-				var info = dataIndex[item.identifier];
+			idx++;
 
-				// setup display item
-				var block = document.createElement("div");
-				var title = document.createElement("h3");
-				var anchor = document.createElement("a");
-				var description = document.createElement("p");
-				block.classList.add("search-item");
-				title.classList.add("search-item-title");
-				description.classList.add("search-item-description");
-				title.appendChild(anchor);
-				block.appendChild(title);
-				block.appendChild(description);
-				anchor.appendChild(document.createTextNode(info.title));
-				description.appendChild(document.createTextNode(info.about));
-				anchor.href = info.location + ".html?h=" + encodeURIComponent(docUtil.query["q"]);
+			if (idx >= result.length) { return; }
+			var item = result[idx];
+			var info = dataIndex[item.identifier];
 
-				// add to results
-				resultDisplay.appendChild(block);
-			}
+			// setup display item
+			var block = document.createElement("div");
+			var title = document.createElement("h3");
+			var anchor = document.createElement("a");
+			var description = document.createElement("p");
+			block.classList.add("search-item");
+			title.classList.add("search-item-title");
+			description.classList.add("search-item-description");
+			title.appendChild(anchor);
+			block.appendChild(title);
+			block.appendChild(description);
+			anchor.appendChild(document.createTextNode(info.title));
+			description.appendChild(document.createTextNode(info.about));
+			anchor.href = info.location + ".html?h=" + encodeURIComponent(docUtil.query["q"]);
+
+			// add to results
+			resultDisplay.appendChild(block);
+
+			// delay next item to avoid lag in UI
+			setTimeout(displayResults, 15);
 		}
 
 		displayResults();

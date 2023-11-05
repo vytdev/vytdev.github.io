@@ -140,6 +140,7 @@ function onDomInit() { if (isInit) return; isInit = true;
 	var screenOverlay = document.getElementById("overlay");
 	var sidebarToggle = document.getElementById("sidebar-toggle");
 	var sidebarContent = document.getElementById("sidebar-content");
+	var cookieNotice = document.getElementById("cookie-notice");
 	var backToTop = document.getElementById("back-to-top");
 	var darkTheme = document.getElementById("dark-theme");
 	var mainContent = document.getElementById("content");
@@ -223,6 +224,18 @@ function onDomInit() { if (isInit) return; isInit = true;
 		if (scrollY > 40) { backToTop.style.right = "1em"; }
 		else { backToTop.style.right = "-5em"; }
 	};
+
+	// simple utility for cookie notice
+	if (localStorage.getItem("cookiesAccepted") != "yes") {
+		cookieNotice.style.display = "block";
+
+		localStorage.setItem("cookiesAccepted", "no");
+
+		document.getElementById("accept-cookies").onclick = function() {
+			localStorage.setItem("cookiesAccepted", "yes");
+			cookieNotice.style.display = "none";
+		}
+	}
 
 	// load last theme
 	darkTheme.media = docUtil.THEMES[localStorage.getItem("theme")] || docUtil.THEMES.auto;
