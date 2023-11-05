@@ -37,11 +37,9 @@ In order to enhance your experience on VYT Docs, we may store certain data to cu
 your interaction with our website. Below is a table detailing the types of data we store, their
 purposes, available options, and the storage methods employed:
 
-| **Key**         | **Purpose**                                          | **Options**                | **Storage**          |
-| --------------- | ---------------------------------------------------- | -------------------------- | -------------------- |
-| `theme`         | Personalize your browsing experience with themes     | `light`, `dark`, `auto`    | `localStorage`       |
-| `language`      | Remember your language preference                    | `English`, `Spanish`, etc. | `localStorage`       |
-| `visited_pages` | Improve navigation by tracking visited pages         | Dynamic values             | `Session Storage`    |
+| **Key**     | **Purpose**                                          | **Options**                | **Storage**            |
+| ----------- | ---------------------------------------------------- | -------------------------- | ---------------------- |
+| `theme`     | Personalize your browsing experience with themes     | `light`, `dark`, `auto`    | Persistent storage     |
 
 Rest assured, this data is used solely to enhance your user experience on our website. We respect your
 privacy and ensure that this information is stored securely.
