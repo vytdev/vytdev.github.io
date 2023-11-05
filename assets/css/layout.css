@@ -139,7 +139,6 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 	bottom: 8px;
 	right: 8px;
 	width: 250px;
-	height: 230px;
 	box-shadow: 0 0 2px 0 rgba(0, 0, 0, .75);
 	z-index: 12;
 	padding: 8px;
