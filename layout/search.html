@@ -1,0 +1,24 @@
+{% extends "base.jinja2" %}
+
+{# some script loads -#}
+{% block head %}
+<link rel="preload" as="style" type="text/css" href="{{ 'assets/css/search.css'|url }}" />
+<link rel="preload" as="script" type="text/javascript" href="{{ 'assets/js/language.js'|url }}" />
+<link rel="preload" as="script" type="text/javascript" href="{{ 'assets/js/search.js'|url }}" />
+
+<link rel="stylesheet" type="text/css" href="{{ 'assets/css/search.css'|url }}" />
+<script type="text/javascript" src="{{ 'assets/searchIndex.js'|url }}" defer></script>
+<script type="text/javascript" src="{{ 'assets/dataIndex.js'|url }}" defer></script>
+<script type="text/javascript" src="{{ 'assets/js/language.js'|url }}"></script>
+<script type="text/javascript" src="{{ 'assets/js/search.js'|url }}"></script>
+{% endblock %}
+
+{# search box -#}
+{% block content %}
+	<div class="search-block">
+		{% include "components/search.jinja2" %}
+
+		<p id="msg-status">Search here</p>
+		<div id="search-results"></div>
+	</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{# article metadatas -#}
+
+{% block metadata %}
+<!-- metadata -->
+<title>{{ doc.title|safe }}</title>
+<meta name="description" content="{{ doc.about|safe }}" />
+<meta name="revised" content="{{ doc.updated|safe }}" />
+<meta name="author" content="{{ doc.author|safe }}" />
+
+<!-- open graph -->
+<meta property="og:title" content="{{ doc.title|safe }}" />
+<meta property="og:description" content="{{ doc.about|safe }}" />
+<meta property="og:url" content=" {{ doc.canonical }}" />
+<meta property="og:site_name" content="VYT Docs" />
+<meta property="og:type" content="website" />
+<meta name="og:locale" content="en_US" />
+
+<!-- twitter -->
+<meta property="twitter:title" content="{{ doc.title|safe }}" />
+<meta name="twitter:card" content="summary" />
+
+<!-- google and other seo -->
+<meta name="language" content="en" />
+<meta name="robots" content="index,follow" />
+<meta name="generator" content="Python3" />
+<meta name="keywords" content="{{ ', '.join(doc.keywords) }}" />
+<link rel="canonical" href="{{ doc.canonical }}" />
+<link rel="EditURI" href="https://github.com/vytdev/vytdev.github.io/edit/master/docs/{{ doc.location }}.md" />
+{% if doc.prev is not none %}<link rel="prev" href="{{ doc.prev }}" />{% endif %}
+{% if doc.next is not none %}<link rel="next" href="{{ doc.next }}" />{% endif %}
+<script type="application/json+ld">{{ seo }}</script>
+
+<!-- page information -->
+<script type="text/javascript">window.pageInfo = {{ meta }}</script>
+
+{% endblock %}

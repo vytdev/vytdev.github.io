@@ -1,0 +1,41 @@
+/* ================================================================
+Search page styles
+================================================================ */
+
+.nav {
+	padding-left: 8px !important;
+}
+
+label[for=sidebar-toggle] {
+	display: none;
+}
+
+.search-block {
+	padding: 8px;
+}
+
+.search {
+	margin-left: none !important;
+	min-width: 100%;
+}
+
+#msg-status {
+	font-size: 80%;
+	color: var(--fade-color);
+}
+
+.search-item {
+	display: block;
+	background-color: var(--search-item-bg);
+	padding: 8px;
+	margin-top: 4px;
+}
+
+.search-item-title {
+	margin: 0;
+}
+
+.search-item-description {
+	color: #888;
+	font-size: 85%;
+}

@@ -1,0 +1,5 @@
+# ignore paths
+site/
+dist/
+__pycache__
+*.pyc

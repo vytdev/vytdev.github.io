@@ -1,0 +1,16 @@
+{# layout for navigation bar -#}
+
+<div class="nav">
+	{% block sidebar_toggle -%}
+	<input type="checkbox" id="sidebar-toggle" />
+	<label for="sidebar-toggle"><span></span></label>
+	{%- endblock %}
+
+	<a href="https://vytdev.github.io/">
+		<img alt="logo" type="image/svg+xml" width="25" height="25" src="{{ "assets/logo.svg"|url }}" />
+	</a>
+
+	<p>VYT Docs</p>
+
+	{% if search_page is not defined %}{% include "components/search.jinja2" %}{% endif %}
+</div>
