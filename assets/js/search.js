@@ -158,6 +158,8 @@ var q = docUtil.query["q"];
 if (q && q.length) {
 	// let's show this to user
 	searchInput.value = q;
+	// put it on the title
+	document.title = q + " \u2012 VYT Docs Search";
 
 	// wait for the search
 	(function waitSearch() {
