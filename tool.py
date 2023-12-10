@@ -538,6 +538,10 @@ if args.build:
 								url._replace(path=url.path[:-2] + "html")
 							)
 
+					# possible external link, open new tab
+					if url.scheme:
+						elem.set("target", "_blank")
+
 	class CustomExtension(markdown.extensions.Extension):
 		def extendMarkdown(self, md):
 			md.registerExtension(self)
