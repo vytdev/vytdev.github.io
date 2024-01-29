@@ -6,7 +6,7 @@
 		<changefreq>daily</changefreq>
 		<priority>1</priority>
 	</url><url>
-		<loc>https://vytdev.github.io/license.html</loc>
+		<loc>https://vytdev.github.io/contact.html</loc>
 		<lastmod>2023-11-05T00:00:00+00:00</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>1</priority>
@@ -16,7 +16,7 @@
 		<changefreq>daily</changefreq>
 		<priority>1</priority>
 	</url><url>
-		<loc>https://vytdev.github.io/disclaimer.html</loc>
+		<loc>https://vytdev.github.io/about.html</loc>
 		<lastmod>2023-11-05T00:00:00+00:00</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>1</priority>
@@ -36,12 +36,12 @@
 		<changefreq>daily</changefreq>
 		<priority>1</priority>
 	</url><url>
-		<loc>https://vytdev.github.io/about.html</loc>
+		<loc>https://vytdev.github.io/license.html</loc>
 		<lastmod>2023-11-05T00:00:00+00:00</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>1</priority>
 	</url><url>
-		<loc>https://vytdev.github.io/contact.html</loc>
+		<loc>https://vytdev.github.io/disclaimer.html</loc>
 		<lastmod>2023-11-05T00:00:00+00:00</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>1</priority>
