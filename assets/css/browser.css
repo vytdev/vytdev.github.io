@@ -204,6 +204,15 @@ div.snippet > pre {
 	margin: 0;
 }
 
+.math {
+	border-radius: 1px;
+	padding: 2px;
+}
+
+.math * {
+	fill: var(--math-text-color);
+}
+
 .text-center {
 	text-align: center;
 }
