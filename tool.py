@@ -222,6 +222,7 @@ if args.build:
 	import pathlib
 	import time
 	import unicodedata
+	import ziamath.zmath as zm
 	import xml.etree.ElementTree as ET
 	from urllib.parse import urlparse, urlunparse
 	from zlib import crc32
@@ -395,6 +396,16 @@ if args.build:
 			sub = "&%s;" % (self.replacements.get(char, "#" + str(ord(char))))
 			return sub, m.start(0), m.end(0)
 
+	# math latex inline processor
+	class MathInlineProcessor(markdown.inlinepatterns.InlineProcessor):
+		def __init__(self, *args, **kwargs):
+			super().__init__(r"(\$\$)(?!\$\$})(.+?)(?<!\$\$)\1", *args, **kwargs)
+
+		def handleMatch(self, m, data):
+			el = zm.Latex(m.group(2)).svgxml()
+			el.set("class", "math")
+			return el, m.start(0), m.end(0)
+
 	# inline element processor
 	class InlineElementProcessor(markdown.inlinepatterns.InlineProcessor):
 		def __init__(self, element, idx, *args, **kwargs):
@@ -551,6 +562,7 @@ if args.build:
 			md.ESCAPED_CHARS += ["~", "=", "*"]
 			# inline processors
 			md.inlinePatterns.register(IconInlineProcessor(md), "icons", 200)
+			md.inlinePatterns.register(MathInlineProcessor(md), "math", 200)
 			md.inlinePatterns.register(InlineElementProcessor("sup", 2, r"(\^)(?!\^)(.+?)(?<!\^)\1"), "sup", 40)
 			md.inlinePatterns.register(InlineElementProcessor("mark", 2, r"(==)(?!==)(.+?)(?<!==)\1"), "mark", 30)
 			md.inlinePatterns.register(TildeInlineProcessor(r"~"), "tilde", 40)
