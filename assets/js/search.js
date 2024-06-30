@@ -183,10 +183,8 @@ if (q && q.length) {
 		var idx = 0;
 
 		function displayResults() {
-			idx++;
-
 			if (idx >= result.length) { return; }
-			var item = result[idx];
+			var item = result[idx++];
 			var info = dataIndex[item.identifier];
 
 			// setup display item

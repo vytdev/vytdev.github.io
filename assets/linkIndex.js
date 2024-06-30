@@ -1,1 +1,1 @@
-window.linkIndex={"3O0Wlc":"about.html","4tgZrn":"contact.html","2B4KST":"cookie.html","36Wzjc":"credits.html","1NRrMU":"disclaimer.html","2brW9r":"index.html","1zO1ct":"license.html","2PirvS":"privacy.html","3BkJpO":"terms.html"};
+window.linkIndex={"3BkJpO":"terms.html","36Wzjc":"credits.html","2B4KST":"cookie.html","1zO1ct":"license.html","1NRrMU":"disclaimer.html","3O0Wlc":"about.html","4tgZrn":"contact.html","2PirvS":"privacy.html","2brW9r":"index.html"};
