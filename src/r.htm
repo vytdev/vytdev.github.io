@@ -1,28 +1,28 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-	<head>
+  <head>
 
-		<meta charset="utf-8" />
-		<title>Redirecting...</title>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
 
-		<!-- load hash index -->
-		<script type="text/javascript" src="assets/linkIndex.js"></script>
+    <!-- load hash index -->
+    <script type="text/javascript" src="assets/linkIndex.js"></script>
 
-		<!-- the redirect script -->
-		<script type="text/javascript">
-			!function() {
-				var id = decodeURIComponent(window.location.hash.substring(1));
-				if (!linkIndex[id]) { window.location.href = "/" + id; return; }
-				// do redirect
-				window.location.href = "https://vytdev.github.io/" + linkIndex[id] +
-					decodeURIComponent(window.location.search.substring(1) || "");
-			}();
-		</script>
+    <!-- the redirect script -->
+    <script type="text/javascript">
+      !function() {
+        var id = decodeURIComponent(window.location.hash.substring(1));
+        if (!linkIndex[id]) { window.location.href = "/" + id; return; }
+        // do redirect
+        window.location.href = "https://vytdev.github.io/" + linkIndex[id] +
+          decodeURIComponent(window.location.search.substring(1) || "");
+      }();
+    </script>
 
-	</head><body>
+  </head><body>
 
-		<p>Processing redirect... Please make sure JavaScript is enabled on your browser
-		to be able to perform this action.</p>
+    <p>Processing redirect... Please make sure JavaScript is enabled on your browser
+    to be able to perform this action.</p>
 
-	</body>
+  </body>
 </html>

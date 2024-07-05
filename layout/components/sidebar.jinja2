@@ -1,18 +1,18 @@
 {# the sidebar function -#}
 
 <div id="sidebar-content">
-	<div>
+  <div>
 
-		<h3>Table of contents</h3>
-		{{ toc }}
+    <h3>Table of contents</h3>
+    {{ toc }}
 
-		<h3>This Page</h3>
-		<ul class="list-style-none">
-			{% if doc.prev is not none %}<li><a href="{{ doc.prev|safe }}">Previous Topic</a></li>{% endif %}
-			{% if doc.next is not none %}<li><a href="{{ doc.next|safe }}">Next Topic</a></li>{% endif %}
-			<li><a href="https://github.com/vytdev/vytdev.github.io/edit/master/docs/{{ doc.location }}.md">Edit this Page</a></li>
-			<li><a href="https://github.com/vytdev/vytdev.github.io/blob/master/docs/{{ doc.location }}.md">View Source</a></li>
-		</ul>
+    <h3>This Page</h3>
+    <ul class="list-style-none">
+      {% if doc.prev is not none %}<li><a href="{{ doc.prev|safe }}">Previous Topic</a></li>{% endif %}
+      {% if doc.next is not none %}<li><a href="{{ doc.next|safe }}">Next Topic</a></li>{% endif %}
+      <li><a href="https://github.com/vytdev/vytdev.github.io/edit/master/docs/{{ doc.location }}.md">Edit this Page</a></li>
+      <li><a href="https://github.com/vytdev/vytdev.github.io/blob/master/docs/{{ doc.location }}.md">View Source</a></li>
+    </ul>
 
-	</div>
+  </div>
 </div>

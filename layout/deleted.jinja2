@@ -2,31 +2,31 @@
 
 {% block head %}
 <style type="text/css">
-	.nav {
-		padding-left: 8px !important;
-	}
+  .nav {
+    padding-left: 8px !important;
+  }
 
-	label[for=sidebar-toggle] {
-		display: none;
-	}
+  label[for=sidebar-toggle] {
+    display: none;
+  }
 
-	.explain-deleted {
-		color: var(--fade-color);
-		font-size: 85%;
-	}
+  .explain-deleted {
+    color: var(--fade-color);
+    font-size: 85%;
+  }
 
-	.main-div {
-		flex: 1;
-	}
+  .main-div {
+    flex: 1;
+  }
 </style>
 {% endblock %}
 
 {% block content %}
-	<div class="main-div">
-		<h1 class="text-center">Page no longer available</h1>
+  <div class="main-div">
+    <h1 class="text-center">Page no longer available</h1>
 
-		<p class="text-center explain-deleted">Sorry, but the page ({{ loc|safe }}) you are looking
-		for has been deleted. If you need assistance or have any questions, please don't hesitate to
-		<a href="{{ 'contact.html'|url }}">contact us</a>. Thank you for visiting!</p>
-	</div>
+    <p class="text-center explain-deleted">Sorry, but the page ({{ loc|safe }}) you are looking
+    for has been deleted. If you need assistance or have any questions, please don't hesitate to
+    <a href="{{ 'contact.html'|url }}">contact us</a>. Thank you for visiting!</p>
+  </div>
 {% endblock %}
