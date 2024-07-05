@@ -35,6 +35,13 @@ label[for=sidebar-toggle] {
   margin: 0;
 }
 
+.search-item-path {
+  color: #888;
+  font-size: 75%;
+  margin-bottom: 12px;
+  text-decoration: underline;
+}
+
 .search-item-description {
   color: #888;
   font-size: 85%;

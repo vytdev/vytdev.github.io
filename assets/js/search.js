@@ -188,19 +188,27 @@ if (q && q.length) {
       var info = dataIndex[item.identifier];
 
       // setup display item
-      var block = document.createElement("div");
-      var title = document.createElement("h3");
       var anchor = document.createElement("a");
-      var description = document.createElement("p");
-      block.classList.add("search-item");
-      title.classList.add("search-item-title");
-      description.classList.add("search-item-description");
-      title.appendChild(anchor);
-      block.appendChild(title);
-      block.appendChild(description);
       anchor.appendChild(document.createTextNode(info.title));
-      description.appendChild(document.createTextNode(info.about));
       anchor.href = info.location + ".html?h=" + encodeURIComponent(docUtil.query["q"]);
+
+      var title = document.createElement("h3");
+      title.classList.add("search-item-title");
+      title.appendChild(anchor);
+
+      var path = document.createElement("p");
+      path.classList.add("search-item-path");
+      path.appendChild(document.createTextNode("/" + info.location));
+
+      var description = document.createElement("p");
+      description.classList.add("search-item-description");
+      description.appendChild(document.createTextNode(info.about));
+
+      var block = document.createElement("div");
+      block.classList.add("search-item");
+      block.appendChild(title);
+      block.appendChild(path);
+      block.appendChild(description);
 
       // add to results
       resultDisplay.appendChild(block);
