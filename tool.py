@@ -781,6 +781,16 @@ if args.build:
 		relroot = root.relative_to(DOCS_FOLDER)
 		destdir = OUTPUT_FOLDER / relroot
 
+		# wiki / hello / parentdir /
+		parenNav = []
+        # subfolders
+		parenNav += [
+			[str(x / "index.html"), x.name or "Docs"]
+            for x in relroot.parents][::-1]
+		# current folder
+		if relroot != '.':
+			parenNav += [[str(relroot / "index.html"), relroot.name or "Docs"]]
+
 		for file in files:
 
 			if not file.endswith(".md"):
@@ -924,7 +934,7 @@ if args.build:
 			# for seo
 			seo = json.dumps({
 				"@context": "https://schema.org",
-				"@type": "WebSite" if doc["folder"] and len(dest.parents) == 0 else "WebPage",
+				"@type": "WebSite" if doc["folder"] and len(dest.parents) == 1 else "WebPage",
 				"description": doc["about"],
 				"headline": doc["title"],
 				"name":doc["title"],
@@ -937,13 +947,24 @@ if args.build:
 			try:
 				template = env.get_template(str(relroot / file) + ".jinja2")
 			except Exception:
-				pass
+				try:
+					template = env.get_template(relroot / "_template.jinja2")
+				except Exception:
+					# parent dirs
+					for parent in relroot.parents[:-1]:
+						try:
+							template = env.get_template(parent / "_template.jinja2")
+							break
+						except Exception:
+							pass
+
 
 			# create html document
 			with open(OUTPUT_FOLDER / dest, "w", encoding="utf-8") as f:
 				f.write(template.render(
 					loc=doc["location"],
 					doc=doc,
+                    parents=parenNav[:-1] if doc["folder"] else parenNav,
 					toc=md.toc,
 					content=html,
 					seo=seo,

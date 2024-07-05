@@ -1,12 +1,12 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-	<head>
+  <head>
 
 {% include "components/head.jinja2" %}
 
 {% block head %}{% endblock %}
 
-	</head><body>
+  </head><body>
 
 {% include "components/nav.jinja2" %}
 
@@ -18,15 +18,25 @@
 
 <div class="main">
 {% block content -%}
-	{% include "components/sidebar.jinja2" %}
+  {% include "components/sidebar.jinja2" %}
 
-	<div id="content" class="article">
-		{{ content }}
-	</div>
+  <div id="content" class="article">
+
+    {% block navpath -%}
+      <!-- nav path -->
+      <p class="navpath">
+        {% for paren in parents -%}
+        <a href="{{ paren[0]|url }}"> {{ paren[1] }}</a> /
+        {% endfor -%}
+      </p>
+    {%- endblock %}
+
+    {{ content }}
+  </div>
 {%- endblock %}
 </div>
 
 {% include "components/footer.jinja2" %}
 
-	</body>
+  </body>
 </html>

@@ -3,3 +3,6 @@ site/
 dist/
 __pycache__
 *.pyc
+# editor files
+.*.swp
+*~
