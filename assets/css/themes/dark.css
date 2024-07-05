@@ -7,47 +7,47 @@ Dark theme for website
 @import "material.css";
 
 :root {
-	--generic-bg: #1e1e1e;
-	--generic-border: #555;
-	--font-color: #ccc;
-	--fade-color: #888;
+  --generic-bg: #1e1e1e;
+  --generic-border: #555;
+  --font-color: #ccc;
+  --fade-color: #888;
 
-	--anchor-color: #00bfff;
-	--anchor-visited-color: #87ceeb;
+  --anchor-color: #00bfff;
+  --anchor-visited-color: #87ceeb;
 
-	--blockquote-color: #555;
+  --blockquote-color: #555;
 
-	--admonition-tip-bg: #445c7f;
-	--admonition-tip-border: #305575;
-	--admonition-attention-bg: #664d1e;
-	--admonition-attention-border: #503d16;
-	--admonition-danger-bg: #572f1f;
-	--admonition-danger-border: #421e16;
-	--admonition-error-bg: #582323;
-	--admonition-error-border: #431c1c;
-	--admonition-hint-bg: #355234;
-	--admonition-hint-border: #2a432f;
-	--admonition-important-bg: #2d4041;
-	--admonition-important-border: #1f2a2b;
-	--admonition-note-bg: #2c3a3f;
-	--admonition-note-border: #1e2629;
-	--admonition-warning-bg: #5c4820;
-	--admonition-warning-border: #4a3c18;
-	--admonition-caution-bg: #56351e;
-	--admonition-caution-border: #462f18;
+  --admonition-tip-bg: #445c7f;
+  --admonition-tip-border: #305575;
+  --admonition-attention-bg: #664d1e;
+  --admonition-attention-border: #503d16;
+  --admonition-danger-bg: #572f1f;
+  --admonition-danger-border: #421e16;
+  --admonition-error-bg: #582323;
+  --admonition-error-border: #431c1c;
+  --admonition-hint-bg: #355234;
+  --admonition-hint-border: #2a432f;
+  --admonition-important-bg: #2d4041;
+  --admonition-important-border: #1f2a2b;
+  --admonition-note-bg: #2c3a3f;
+  --admonition-note-border: #1e2629;
+  --admonition-warning-bg: #5c4820;
+  --admonition-warning-border: #4a3c18;
+  --admonition-caution-bg: #56351e;
+  --admonition-caution-border: #462f18;
 
-	--highlight-bg: #880;
-	--menu-bars-color: #888;
-	--search-hover: #4287fe;
-	--overlay-color: #000;
-	--sidebar-bg: #333;
-	--cookie-notice-bg: #333;
-	--footer-bg: #333;
-	--footer-color: #aaa;
-	--toc-color: #ccc;
-	--backtotop-color: #ccc;
+  --highlight-bg: #880;
+  --menu-bars-color: #888;
+  --search-hover: #4287fe;
+  --overlay-color: #000;
+  --sidebar-bg: #333;
+  --cookie-notice-bg: #333;
+  --footer-bg: #333;
+  --footer-color: #aaa;
+  --toc-color: #ccc;
+  --backtotop-color: #ccc;
 
-	--math-text-color: #fff;
+  --math-text-color: #fff;
 
-	--search-item-bg: #333;
+  --search-item-bg: #333;
 }

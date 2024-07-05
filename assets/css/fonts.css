@@ -6,12 +6,12 @@ Load fonts
 
 /* load noto sans font */
 @font-face {
-	src: url(../fonts/noto_sans/NotoSans-Regular.ttf);
-	font-family: NotoSans;
+  src: url(../fonts/noto_sans/NotoSans-Regular.ttf);
+  font-family: NotoSans;
 }
 
 /* load source code pro font */
 @font-face {
-	src: url(../fonts/source_code_pro/SourceCodePro-Regular.ttf);
-	font-family: SourceCodePro;
+  src: url(../fonts/source_code_pro/SourceCodePro-Regular.ttf);
+  font-family: SourceCodePro;
 }

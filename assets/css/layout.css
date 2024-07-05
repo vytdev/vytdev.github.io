@@ -5,349 +5,354 @@ Page layouts
 @charset "utf-8";
 
 .main {
-	margin-top: 40px;
-	flex: 1;
+  margin-top: 40px;
+  flex: 1;
 }
 
 .article {
-	padding: 8px;
+  padding: 8px;
 }
 
 /* --- top navigation bar -------------------------------------- */
 
 .nav {
-	z-index: 10;
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 40px;
-	width: 100%;
-	background-color: var(--generic-bg);
-	border-bottom: 0.1px solid var(--generic-border);
-	display: flex;
-	padding: 8px;
-	padding-left: 48px;
-	padding-top: auto;
-	padding-bottom: auto;
-	align-items: center;
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 40px;
+  width: 100%;
+  background-color: var(--generic-bg);
+  border-bottom: 0.1px solid var(--generic-border);
+  display: flex;
+  padding: 8px;
+  padding-left: 48px;
+  padding-top: auto;
+  padding-bottom: auto;
+  align-items: center;
 }
 
 .nav > * {
-	padding: 0 !important;
-	margin-right: 8px;
+  padding: 0 !important;
+  margin-right: 8px;
 }
 
 /* --- sidebar toggle bars ------------------------------------- */
 
 input#sidebar-toggle {
-	display: none;
+  display: none;
 }
 
 label[for=sidebar-toggle] {
-	width: 40px;
-	height: 40px;
-	cursor: pointer;
-	display: flex;
-	position: fixed;
-	top: 0;
-	left: 0;
-	padding: 5px;
-	display: block;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 5px;
+  display: block;
 }
 
 label[for=sidebar-toggle] > span {
-	margin: auto;
-	margin-top: 17px;
-	position: relative;
+  margin: auto;
+  margin-top: 17px;
+  position: relative;
 }
 
 label[for=sidebar-toggle] > span::before,
 label[for=sidebar-toggle] > span::after {
-	position: absolute;
+  position: absolute;
 }
 
 label[for=sidebar-toggle] > span,
 label[for=sidebar-toggle] > span::before,
 label[for=sidebar-toggle] > span::after {
-	content: "";
-	display: block;
-	background-color: var(--menu-bars-color);
-	height: 3px;
-	width: 30px;
-	transition: all 150ms ease;
+  content: "";
+  display: block;
+  background-color: var(--menu-bars-color);
+  height: 3px;
+  width: 30px;
+  transition: all 150ms ease;
 }
 
 label[for=sidebar-toggle] > span::before {
-	top: -8px;
+  top: -8px;
 }
 
 label[for=sidebar-toggle] > span::after {
-	bottom: -8px;
+  bottom: -8px;
 }
 
 input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::before {
-	transform: rotate(-45deg);
-	width: 75%;
-	top: -7px;
-	left: -4px;
+  transform: rotate(-45deg);
+  width: 75%;
+  top: -7px;
+  left: -4px;
 }
 
 input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
-	transform: rotate(45deg);
-	width: 75%;
-	bottom: -7px;
-	left: -4px;
+  transform: rotate(45deg);
+  width: 75%;
+  bottom: -7px;
+  left: -4px;
 }
 
 /* --- theme changer ------------------------------------------- */
 
 .theme-dropdown {
-	float: right;
-	background-color: var(--footer-bg);
-	border: 1px solid var(--generic-border);
-	font-size: 85%;
-	padding: 4px;
-	margin-top: 1em;
-	position: relative;
-	width: 70px;
+  float: right;
+  background-color: var(--footer-bg);
+  border: 1px solid var(--generic-border);
+  font-size: 85%;
+  padding: 4px;
+  margin-top: 1em;
+  position: relative;
+  width: 70px;
 }
 
 .theme-dropdown > .dropdown-content {
-	background-color: var(--footer-bg);
-	display: none;
-	position: absolute;
-	top: 100%;
-	left: 0;
-	border: inherit;
-	width: 100%;
+  background-color: var(--footer-bg);
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border: inherit;
+  width: 100%;
 }
 
 .theme-dropdown > .dropdown-content > div {
-	padding: 4px;
-	cursor: pointer;
+  padding: 4px;
+  cursor: pointer;
 }
 
 .theme-dropdown:hover > .dropdown-content {
-	display: block;
+  display: block;
 }
 
 /* --- cookie notice ------------------------------------------- */
 
 #cookie-notice {
-	display: none;
-	position: fixed;
-	bottom: 8px;
-	right: 8px;
-	width: 250px;
-	box-shadow: 0 0 2px 0 rgba(0, 0, 0, .75);
-	z-index: 12;
-	padding: 8px;
-	background-color: var(--cookie-notice-bg);
-	border: 1px solid var(--generic-border);
-	border-radius: 3px;
+  display: none;
+  position: fixed;
+  bottom: 8px;
+  right: 8px;
+  width: 250px;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, .75);
+  z-index: 12;
+  padding: 8px;
+  background-color: var(--cookie-notice-bg);
+  border: 1px solid var(--generic-border);
+  border-radius: 3px;
 }
 
 #cookie-notice h3 {
-	margin: 0;
+  margin: 0;
 }
 
 #cookie-notice button {
-	width: 100%;
-	border: 1px solid var(--generic-border);
-	color: var(--fade-color);
-	background-color: var(--generic-bg);
+  width: 100%;
+  border: 1px solid var(--generic-border);
+  color: var(--fade-color);
+  background-color: var(--generic-bg);
 }
 
 /* --- search bar ---------------------------------------------- */
 
 .search {
-	display: flex;
-	align-items: center;
-	margin-left: auto;
-	border: 1px solid var(--generic-border);
-	border-radius: 2px;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  border: 1px solid var(--generic-border);
+  border-radius: 2px;
 }
 
 .search > * {
-	border: 0;
+  border: 0;
 }
 
 .search input[type="search"] {
-	flex: 1;
-	box-sizing: border-box;
-	transition: width 0.3s ease;
-	color: var(--font-color);
-	background: var(--generic-bg);
+  flex: 1;
+  box-sizing: border-box;
+  transition: width 0.3s ease;
+  color: var(--font-color);
+  background: var(--generic-bg);
 }
 
 .search label {
-	border-left: 1px solid;
-	border-color: inherit;
+  border-left: 1px solid;
+  border-color: inherit;
 }
 
 #nav-search-submit-btn {
-	display: none;
+  display: none;
 }
 
 .search:hover, .search:hover label {
-	border-color: var(--search-hover);
-	border-width: 2px
+  border-color: var(--search-hover);
+  border-width: 2px
 }
 
 /* --- content overlay ----------------------------------------- */
 
 #overlay {
-	display: none;
-	position: fixed;
-	background-color: var(--overlay-color);
-	height: calc(100% - 40px);
-	width: 100%;
-	top: 40px;
-	left: 0;
-	z-index: 10;
-	opacity: 50%;
-	transition: all 150ms ease;
+  display: none;
+  position: fixed;
+  background-color: var(--overlay-color);
+  height: calc(100% - 40px);
+  width: 100%;
+  top: 40px;
+  left: 0;
+  z-index: 10;
+  opacity: 50%;
+  transition: all 150ms ease;
 }
 
 /* --- sidebar contents ---------------------------------------- */
 
 #sidebar-content {
-	display: block;
-	position: fixed;
-	background-color: var(--sidebar-bg);
-	padding: 8px;
-	left: -100%;
-	max-width: 480px;
-	max-height: calc(100vh - 40px);
-	width: 90%;
-	height: 100%;
-	position: fixed;
-	top: 40px;
-	z-index: 11;
-	transition: left 150ms ease;
-	overflow: hidden;
-	overflow-y: scroll;
+  display: block;
+  position: fixed;
+  background-color: var(--sidebar-bg);
+  padding: 8px;
+  left: -100%;
+  max-width: 480px;
+  max-height: calc(100vh - 40px);
+  width: 90%;
+  height: 100%;
+  position: fixed;
+  top: 40px;
+  z-index: 11;
+  transition: left 150ms ease;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 /* --- page footer --------------------------------------------- */
 
 .footer {
-	font-size: 80%;
-	background-color: var(--footer-bg);
-	flex-shrink: 0;
-	color: var(--footer-color);
-	bottom: 0;
-	margin: 0;
-	width: 100%;
-	padding: 8px;
+  font-size: 80%;
+  background-color: var(--footer-bg);
+  flex-shrink: 0;
+  color: var(--footer-color);
+  bottom: 0;
+  margin: 0;
+  width: 100%;
+  padding: 8px;
 }
 
 .footer a {
-	text-decoration: underline;
-	color: inherit;
+  text-decoration: underline;
+  color: inherit;
 }
 
 /* --- table of contents --------------------------------------- */
 
 .toc ul {
-	padding-left: 1em;
-	list-style-type: none;
+  padding-left: 1em;
+  list-style-type: none;
 }
 
 .toc a {
-	color: var(--toc-color);
-	border-radius: 2px;
-	min-width: 100%;
-	display: inline-block;
-	padding: 4px;
+  color: var(--toc-color);
+  border-radius: 2px;
+  min-width: 100%;
+  display: inline-block;
+  padding: 4px;
 }
 
 /* --- back to top button -------------------------------------- */
 
 #back-to-top {
-	position: fixed;
-	width: 30px;
-	height: 30px;
-	border: 1px solid var(--backtotop-color);
-	border-radius: 100%;
-	background-color: var(--generic-bg);
-	opacity: 50%;
-	z-index: 10;
-	bottom: 1em;
-	right: -5em;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-	transition: right 150ms ease;
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--backtotop-color);
+  border-radius: 100%;
+  background-color: var(--generic-bg);
+  opacity: 50%;
+  z-index: 10;
+  bottom: 1em;
+  right: -5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: right 150ms ease;
 }
 
 #back-to-top > svg {
-	fill: var(--backtotop-color);
+  fill: var(--backtotop-color);
+}
+
+/* --- article path navigator ---------------------------------- */
+p.navpath {
+  font-size: 12px;
 }
 
 /* --- responsiveness support ---------------------------------- */
 
 @media (min-width: 480px) {
-	.footer > .grid > .refs {
-		display: flex;
-		flex-wrap: wrap;
-	}
+  .footer > .grid > .refs {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
-	.footer > .grid > .refs > * {
-		flex: 0 0 auto;
-		width: 50%;
-	}
+  .footer > .grid > .refs > * {
+    flex: 0 0 auto;
+    width: 50%;
+  }
 }
 
 @media (max-width: 767px) {
-	.footer > div > :last-child {
-		text-align: center;
-	}
+  .footer > div > :last-child {
+    text-align: center;
+  }
 }
 
 @media (min-width: 768px) {
-	#sidebar-content {
-		width: 35%;
-		padding-top: 8px;
-		box-shadow: none;
-		position: sticky;
-		background-color: var(--generic-bg);
-		left: 0;
-		z-index: 0;
-	}
+  #sidebar-content {
+    width: 35%;
+    padding-top: 8px;
+    box-shadow: none;
+    position: sticky;
+    background-color: var(--generic-bg);
+    left: 0;
+    z-index: 0;
+  }
 
-	.article {
-		width: 65%;
-	}
+  .article {
+    width: 65%;
+  }
 
-	.main {
-		display: flex;
-	}
+  .main {
+    display: flex;
+  }
 
-	label[for=sidebar-toggle] {
-		display: none;
-	}
+  label[for=sidebar-toggle] {
+    display: none;
+  }
 
-	.nav {
-		padding-left: 8px;
-	}
+  .nav {
+    padding-left: 8px;
+  }
 
-	.footer > .grid {
-		display: flex;
-	}
+  .footer > .grid {
+    display: flex;
+  }
 
-	.footer > .grid > .descr {
-		width: 30%;
-		padding-right: 2em;
-	}
+  .footer > .grid > .descr {
+    width: 30%;
+    padding-right: 2em;
+  }
 
-	.footer > .grid > .refs {
-		width: 70%;
-		flex: 1;
-	}
+  .footer > .grid > .refs {
+    width: 70%;
+    flex: 1;
+  }
 
-	.footer > .grid > .refs > * {
-		width: 25%;
-	}
+  .footer > .grid > .refs > * {
+    width: 25%;
+  }
 }

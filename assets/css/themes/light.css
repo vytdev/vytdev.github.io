@@ -7,47 +7,47 @@ Light theme for website
 @import "default.css";
 
 :root {
-	--generic-bg: #fff;
-	--generic-border: #aaa;
-	--font-color: #444;
-	--fade-color: #888;
+  --generic-bg: #fff;
+  --generic-border: #aaa;
+  --font-color: #444;
+  --fade-color: #888;
 
-	--anchor-color: #00bfff;
-	--anchor-visited-color: #87ceeb;
+  --anchor-color: #00bfff;
+  --anchor-visited-color: #87ceeb;
 
-	--blockquote-color: #aaa;
+  --blockquote-color: #aaa;
 
-	--admonition-tip-bg: #e4ffa1;
-	--admonition-tip-border: #c0ff25;
-	--admonition-attention-bg: #fff6c6;
-	--admonition-attention-border: #ffdb1d;
-	--admonition-danger-bg: #ffcba4;
-	--admonition-danger-border: #ff7813;
-	--admonition-error-bg: #ffc7c7;
-	--admonition-error-border: #ff4a4a;
-	--admonition-hint-bg: #b6ffc7;
-	--admonition-hint-border: #34ff63;
-	--admonition-important-bg: #95ffea;
-	--admonition-important-border: #00fcca;
-	--admonition-note-bg: #abf0ff;
-	--admonition-note-border: #00b6de;
-	--admonition-warning-bg: #ffe299;
-	--admonition-warning-border: #f3ae00;
-	--admonition-caution-bg: #ffd29b;
-	--admonition-caution-border: #f78700;
+  --admonition-tip-bg: #e4ffa1;
+  --admonition-tip-border: #c0ff25;
+  --admonition-attention-bg: #fff6c6;
+  --admonition-attention-border: #ffdb1d;
+  --admonition-danger-bg: #ffcba4;
+  --admonition-danger-border: #ff7813;
+  --admonition-error-bg: #ffc7c7;
+  --admonition-error-border: #ff4a4a;
+  --admonition-hint-bg: #b6ffc7;
+  --admonition-hint-border: #34ff63;
+  --admonition-important-bg: #95ffea;
+  --admonition-important-border: #00fcca;
+  --admonition-note-bg: #abf0ff;
+  --admonition-note-border: #00b6de;
+  --admonition-warning-bg: #ffe299;
+  --admonition-warning-border: #f3ae00;
+  --admonition-caution-bg: #ffd29b;
+  --admonition-caution-border: #f78700;
 
-	--highlight-bg: #ff4;
-	--menu-bars-color: #888;
-	--search-hover: #4287fe;
-	--overlay-color: #000;
-	--sidebar-bg: #eee;
-	--cookie-notice-bg: #eee;
-	--footer-bg: #222;
-	--footer-color: #aaa;
-	--toc-color: #444;
-	--backtotop-color: #000;
+  --highlight-bg: #ff4;
+  --menu-bars-color: #888;
+  --search-hover: #4287fe;
+  --overlay-color: #000;
+  --sidebar-bg: #eee;
+  --cookie-notice-bg: #eee;
+  --footer-bg: #222;
+  --footer-color: #aaa;
+  --toc-color: #444;
+  --backtotop-color: #000;
 
-	--math-text-color: #000;
+  --math-text-color: #000;
 
-	--search-item-bg: #f4f4f4;
+  --search-item-bg: #f4f4f4;
 }

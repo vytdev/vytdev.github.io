@@ -7,244 +7,244 @@ HTML Elements styling and browser compatibility
 @import "fonts.css";
 
 *, ::before, ::after, html {
-	outline: none;
-	box-sizing: border-box;
-	scroll-behavior: smooth;
+  outline: none;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {
-	font-family: NotoSans;
-	color: var(--font-color);
-	background-color: var(--generic-bg);
-	padding: 0;
-	margin: 0;
-	min-height: 100vh;
-	min-width: 100vw;
-	display: flex;
-	flex-direction: column;
+  font-family: NotoSans;
+  color: var(--font-color);
+  background-color: var(--generic-bg);
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
 }
 
 .headerlink {
-	position: relative;
-	top: -12px;
-	font-size: 50%;
-	display: none;
+  position: relative;
+  top: -12px;
+  font-size: 50%;
+  display: none;
 }
 
 :hover > .headerlink {
-	display: inline-block;
+  display: inline-block;
 }
 
 a {
-	color: var(--anchor-color);
-	text-decoration: none;
+  color: var(--anchor-color);
+  text-decoration: none;
 }
 
 a::visited {
-	color: var(--anchor-visited-color);
+  color: var(--anchor-visited-color);
 }
 
 a:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
 sup, a.footnote-ref {
-	position: relative;
-	top: -0.25em;
-	font-size: 85%;
+  position: relative;
+  top: -0.25em;
+  font-size: 85%;
 }
 
 sub, a.footnote-backref {
-	position: relative;
-	bottom: -0.25em;
-	font-size: 85%;
+  position: relative;
+  bottom: -0.25em;
+  font-size: 85%;
 }
 
 a.footnote-ref:before {
-	content: "[";
-	color: var(--fade-color);
+  content: "[";
+  color: var(--fade-color);
 }
 
 a.footnote-ref:after {
-	content: "]";
-	color: var(--fade-color);
+  content: "]";
+  color: var(--fade-color);
 }
 
 div.footnote {
-	color: var(--fade-color);
+  color: var(--fade-color);
 }
 
 h1 {
-	font-size: 36px;
+  font-size: 36px;
 }
 
 h2 {
-	font-size: 30px;
+  font-size: 30px;
 }
 
 h3 {
-	font-size: 24px;
+  font-size: 24px;
 }
 
 h4 {
-	font-size: 20px;
+  font-size: 20px;
 }
 
 h5 {
-	font-size: 18px;
+  font-size: 18px;
 }
 
 h6 {
-	font-size: 16px;
+  font-size: 16px;
 }
 
 div.table {
-	overflow: hidden;
-	overflow-x: auto;
-	margin: 8px;
+  overflow: hidden;
+  overflow-x: auto;
+  margin: 8px;
 }
 
 table {
-	table-layout: auto;
+  table-layout: auto;
 }
 
 table, th, td, tr, thead, tbody {
-	border: 1px solid var(--generic-border);
-	border-collapse: collapse;
-	padding: 8px;
+  border: 1px solid var(--generic-border);
+  border-collapse: collapse;
+  padding: 8px;
 }
 
 th, thead {
-	font-size: 110%;
+  font-size: 110%;
 }
 
 blockquote {
-	padding: 8px;
-	margin: 8px;
-	margin-left: 1.5em;
-	font-size: 90%;
-	color: var(--blockquote-color);
-	border-left: 3px solid var(--generic-border);
+  padding: 8px;
+  margin: 8px;
+  margin-left: 1.5em;
+  font-size: 90%;
+  color: var(--blockquote-color);
+  border-left: 3px solid var(--generic-border);
 }
 
 div.admonition {
-	border-left: 3px solid;
-	background-color: var(--fade-color);
-	font-size: 85%;
-	padding: 8px;
-	width: 95%;
-	border-radius: 2px;
-	margin-top: 4px;
-	margin-left: auto;
-	margin-right: auto;
+  border-left: 3px solid;
+  background-color: var(--fade-color);
+  font-size: 85%;
+  padding: 8px;
+  width: 95%;
+  border-radius: 2px;
+  margin-top: 4px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 p.admonition-title {
-	font-size: 1.25em !important;
-	font-weight: bold;
-	margin: 2px;
+  font-size: 1.25em !important;
+  font-weight: bold;
+  margin: 2px;
 }
 
 div.admonition.tip {
-	background-color: var(--admonition-tip-bg);
-	border-left-color: var(--admonition-tip-border);
+  background-color: var(--admonition-tip-bg);
+  border-left-color: var(--admonition-tip-border);
 }
 
 div.admonition.attention {
-	background-color: var(--admonition-attention-bg);
-	border-left-color: var(--admonition-attention-border);
+  background-color: var(--admonition-attention-bg);
+  border-left-color: var(--admonition-attention-border);
 }
 
 div.admonition.danger {
-	background-color: var(--admonition-danger-bg);
-	border-left-color: var(--admonition-danger-border);
+  background-color: var(--admonition-danger-bg);
+  border-left-color: var(--admonition-danger-border);
 
 }
 div.admonition.error {
-	background-color: var(--admonition-error-bg);
-	border-left-color: var(--admonition-error-border);
+  background-color: var(--admonition-error-bg);
+  border-left-color: var(--admonition-error-border);
 }
 
 div.admonition.hint {
-	background-color: var(--admonition-hint-bg);
-	border-left-color: var(--admonition-hint-border);
+  background-color: var(--admonition-hint-bg);
+  border-left-color: var(--admonition-hint-border);
 }
 
 div.admonition.important {
-	background-color: var(--admonition-important-bg);
-	border-left-color: var(--admonition-important-border);
+  background-color: var(--admonition-important-bg);
+  border-left-color: var(--admonition-important-border);
 }
 
 div.admonition.note {
-	background-color: var(--admonition-note-bg);
-	border-left-color: var(--admonition-note-border);
+  background-color: var(--admonition-note-bg);
+  border-left-color: var(--admonition-note-border);
 }
 
 div.admonition.warning {
-	background-color: var(--admonition-warning-bg);
-	border-left-color: var(--admonition-warning-border);
+  background-color: var(--admonition-warning-bg);
+  border-left-color: var(--admonition-warning-border);
 }
 
 div.admonition.caution {
-	background-color: var(--admonition-caution-bg);
-	border-left-color: var(--admonition-caution-border);
+  background-color: var(--admonition-caution-bg);
+  border-left-color: var(--admonition-caution-border);
 }
 
 div.snippet {
-	font-family: SourceCodePro;
-	max-width: 100%;
-	overflow: hidden;
-	overflow-x: scroll;
-	border: 1px solid var(--generic-border);
-	border-radius: 2px;
-	padding: 4px;
+  font-family: SourceCodePro;
+  max-width: 100%;
+  overflow: hidden;
+  overflow-x: scroll;
+  border: 1px solid var(--generic-border);
+  border-radius: 2px;
+  padding: 4px;
 }
 
 div.snippet > pre {
-	margin: 0;
+  margin: 0;
 }
 
 .math {
-	border-radius: 1px;
-	padding: 2px;
+  border-radius: 1px;
+  padding: 2px;
 }
 
 .math * {
-	fill: var(--math-text-color);
+  fill: var(--math-text-color);
 }
 
 .text-center {
-	text-align: center;
+  text-align: center;
 }
 
 .text-left {
-	text-align: left;
+  text-align: left;
 }
 
 .text-right {
-	text-align: right;
+  text-align: right;
 }
 
 .list-style-none {
-	list-style-type: none;
-	list-style: none;
+  list-style-type: none;
+  list-style: none;
 }
 
 .list-style-box {
-	list-style-type: box;
-	list-style: box;
+  list-style-type: box;
+  list-style: box;
 }
 
 .list-style-disc {
-	list-style-type: disc;
-	list-style: disc;
+  list-style-type: disc;
+  list-style: disc;
 }
 
 .no-offset {
-	padding: 0 !important;
-	margin: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 .highlight:not(.nohighlight), mark {
-	background-color: var(--highlight-bg);
+  background-color: var(--highlight-bg);
 }
