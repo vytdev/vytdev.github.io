@@ -3,6 +3,7 @@ title: Cookie Policy
 about: The Cookie Policy explains how cookies and similar technologies are used on VYT Docs to enhance
 	user experience and improve website functionality.
 authors: VYT <https://github.com/vytdev>
+created: 05-11-2023
 updated: 05-11-2023
 ---
 

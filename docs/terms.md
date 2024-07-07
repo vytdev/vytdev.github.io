@@ -3,6 +3,7 @@ title: Terms of Service
 about: The Terms of Service page outlines the rules and guidelines for using VYT Docs services. It
 	covers user responsibilities, content usage policies, disclaimers, and limitations of liability.
 authors: VYT <https://github.com/vytdev>
+created: 05-11-2023
 updated: 05-11-2023
 ---
 

@@ -24,7 +24,6 @@ OUTPUT_FOLDER = "site"
 DIST_FOLDER   = "dist"
 DB_FOLDER     = "db"
 
-f_creation = os.path.join(DB_FOLDER, "creation.json")
 f_redirect = os.path.join(DB_FOLDER, "redirect.json")
 f_deletion = os.path.join(DB_FOLDER, "deletions.json")
 
@@ -68,13 +67,6 @@ if args.sub == "mv":
 	else:
 		r_redirect = {}
 
-	# load creation time records
-	if os.path.exists(f_creation):
-		with open(f_creation, "r", encoding="utf-8") as f:
-			r_creation = json.load(f)
-	else:
-		r_creation = {}
-
 	# check if markdown
 	if not args.src.endswith(".md"):
 		exit("src not a markdown document")
@@ -103,10 +95,6 @@ if args.sub == "mv":
 	if dest in r_redirect:
 		del r_redirect[dest]
 
-	# move creation time
-	r_creation[b] = r_creation.get(a, time.time())
-	if a in r_creation: del r_creation[a]
-
 	# ensure parent dir exist
 	dirname = os.path.dirname(dest)
 	if not os.path.isdir(dirname):
@@ -118,8 +106,6 @@ if args.sub == "mv":
 	print("updating records ...")
 	with open(f_redirect, "w", encoding="utf-8") as f:
 		json.dump(r_redirect, f, separators=(",", ":"))
-	with open(f_creation, "w", encoding="utf-8") as f:
-		json.dump(r_creation, f, separators=(",", ":"))
 
 	print("%s has been moved to: %s" % (a, b))
 	exit(0)
@@ -134,13 +120,6 @@ if args.sub == "rm":
 			r_deletion = json.load(f)
 	else:
 		r_deletion = []
-
-	# load creation time records
-	if os.path.exists(f_creation):
-		with open(f_creation, "r", encoding="utf-8") as f:
-			r_creation = json.load(f)
-	else:
-		r_creation = {}
 
 	# check if markdown
 	if not args.doc.endswith(".md"):
@@ -162,10 +141,8 @@ if args.sub == "rm":
 		exit(0)
 
 	# put it to record
-	if key not in r_deletion: r_deletion.append(key)
-
-	# remove creation time
-	if key in r_creation: del r_creation[key]
+	if key not in r_deletion:
+		r_deletion.append(key)
 
 	os.unlink(doc)
 
@@ -173,8 +150,6 @@ if args.sub == "rm":
 	print("updating records ...")
 	with open(f_deletion, "w", encoding="utf-8") as f:
 		json.dump(r_deletion, f, separators=(",", ":"))
-	with open(f_creation, "w", encoding="utf-8") as f:
-		json.dump(r_creation, f, separators=(",", ":"))
 
 	print("%s has been deleted" % (key))
 	exit(0)
@@ -730,16 +705,6 @@ if args.build:
 	# load record files
 	print("loading records ...")
 
-	# load creation timestamps for documents
-	if os.path.exists(f_creation):
-		with open(f_creation, "r", encoding="utf-8") as f:
-			r_creation = json.load(f)
-	else:
-		r_creation = {}
-
-	# new creation records to remove records of docs that not exist
-	r_n_creation = {}
-
 	# load list of deleted documents
 	if os.path.exists(f_deletion):
 		with open(f_deletion, "r", encoding="utf-8") as f:
@@ -825,13 +790,6 @@ if args.build:
 				content = f.read()
 				html = md.convert(content)
 
-			# check and get records
-			if dstr in r_creation:
-				creation = r_creation[dstr]
-			else:
-				creation = time.time()
-			r_n_creation[dstr] = creation
-
 			# get writters list
 			authors = []
 			if "authors" in md.Meta:
@@ -850,8 +808,8 @@ if args.build:
 
 			# get timestamps
 			timeformat = "%A, %B %d %Y"
-			created = time.strftime(timeformat, time.gmtime(creation))
-			updated = time.strftime(timeformat, time.strptime(md.Meta["updated"][0], "%d-%m-%Y") if "updated" in md.Meta else time.gmtime(creation))
+			created = time.strftime(timeformat, time.strptime(md.Meta["created"][0], "%d-%m-%Y")) if "created" in md.Meta else "Unknown"
+			updated = time.strftime(timeformat, time.strptime(md.Meta["updated"][0], "%d-%m-%Y")) if "updated" in md.Meta else created
 
 			# index the page
 
@@ -862,8 +820,10 @@ if args.build:
 
 			# get important text
 			raw = content
-			if "authors" in md.Meta: raw += " " + " ".join(md.Meta["authors"])
-			if "keywords" in md.Meta: raw += " " + " ".join(md.Meta["keywords"])
+			if "authors" in md.Meta:
+				raw += " " + " ".join(md.Meta["authors"])
+			if "keywords" in md.Meta:
+				raw += " " + " ".join(md.Meta["keywords"])
 			raw += " " + created + " " + updated
 			# remove metadata
 			raw = metare.sub("", raw)
@@ -928,7 +888,8 @@ if args.build:
 			# set this page on sitemap
 			sitemap.append({
 				"location": doc["canonical"],
-				"lastmod": time.strftime("%Y-%m-%dT%H:%M:%S+00:00", time.strptime(updated, timeformat))
+				"lastmod": time.strftime("%Y-%m-%dT%H:%M:%S+00:00",
+					time.gmtime(0) if updated == "Unknown" else time.strptime(updated, timeformat))
 			})
 
 			# for seo
@@ -1030,11 +991,6 @@ if args.build:
 	print("creating sitemap ...")
 	with open(os.path.join(OUTPUT_FOLDER, "sitemap.xml"), "w", encoding= "utf-8") as f:
 		f.write(sitemap_template.render(pages=sitemap))
-
-	# save records
-	print("storing records ...")
-	with open(f_creation, "w", encoding="utf-8") as f:
-		json.dump(r_n_creation, f, separators=(",", ":"))
 
 	print("build done")
 

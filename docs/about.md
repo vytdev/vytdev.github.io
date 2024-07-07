@@ -2,6 +2,7 @@
 title: About
 about: Learn more about my journey in the world of development
 authors: VYT <https://github.com/vytdev>
+created: 05-11-2023
 updated: 05-11-2023
 ---
 

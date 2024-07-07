@@ -3,6 +3,7 @@ title: Privacy Policy
 about: The Privacy Policy outlines the data collection, usage, and protection practices for VYT Docs.
 	It provides detailed information about the information we collect, store, and safeguard.
 authors: VYT <https://github.com/vytdev>
+created: 05-11-2023
 updated: 05-11-2023
 ---
 

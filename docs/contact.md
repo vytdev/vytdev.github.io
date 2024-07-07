@@ -2,6 +2,7 @@
 title: Contact
 about: Contact me
 authors: VYT <https://github.com/vytdev>
+created: 05-11-2023
 updated: 05-11-2023
 ---
 
