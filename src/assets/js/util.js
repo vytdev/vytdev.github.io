@@ -133,6 +133,30 @@ docUtil.unHighlight = function(node) {
   }
 }
 
+// fetch text by url
+docUtil.fetchText = function(url) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+
+    // onload event handler
+    xhr.onload = function() {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        resolve(xhr.responseText);
+      } else {
+        reject(new Error(`Request failed with status ${xhr.status}`));
+      }
+    };
+
+    // onerror event handler
+    xhr.onerror = function() {
+      reject(new Error("Request failed"));
+    };
+
+    xhr.send();
+  });
+}
+
 // this function will be called once dom is completely loaded
 function onDomInit() { if (isInit) return; isInit = true;
 

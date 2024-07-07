@@ -149,6 +149,53 @@ function searchDocs(query) {
   return searchResult;
 }
 
+// utility function for getting article text
+function getArticleTextFromHTML(text) {
+  const doc = new DOMParser().parseFromString(text, "text/html");
+
+  // the article element
+  const mainEl = doc.getElementById("content");
+  if (!mainEl) return "";
+
+  // remove these: ¶
+  mainEl.querySelectorAll(".headerlink")
+    .forEach(el => el.remove());
+
+  // get the article text
+  return mainEl.textContent || mainEl.innerText;
+}
+
+// utility function for making search summary
+function makeArticleExcerpt(text, terms) {
+  if (text.length == 0) return "";
+
+  // ignore case when matching keywords
+  const textLower = text.toLowerCase();
+
+  // find the last keyword's index
+  const lastQueryIndex = terms
+    .map(kwd => textLower.lastIndexOf(kwd.toLowerCase()))
+    .filter(v => v > -1)
+    .slice(-1)[0];
+
+  // none of the keyword was found?!
+  if (!lastQueryIndex)
+    return "";
+
+  // get excerpt indices
+  let startPosition = lastQueryIndex - 80;
+  if (startPosition < 0) startPosition = 0;
+  let endPosition = lastQueryIndex + 80;
+  if (endPosition > text.length) endPosition = text.length;
+
+  // whether to use elipsis or not
+  const head = startPosition == 0 ? "" : "...";
+  const tail = endPosition < text.length ? "..." : "";
+
+  // return excerpt
+  return head + text.substring(startPosition, endPosition).trim() + tail;
+}
+
 // make this function accessible
 docUtil.search = searchDocs;
 
@@ -179,7 +226,10 @@ if (q && q.length) {
       return;
     }
 
-    // display to users
+    // get query terms, used for generating excerpts
+    const terms = Array.from(new Set(languageData.split(q)));
+
+    // display to user
     let idx = 0;
 
     function displayResults() {
@@ -215,6 +265,22 @@ if (q && q.length) {
 
       // delay next item to avoid lag in UI
       setTimeout(displayResults, 15);
+
+      // deferred summarization
+      docUtil.fetchText(info.location + ".html")
+        .then(htmlText => {
+          // make an excerpt for the article
+          const excerpt = makeArticleExcerpt(getArticleTextFromHTML(htmlText), terms);
+          if (excerpt.length == 0) return;
+
+          // replace the description with the excerpt
+          description.innerText = description.textContent = excerpt;
+
+          // highlight all the occurences of the query terms in the excerpt
+          terms.forEach(term => docUtil.highlight(term, description));
+        })
+        // no-op, the user may see the article's description if xhr fails
+        .catch(() => {});
     }
 
     displayResults();
