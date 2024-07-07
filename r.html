@@ -11,11 +11,12 @@
     <!-- the redirect script -->
     <script type="text/javascript">
       !function() {
-        var id = decodeURIComponent(window.location.hash.substring(1));
+        // r.html?<id>[#...]
+        var id = decodeURIComponent(window.location.search.substring(1));
         if (!linkIndex[id]) { window.location.href = "/" + id; return; }
         // do redirect
-        window.location.href = "https://vytdev.github.io/" + linkIndex[id] +
-          decodeURIComponent(window.location.search.substring(1) || "");
+        window.location.href = "/" + linkIndex[id] +
+          decodeURIComponent(window.location.hash.substring(1) || "");
       }();
     </script>
 

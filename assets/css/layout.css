@@ -166,6 +166,7 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   margin-left: auto;
   border: 1px solid var(--generic-border);
   border-radius: 2px;
+  transition: flex 150ms ease;
 }
 
 .search > * {
@@ -191,7 +192,11 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 
 .search:hover, .search:hover label {
   border-color: var(--search-hover);
-  border-width: 2px
+  border-width: 2px;
+}
+
+.search:hover {
+  flex: 1;
 }
 
 /* --- content overlay ----------------------------------------- */
@@ -227,6 +232,11 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   transition: left 150ms ease;
   overflow: hidden;
   overflow-y: scroll;
+}
+
+.article-timestamps {
+  color: var(--fade-color);
+  font-size: 80%;
 }
 
 /* --- page footer --------------------------------------------- */
@@ -286,9 +296,22 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   fill: var(--backtotop-color);
 }
 
-/* --- article path navigator ---------------------------------- */
+/* --- article path navigator (breadcrumbs) -------------------- */
+
 p.navpath {
   font-size: 12px;
+}
+
+/* --- author link --------------------------------------------- */
+
+a.author-link {
+  display: flex;
+  margin-bottom: 2px;
+}
+
+a.author-link > img {
+  border-radius: 50%;
+  margin-right: 12px;
 }
 
 /* --- responsiveness support ---------------------------------- */
