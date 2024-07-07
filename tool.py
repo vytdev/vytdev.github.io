@@ -200,7 +200,6 @@ if args.build:
 	import ziamath.zmath as zm
 	import xml.etree.ElementTree as ET
 	from urllib.parse import urlparse, urlunparse
-	from zlib import crc32
 
 	# load gemoji icon db
 	with open(os.path.join("vendor", "gemoji", "remapped.json"), "r", encoding="utf-8") as f:
@@ -673,6 +672,20 @@ if args.build:
 	# base 62 charset to use
 	base62charset = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+	# the fnv-1a hashing function (32-bit variant), used for hashing doc paths
+	def fnv1a_32(arr):
+		# FNV-1a constants for 32-bit hash
+		FNV_prime = 0x01000193
+		FNV_offset_basis = 0x811C9DC5
+		# initialize the hash value
+		hash_value = FNV_offset_basis
+		# process each byte in the input array
+		for byte in arr:
+			hash_value ^= byte          # XOR the byte with the hash value
+			hash_value *= FNV_prime     # multiply by FNV prime
+			hash_value &= 0xFFFFFFFF    # ensure 32-bit overflow
+		return hash_value
+
 	# function to remap toc
 	def remap_toc(toclist):
 		newtoc = []
@@ -769,14 +782,14 @@ if args.build:
 			if not os.path.isdir(OUTPUT_FOLDER / parent_dir):
 				os.makedirs(OUTPUT_FOLDER / parent_dir)
 
-			# get unique crc32 hash for file path and encode it with base62 to get
+			# get a unique fnv-1a hash for file path and encode it with base62 to get
 			# a very short unique id for the document
-			crc = crc32(dstr.encode())
+			fnv1a = fnv1a_32(dstr.encode())
 			ident = ""
-			while crc > 0:
-				digit = crc % 62
+			while fnv1a > 0:
+				digit = fnv1a % 62
 				ident = base62charset[digit] + ident
-				crc //= 62
+				fnv1a //= 62
 
 			# record this for shortener links
 			identifiers[ident] = dstr
