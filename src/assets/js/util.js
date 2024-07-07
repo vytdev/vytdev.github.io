@@ -10,12 +10,12 @@ window.docUtil = {};
 
 // map search queries
 docUtil.query = (function() {
-  var query = {};
+  const query = {};
   // get the search pairs, slice 1 to exclude leading '?'
-  var pairs = window.location.search.substring(1).split("&");
+  const pairs = window.location.search.substring(1).split("&");
   // extract each key/values
-  for (var i = 0; i < pairs.length; i++) {
-    var split = pairs[i].split("=");
+  for (let i = 0; i < pairs.length; i++) {
+    const split = pairs[i].split("=");
     // put it to output
     query[
       decodeURIComponent((split[0] || "").replace(/\+/g, " "))
@@ -35,7 +35,7 @@ docUtil.THEMES = {
 
 // highlight the terms on the specified node
 docUtil.highlight = function(text, node) {
-  var words = text.normalize("NFD").toLowerCase().split(/\s+/g);
+  const words = text.normalize("NFD").toLowerCase().split(/\s+/g);
 
   // a text node
   if (node.nodeType == document.TEXT_NODE) {
@@ -44,20 +44,20 @@ docUtil.highlight = function(text, node) {
     if (node.parentNode.classList.contains("highlight") ||
       node.parentNode.classList.contains("nohighlight")) { return; }
 
-    var org = node.nodeValue,
+    const org = node.nodeValue,
       lower = org.normalize("NFD").toLowerCase();
 
     // try to match first found word
-    for (var i = 0; i < words.length; i++) {
-      var term = words[i];
-      var idx = lower.indexOf(term);
+    for (let i = 0; i < words.length; i++) {
+      const term = words[i];
+      const idx = lower.indexOf(term);
 
       // word not found
       if (idx < 0) { continue; }
-      var len = term.length;
+      const len = term.length;
 
       // setup span placeholder for highlighted word
-      var span = document.createElement("span");
+      const span = document.createElement("span");
       span.className = "highlight";
       span.appendChild(document.createTextNode(org.substring(idx, idx + len)));
 
@@ -79,7 +79,7 @@ docUtil.highlight = function(text, node) {
     node.tagName == "SVG") { return; }
 
   // iterate through child nodes
-  for (var i = 0; i < node.childNodes.length; i++) {
+  for (let i = 0; i < node.childNodes.length; i++) {
     docUtil.highlight(text, node.childNodes[i]);
   }
 }
@@ -87,11 +87,11 @@ docUtil.highlight = function(text, node) {
 // remove highlight from node
 docUtil.unHighlight = function(node) {
   if (node.tagName == "SPAN" && node.classList.contains("highlight")) {
-    var prev = node.previousSibling,
-      next = node.nextSibling,
-      parent = node.parentNode,
-      text = "",
-      branch = node;
+    const prev = node.previousSibling;
+    const next = node.nextSibling;
+    const parent = node.parentNode;
+    let text = "";
+    let branch = node;
 
     // check for previous node
     if (prev && prev.nodeType == document.TEXT_NODE) {
@@ -117,10 +117,10 @@ docUtil.unHighlight = function(node) {
   }
 
   // iterate child nodes
-  var len = node.childNodes.length,
-    last;
-  for (var i = 0; i < len; i++) {
-    var child = node.childNodes[i];
+  let len = node.childNodes.length;
+  let last;
+  for (let i = 0; i < len; i++) {
+    const child = node.childNodes[i];
     if (child.nodeType != document.ELEMENT_NODE) { continue; }
     docUtil.unHighlight(child);
 
@@ -136,14 +136,14 @@ docUtil.unHighlight = function(node) {
 // this function will be called once dom is completely loaded
 function onDomInit() { if (isInit) return; isInit = true;
 
-  var searchInput = document.getElementById("search-bar");
-  var screenOverlay = document.getElementById("overlay");
-  var sidebarToggle = document.getElementById("sidebar-toggle");
-  var sidebarContent = document.getElementById("sidebar-content");
-  var cookieNotice = document.getElementById("cookie-notice");
-  var backToTop = document.getElementById("back-to-top");
-  var darkTheme = document.getElementById("dark-theme");
-  var mainContent = document.getElementById("content");
+  const searchInput = document.getElementById("search-bar");
+  const screenOverlay = document.getElementById("overlay");
+  const sidebarToggle = document.getElementById("sidebar-toggle");
+  const sidebarContent = document.getElementById("sidebar-content");
+  const cookieNotice = document.getElementById("cookie-notice");
+  const backToTop = document.getElementById("back-to-top");
+  const darkTheme = document.getElementById("dark-theme");
+  const mainContent = document.getElementById("content");
 
   // highlight terms
   if (docUtil.query["h"] && docUtil.query["h"].length) {
@@ -160,14 +160,15 @@ function onDomInit() { if (isInit) return; isInit = true;
     if (!window.searchSuggestions || !event.data || /\s/.test(event.data) || this.selectionStart < this.value.length) {
       return;
     }
-    var cursorPosition = this.selectionStart;
-    var match = this.value.toLowerCase().match(/(.*)?\b([^\s]+)/);
+    const cursorPosition = this.selectionStart;
+    const match = this.value.toLowerCase().match(/(.*)?\b([^\s]+)/);
     if (!match) return;
-    var word = match[2];
-    var matchingSuggestion, isMatched = false;
+    const word = match[2];
+    let matchingSuggestion;
+    let isMatched = false;
 
-    // find machine word
-    for (var i = 0; i < searchSuggestions.length; i++) {
+    // find matching word
+    for (let i = 0; i < searchSuggestions.length; i++) {
       matchingSuggestion = searchSuggestions[i];
 
       if (matchingSuggestion.toLowerCase().startsWith(word)) {
@@ -177,8 +178,8 @@ function onDomInit() { if (isInit) return; isInit = true;
     }
 
     if (isMatched && matchingSuggestion) {
-      var completedText = matchingSuggestion.substring(word.length);
-      var newText = this.value.substring(0, cursorPosition) + completedText;
+      const completedText = matchingSuggestion.substring(word.length);
+      const newText = this.value.substring(0, cursorPosition) + completedText;
 
       // set the input value with the completed suggestion
       this.value = newText;
@@ -217,7 +218,7 @@ function onDomInit() { if (isInit) return; isInit = true;
 
   // back to top button display
   window.onscroll = function() {
-    var scrollTop = (document.documentElement && document.documentElement.scrollTop) ||
+    const scrollTop = (document.documentElement && document.documentElement.scrollTop) ||
       (document.body && document.body.scrollTop) || window.scrollY;
 
     // show and hide back to top button

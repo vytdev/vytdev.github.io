@@ -41,7 +41,7 @@ BM25(D, Q) = Σ i = 1 [
 
 (function(factory) {
   "use strict";
-  var loaded = false;
+  let loaded = false;
   function fn() {
     if (loaded) { return; }
     loaded = true;
@@ -52,34 +52,34 @@ BM25(D, Q) = Σ i = 1 [
 })(function() {
 "use strict";
 
-var b  = 0.75;
-var k1 = 1.5;
-var k2 = 0.5;
-var k3 = 1.0;
+const b  = 0.75;
+const k1 = 1.5;
+const k2 = 0.5;
+const k3 = 1.0;
 
 // get placeholders
-var msg = document.getElementById("msg-status");
-var resultDisplay = document.getElementById("search-results");
-var searchInput = document.getElementById("search-bar");
+const msg = document.getElementById("msg-status");
+const resultDisplay = document.getElementById("search-results");
+const searchInput = document.getElementById("search-bar");
 
 msg.innerHTML = "Search here!";
 
 function searchDocs(query) {
   if (!languageData) { return; }
   // split tokens
-  var tokens = languageData.split(query);
+  const tokens = languageData.split(query);
   // repititions of each stems
-  var queryTermsFreq = {};
+  const queryTermsFreq = {};
   // query terms set to process
-  var querySets = [];
+  const querySets = [];
 
   // pre-process query tokens first
-  for (var i = 0; i < tokens.length; i++) {
-    var tok = tokens[i];
+  for (let i = 0; i < tokens.length; i++) {
+    const tok = tokens[i];
     // skip stopwords
     if (languageData.stop(tok)) { continue; }
     // stem word
-    var stem = languageData.stem(tok);
+    const stem = languageData.stem(tok);
     // increment counters
     queryTermsFreq[stem] = (queryTermsFreq[stem] || 0) + 1;
     // add to list of terms to process
@@ -87,36 +87,36 @@ function searchDocs(query) {
   }
 
   // cached tf normalization factors for eache processed documents
-  var cachedNormFactors = {};
+  const cachedNormFactors = {};
   // map of relevances
-  var relevances = {};
+  const relevances = {};
 
   // calculate relevance
-  for (var i = 0; i < querySets.length; i++) {
-    var term = querySets[i];
-    var docList = searchIndex.terms[term];
+  for (let i = 0; i < querySets.length; i++) {
+    const term = querySets[i];
+    const docList = searchIndex.terms[term];
 
     // no document found indexed containing this term
     if (!docList) { continue; }
 
-    var docsContainTerm = docList.length;
+    const docsContainTerm = docList.length;
 
     // the inverse document frequency of this term over the documents
-    var inverseDocFreq = Math.log(
+    const inverseDocFreq = Math.log(
         (searchIndex.corpusSize - docsContainTerm + 0.5) /
         (docsContainTerm + 0.5) + 1
       );
     // boost for query
-    var queryBoost = ((k3 + 1) * queryTermsFreq[term]) / (k3 + queryTermsFreq[term]);
+    const queryBoost = ((k3 + 1) * queryTermsFreq[term]) / (k3 + queryTermsFreq[term]);
 
-    for (var j = 0; j < docsContainTerm; j++) {
-      var docTermInfo = docList[j]; // [ doc number, term freq on doc ]
-      var termFreq = docTermInfo[1]; // f(qi, D)
-      var docLength = searchIndex.docs[docTermInfo[0]][1]; // |D|
-      var docId = searchIndex.docs[docTermInfo[0]][0]; // doc hash id on dataIndex
+    for (let j = 0; j < docsContainTerm; j++) {
+      const docTermInfo = docList[j]; // [ doc number, term freq on doc ]
+      const termFreq = docTermInfo[1]; // f(qi, D)
+      const docLength = searchIndex.docs[docTermInfo[0]][1]; // |D|
+      const docId = searchIndex.docs[docTermInfo[0]][0]; // doc hash id on dataIndex
 
       // get the term frequency normalization factor for this document
-      var normFactor = typeof cachedNormFactors[docTermInfo[0]] == "number"
+      const normFactor = typeof cachedNormFactors[docTermInfo[0]] == "number"
         ? cachedNormFactors[docTermInfo[0]]
         : cachedNormFactors[docTermInfo[0]] =
         (k1 * ((1 - b) + (b * (docLength / searchIndex.avgdl))));
@@ -129,10 +129,10 @@ function searchDocs(query) {
     }
   }
 
-  var searchResult = [];
+  const searchResult = [];
 
   // we need an array
-  for (var docId in relevances) {
+  for (const docId in relevances) {
     if (Object.hasOwnProperty.call(relevances, docId)) {
       searchResult.push({
         identifier: docId,
@@ -153,7 +153,7 @@ function searchDocs(query) {
 docUtil.search = searchDocs;
 
 // search query
-var q = docUtil.query["q"];
+const q = docUtil.query["q"];
 
 if (q && q.length) {
   // let's show this to user
@@ -170,9 +170,9 @@ if (q && q.length) {
     // do search
     msg.innerHTML = "Searching...";
     // let's time it to show the search speed
-    var start = Date.now();
-    var result = searchDocs(q);
-    var delta = (Date.now() - start) / 1000;
+    const start = Date.now();
+    const result = searchDocs(q);
+    const delta = (Date.now() - start) / 1000;
 
     if (!result.length) {
       msg.innerHTML = "No result found. Try checking your spelling?";
@@ -180,31 +180,31 @@ if (q && q.length) {
     }
 
     // display to users
-    var idx = 0;
+    let idx = 0;
 
     function displayResults() {
       if (idx >= result.length) { return; }
-      var item = result[idx++];
-      var info = dataIndex[item.identifier];
+      const item = result[idx++];
+      const info = dataIndex[item.identifier];
 
       // setup display item
-      var anchor = document.createElement("a");
+      const anchor = document.createElement("a");
       anchor.appendChild(document.createTextNode(info.title));
       anchor.href = info.location + ".html?h=" + encodeURIComponent(docUtil.query["q"]);
 
-      var title = document.createElement("h3");
+      const title = document.createElement("h3");
       title.classList.add("search-item-title");
       title.appendChild(anchor);
 
-      var path = document.createElement("p");
+      const path = document.createElement("p");
       path.classList.add("search-item-path");
       path.appendChild(document.createTextNode("/" + info.location));
 
-      var description = document.createElement("p");
+      const description = document.createElement("p");
       description.classList.add("search-item-description");
       description.appendChild(document.createTextNode(info.about));
 
-      var block = document.createElement("div");
+      const block = document.createElement("div");
       block.classList.add("search-item");
       block.appendChild(title);
       block.appendChild(path);
