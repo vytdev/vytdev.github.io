@@ -37,12 +37,12 @@ label[for=sidebar-toggle] {
 
 .search-item-path {
   color: #888;
-  font-size: 75%;
+  font-size: 60%;
   margin-bottom: 12px;
   text-decoration: underline;
 }
 
 .search-item-description {
   color: #888;
-  font-size: 85%;
+  font-size: 90%;
 }
