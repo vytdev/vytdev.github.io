@@ -166,6 +166,7 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   margin-left: auto;
   border: 1px solid var(--generic-border);
   border-radius: 2px;
+  transition: flex 150ms ease;
 }
 
 .search > * {
@@ -191,7 +192,11 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 
 .search:hover, .search:hover label {
   border-color: var(--search-hover);
-  border-width: 2px
+  border-width: 2px;
+}
+
+.search:hover {
+  flex: 1;
 }
 
 /* --- content overlay ----------------------------------------- */
