@@ -1,7 +1,7 @@
 ---
 title: VYT Docs
 about: The home page of the VYT Documentations project.
-authors: VYT <https://github.com/vytdev>
+authors: vytdev
 ---
 
 # Welcome to VYT Docs!

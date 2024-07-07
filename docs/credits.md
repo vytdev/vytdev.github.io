@@ -2,7 +2,7 @@
 title: Acknowledgements
 about: The acknowledgements and dependencies page expresses gratitude to the individuals, communities,
 	open-source tools, libraries, and services that have contributed to the VYT Documentations project.
-authors: VYT <https://github.com/vytdev>
+authors: vytdev
 created: 05-11-2023
 updated: 05-11-2023
 ---

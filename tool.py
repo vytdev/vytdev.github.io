@@ -672,8 +672,6 @@ if args.build:
 
 	# base 62 charset to use
 	base62charset = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	# regex to use for getting list of writters
-	authorRE = re.compile(r"^([^\<]+)(\s+?\<([^\>]+)\>)?$")
 
 	# function to remap toc
 	def remap_toc(toclist):
@@ -791,14 +789,7 @@ if args.build:
 				html = md.convert(content)
 
 			# get writters list
-			authors = []
-			if "authors" in md.Meta:
-				for person in md.Meta["authors"]:
-					match = authorRE.match(person)
-					authors.append({
-						"name": match.group(1),
-						"url": match.group(3)
-					})
+			authors = md.Meta.get("authors", [])
 
 			# get keywords
 			keywords = []

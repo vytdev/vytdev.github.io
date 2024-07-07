@@ -3,7 +3,7 @@ title: License Agreement
 about: The License Agreement page provides comprehensive information about the licensing agreements
 	governing the VYT Documentations project. It outlines the specific licenses for different types
 	of content, including written articles, documents, text files, images, scripts, and stylesheets.
-authors: VYT <https://github.com/vytdev>
+authors: vytdev
 created: 05-11-2023
 updated: 05-11-2023
 ---
