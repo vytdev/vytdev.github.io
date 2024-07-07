@@ -229,6 +229,11 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   overflow-y: scroll;
 }
 
+.article-timestamps {
+  color: var(--fade-color);
+  font-size: 80%;
+}
+
 /* --- page footer --------------------------------------------- */
 
 .footer {
@@ -286,7 +291,7 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   fill: var(--backtotop-color);
 }
 
-/* --- article path navigator ---------------------------------- */
+/* --- article path navigator (breadcrumbs) -------------------- */
 
 p.navpath {
   font-size: 12px;

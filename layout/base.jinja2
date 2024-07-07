@@ -21,15 +21,7 @@
   {% include "components/sidebar.jinja2" %}
 
   <div id="content" class="article">
-
-    {% block navpath -%}
-      <!-- nav path -->
-      <p class="navpath">
-        {% for paren in parents -%}
-        <a href="{{ paren[0]|url }}"> {{ paren[1] }}</a> /
-        {% endfor -%}
-      </p>
-    {%- endblock %}
+    {% include "components/breadcrumbs.jinja2" %}
 
     {{ content }}
   </div>

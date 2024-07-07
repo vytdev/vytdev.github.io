@@ -1,0 +1,6 @@
+<!-- nav path -->
+<p class="navpath">
+  {% for paren in parents -%}
+  <a href="{{ paren[0]|url }}"> {{ paren[1] }}</a> /
+  {% endfor -%}
+</p>

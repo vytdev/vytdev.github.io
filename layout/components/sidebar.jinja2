@@ -2,6 +2,11 @@
 
 <div id="sidebar-content">
   <div>
+    <p>{{ doc.about }}</p>
+
+    <p class="article-timestamps">
+      Last updated {{ doc.updated|safe }} &bull;
+      Published {{ doc.created|safe }}</p>
 
     <h3>Table of contents</h3>
     {{ toc }}
