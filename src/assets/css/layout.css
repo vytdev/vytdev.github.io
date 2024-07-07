@@ -287,8 +287,21 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 }
 
 /* --- article path navigator ---------------------------------- */
+
 p.navpath {
   font-size: 12px;
+}
+
+/* --- author link --------------------------------------------- */
+
+a.author-link {
+  display: flex;
+  margin-bottom: 2px;
+}
+
+a.author-link > img {
+  border-radius: 50%;
+  margin-right: 12px;
 }
 
 /* --- responsiveness support ---------------------------------- */

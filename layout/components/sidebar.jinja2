@@ -14,5 +14,14 @@
       <li><a href="https://github.com/vytdev/vytdev.github.io/blob/master/docs/{{ doc.location }}.md">View Source</a></li>
     </ul>
 
+    <h3>Authors</h3>
+    <ul class="list-style-none">
+      {% for person in doc.authors -%}
+      <li><a href="https://github.com/{{ person }}" class="author-link" target="_blank">
+        <img width="30px" height="30px" alt="avatar" src="https://avatars.githubusercontent.com/{{ person }}" />
+        {{ person|safe }}</a></li>
+      {% endfor -%}
+    </ul>
+
   </div>
 </div>
