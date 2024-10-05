@@ -5,6 +5,6 @@
 
 markdown>=3.4.1
 Pygments>=2.14.0
-Jinja2==3.1.2
-ghp-import==2.1.0
-ziamath==0.9
+Jinja2>=3.1.2
+ghp-import>=2.1.0
+ziamath>=0.9
