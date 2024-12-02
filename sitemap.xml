@@ -1,31 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://vytdev.github.io/terms.html</loc>
-    <lastmod>2023-11-05T00:00:00+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
-  </url><url>
-    <loc>https://vytdev.github.io/credits.html</loc>
-    <lastmod>2023-11-05T00:00:00+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
-  </url><url>
-    <loc>https://vytdev.github.io/cookie.html</loc>
-    <lastmod>2023-11-05T00:00:00+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
-  </url><url>
-    <loc>https://vytdev.github.io/license.html</loc>
-    <lastmod>2023-11-05T00:00:00+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
-  </url><url>
-    <loc>https://vytdev.github.io/disclaimer.html</loc>
-    <lastmod>2023-11-05T00:00:00+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
-  </url><url>
     <loc>https://vytdev.github.io/about.html</loc>
     <lastmod>2023-11-05T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
@@ -36,13 +11,38 @@
     <changefreq>daily</changefreq>
     <priority>1</priority>
   </url><url>
-    <loc>https://vytdev.github.io/privacy.html</loc>
+    <loc>https://vytdev.github.io/cookie.html</loc>
+    <lastmod>2023-11-05T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1</priority>
+  </url><url>
+    <loc>https://vytdev.github.io/credits.html</loc>
+    <lastmod>2023-11-05T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1</priority>
+  </url><url>
+    <loc>https://vytdev.github.io/disclaimer.html</loc>
     <lastmod>2023-11-05T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1</priority>
   </url><url>
     <loc>https://vytdev.github.io/index.html</loc>
     <lastmod>1970-01-01T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1</priority>
+  </url><url>
+    <loc>https://vytdev.github.io/license.html</loc>
+    <lastmod>2023-11-05T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1</priority>
+  </url><url>
+    <loc>https://vytdev.github.io/privacy.html</loc>
+    <lastmod>2023-11-05T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1</priority>
+  </url><url>
+    <loc>https://vytdev.github.io/terms.html</loc>
+    <lastmod>2023-11-05T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1</priority>
   </url>
