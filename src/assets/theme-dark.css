@@ -1,0 +1,32 @@
+@charset 'utf-8';
+@import 'atom-one-dark.css';
+
+:root {
+  --generic-color:              #ccc;
+  --generic-border-color:       #555;
+  --generic-bg-color:           #1e1e1e;
+  --anchor-color:               #00bfff;
+  --anchor-visited-color:       #87ceeb;
+  --blockquote-color:           #555;
+  --highlight-bg:               #aa0;
+  --math-text-color:            #fff;
+  /* Admonition colors. */
+  --admonition-tip-bg:          #283800;
+  --admonition-tip-border:      #c0ff25;
+  --admonition-attention-bg:    #664d1e;
+  --admonition-attention-border:  #ffdb1d;
+  --admonition-danger-bg:       #572f1f;
+  --admonition-danger-border:   #ff7813;
+  --admonition-error-bg:        #582323;
+  --admonition-error-border:    #ff4a4a;
+  --admonition-hint-bg:         #355234;
+  --admonition-hint-border:     #34ff63;
+  --admonition-important-bg:    #2d4041;
+  --admonition-important-border:  #00fcca;
+  --admonition-note-bg:         #2c3a3f;
+  --admonition-note-border:     #00b6de;
+  --admonition-warning-bg:      #5c4820;
+  --admonition-warning-border:  #f3ae00;
+  --admonition-caution-bg:      #56351e;
+  --admonition-caution-border:  #f78700;
+}

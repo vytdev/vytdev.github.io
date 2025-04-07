@@ -1,0 +1,312 @@
+@charset 'utf-8';
+@import 'fonts.css';
+
+*, ::before, ::after, html {
+  outline: none;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--generic-color);
+  background-color: var(--generic-bg-color);
+  font-size: 12px;
+  font-family: NotoSans;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+blockquote {
+  padding: 8px;
+  margin: 8px;
+  margin-left: 1.5em;
+  font-size: 90%;
+  color: #aaa;
+  border-left: 3px solid var(--blockquote-color);
+}
+
+a {
+  color: var(--anchor-color);
+  text-decoration: none;
+}
+
+a::visited {
+  color: var(--anchor-visited-color);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+sup, a.footnote-ref {
+  position: relative;
+  top: -0.25em;
+  font-size: 85%;
+}
+
+sub, a.footnote-backref {
+  position: relative;
+  bottom: -0.25em;
+  font-size: 85%;
+}
+
+.highlight:not(.nohighlight), mark {
+  background-color: var(--highlight-bg);
+}
+
+
+
+/* --- Headings and permalinks
+ * ------------------------------------------------------------------------- */
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 20px;
+}
+
+h5 {
+  font-size: 18px;
+}
+
+h6 {
+  font-size: 16px;
+}
+
+.header-anchor {
+  position: relative;
+  top: -12px;
+  font-size: 50%;
+  display: inline-block;
+}
+
+:not(:hover) .header-anchor {
+  display: none;
+}
+
+
+
+/* --- Snippets and inline code
+ * ------------------------------------------------------------------------- */
+
+code {
+  font-family: SourceCodePro;
+}
+
+.snippet {
+  font-family: SourceCodePro;
+  max-width: 100%;
+  overflow: hidden;
+  overflow-x: scroll;
+  border: 1px solid var(--generic-border-color);
+  border-radius: 2px;
+  padding: 4px;
+}
+
+.snippet pre {
+  margin: 0;
+}
+
+
+
+/* --- Math
+ * ------------------------------------------------------------------------- */
+
+.katex .katex-mathml {
+  display: none;
+}
+
+.katex {
+  color: var(--math-text-color);
+}
+
+
+
+/* --- Task lists
+ * ------------------------------------------------------------------------- */
+
+.contains-task-list {
+  list-style-type: none;
+  list-style: none;
+  padding-left: 2em;
+  margin-top: 10px;
+}
+
+.task-list-item-checkbox {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.task-list-item-checkbox:checked {
+  background-color: #007bff;
+}
+
+
+
+/* --- Checkboxes
+ * ------------------------------------------------------------------------- */
+
+input[type=checkbox] {
+  position: relative;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 1px solid var(--generic-border-color);
+  border-radius: 1px;
+  background-color: #fff;
+}
+
+input[type=checkbox]:checked {
+  background-color: #007bff;
+}
+
+input[type=checkbox]:checked::after {
+  position: absolute;
+  top: 0;
+  left: 3px;
+  content: '✔';
+  color: #fff;
+  font-size: 10px;
+}
+
+
+
+/* --- Tables
+ * ------------------------------------------------------------------------- */
+
+div.table-container {
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+table {
+  table-layout: auto;
+}
+
+table, th, td, tr, thead, tbody {
+  border: 1px solid var(--generic-border-color);
+  border-collapse: collapse;
+  padding: 8px;
+}
+
+th, thead {
+  font-size: 14px;
+}
+
+tbody {
+  font-size: 12px;
+}
+
+
+
+/* --- Definition Lists
+ * ------------------------------------------------------------------------- */
+
+dt {
+  font-size: 14px;
+}
+
+dd {
+  margin-left: 3em;
+}
+
+
+
+/* --- Table of contents
+ * ------------------------------------------------------------------------- */
+
+.toc-item {
+  margin-left: 1.5em;
+  padding-left: 5px;
+  border-left: 1px solid var(--generic-border-color);
+}
+
+.toc-item > a {
+  color: var(--generic-color);
+  padding: 6px;
+  display: block;
+}
+
+.toc-item > a:hover {
+  background-color: #666;
+}
+
+
+
+/* --- Admonitions
+ * ------------------------------------------------------------------------- */
+
+div.admonition {
+  border-left: 3px solid;
+  background-color: var(--generic-bg-color);
+  font-size: 85%;
+  padding: 8px;
+  width: 95%;
+  border-radius: 1px;
+  margin-top: 4px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+p.admonition-title {
+  font-size: 1.25em !important;
+  font-weight: bold;
+  margin: 2px;
+}
+
+div.admonition.tip {
+  background-color: var(--admonition-tip-bg);
+  border-left-color: var(--admonition-tip-border);
+}
+
+div.admonition.attention {
+  background-color: var(--admonition-attention-bg);
+  border-left-color: var(--admonition-attention-border);
+}
+
+div.admonition.danger {
+  background-color: var(--admonition-danger-bg);
+  border-left-color: var(--admonition-danger-border);
+
+}
+div.admonition.error {
+  background-color: var(--admonition-error-bg);
+  border-left-color: var(--admonition-error-border);
+}
+
+div.admonition.hint {
+  background-color: var(--admonition-hint-bg);
+  border-left-color: var(--admonition-hint-border);
+}
+
+div.admonition.important {
+  background-color: var(--admonition-important-bg);
+  border-left-color: var(--admonition-important-border);
+}
+
+div.admonition.note {
+  background-color: var(--admonition-note-bg);
+  border-left-color: var(--admonition-note-border);
+}
+
+div.admonition.warning {
+  background-color: var(--admonition-warning-bg);
+  border-left-color: var(--admonition-warning-border);
+}
+
+div.admonition.caution {
+  background-color: var(--admonition-caution-bg);
+  border-left-color: var(--admonition-caution-border);
+}

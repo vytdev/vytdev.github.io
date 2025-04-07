@@ -1,0 +1,32 @@
+@charset 'utf-8';
+@import 'atom-one-light.css';
+
+:root {
+  --generic-color:              #444;
+  --generic-border-color:       #aaa;
+  --generic-bg-color:           #fff;
+  --anchor-color:               #00bfff;
+  --anchor-visited-color:       #87ceeb;
+  --blockquote-color:           #aaa;
+  --highlight-bg:               #ff4;
+  --math-text-color:            #000;
+  /* Admonition colors. */
+  --admonition-tip-bg:          #e4ffa1;
+  --admonition-tip-border:      #c0ff25;
+  --admonition-attention-bg:    #fff6c6;
+  --admonition-attention-border:  #ffdb1d;
+  --admonition-danger-bg:       #ffcba4;
+  --admonition-danger-border:   #ff7813;
+  --admonition-error-bg:        #ffc7c7;
+  --admonition-error-border:    #ff4a4a;
+  --admonition-hint-bg:         #b6ffc7;
+  --admonition-hint-border:     #34ff63;
+  --admonition-important-bg:    #95ffea;
+  --admonition-important-border:  #00fcca;
+  --admonition-note-bg:         #abf0ff;
+  --admonition-note-border:     #00b6de;
+  --admonition-warning-bg:      #ffe299;
+  --admonition-warning-border:  #f3ae00;
+  --admonition-caution-bg:      #ffd29b;
+  --admonition-caution-border:  #f78700;
+}
