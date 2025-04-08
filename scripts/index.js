@@ -21,6 +21,7 @@ if (args.c || args.clean) {
 /* Build flag. */
 if (args.b || args.build) {
   require('./emit.js').emitAll();
+  require('./jspack.js').packClientJs();
   console.log('Build complete!');
 }
 
@@ -40,7 +41,7 @@ if (args.d || args.deploy) {
 /* Watch flag. */
 if (args.w || args.watch) {
   const watcher = require('./watcher.js');
-  const w = watcher.startWatching();
+  watcher.startWatching();
 }
 
 /* Pack flag. */

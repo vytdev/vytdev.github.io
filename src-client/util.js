@@ -1,35 +1,24 @@
-(function () {
-'use strict';
-const docUtil = window.docUtil = {};
-
-
-/* List of query pairs. */
-docUtil.query = (function() {
-  const query = {};
-  const pairs = window.location.search.substring(1).split('&');
-  for (let i = 0; i < pairs.length; i++) {
-    const split = pairs[i].split('=');
-    query[
-      decodeURIComponent((split[0] || '').replace(/\+/g, ' '))
-    ] = decodeURIComponent((split[1] || '').replace(/\+/g, ' '));
-  }
-  return query;
-}());
-
 /* Themes (and their media query). */
-docUtil.THEMES = {
+exports.THEMES = {
   auto: '(prefers-color-scheme: dark)',
   light: 'not all',
   dark: 'all',
 };
 
+/**
+ * Change the theme.
+ * @param theme The theme to use.
+ */
+exports.changeTheme = function(theme) {
+  document.getElementById('dark-theme').media = theme;
+}
 
 /**
  * Highlight the terms from a node.
  * @param text The terms.
  * @param node The node.
  */
-docUtil.highlight = function(text, node) {
+exports.highlight = function(text, node) {
   const words = text.normalize('NFD').toLowerCase().split(/\s+/g);
 
   /* A text node. */
@@ -62,7 +51,7 @@ docUtil.highlight = function(text, node) {
         node.nextSibling));
       node.nodeValue = org.substring(0, idx);
 
-      docUtil.highlight(text, node.parentNode);
+      exports.highlight(text, node.parentNode);
       break;
     }
 
@@ -76,7 +65,7 @@ docUtil.highlight = function(text, node) {
 
   /* iterate through child nodes. */
   for (let i = 0; i < node.childNodes.length; i++) {
-    docUtil.highlight(text, node.childNodes[i]);
+    exports.highlight(text, node.childNodes[i]);
   }
 }
 
@@ -85,7 +74,7 @@ docUtil.highlight = function(text, node) {
  * Remove highlights from a node.
  * @param node The node where to remove all 'span.highlight'.
  */
-docUtil.unHighlight = function(node) {
+exports.unHighlight = function(node) {
   if (node.tagName == 'SPAN' && node.classList.contains('highlight')) {
     const prev = node.previousSibling;
     const next = node.nextSibling;
@@ -122,7 +111,7 @@ docUtil.unHighlight = function(node) {
   for (let i = 0; i < len; i++) {
     const child = node.childNodes[i];
     if (child.nodeType != document.ELEMENT_NODE) { continue; }
-    docUtil.unHighlight(child);
+    exports.unHighlight(child);
 
     /* The node length might change if we remove highlights from them. */
     len = node.childNodes.length;
@@ -139,7 +128,7 @@ docUtil.unHighlight = function(node) {
  * @param url The url where to fetch the string.
  * @returns A Promise which you can extend.
  */
-docUtil.fetchText = function(url) {
+exports.fetchText = function(url) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
@@ -161,10 +150,3 @@ docUtil.fetchText = function(url) {
     xhr.send();
   });
 }
-
-window.onload = function () {
-  if (docUtil.query['h'])
-    docUtil.highlight(docUtil.query['h'], document.body);
-}
-
-})();

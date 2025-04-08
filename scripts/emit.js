@@ -67,6 +67,7 @@ function emitFile(srcFile) {
  * @param srcFile The source file name.
  */
 function handleUnknownFile(srcFile) {
+  /* Other static assets. */
   fs.copyFileSync(
     path.join(config.SRC_DIR, srcFile),
     path.join(config.BUILD_DIR, srcFile));
@@ -155,7 +156,9 @@ function procDocOpts(meta) {
   setIfType('nextPage',  'string');
   setIfType('thumbnail', 'string');
   setIfType('layout',    'string');
+  /* Rendering options. */
   setIfType('hide_nav',  'boolean');
+  setIfType('abs_paths', 'boolean');
 
   /* Publication time, in YYYY-MM-DD. */
   if (typeof meta.published == 'string' && util.isValidDateFmt(meta.published))
@@ -225,6 +228,7 @@ function renderMarkdownDocument(mdPath) {
     opts: {
       siteDNS:    config.SITE_ADDRESS,
       hideNav:    opts.hide_nav,
+      absPaths:   opts.abs_paths,
     },
   };
 
