@@ -41,7 +41,7 @@ function emitFile(srcFile) {
 
   /* File is a directory. */
   if (stat.isDirectory()) {
-    fs.mkdirSync(path.join(config.BUILD_DIR, srcFile), { recursive: true });
+    fs.mkdirSync(path.join(config.OUT_DIR, srcFile), { recursive: true });
     return;
   }
 
@@ -67,10 +67,12 @@ function emitFile(srcFile) {
  * @param srcFile The source file name.
  */
 function handleUnknownFile(srcFile) {
+  const name = path.basename(srcFile);
+
   /* Other static assets. */
   fs.copyFileSync(
     path.join(config.SRC_DIR, srcFile),
-    path.join(config.BUILD_DIR, srcFile));
+    path.join(config.OUT_DIR, srcFile));
 }
 
 
@@ -135,10 +137,11 @@ function procDocOpts(meta) {
     tags:        [],
     authors:     ['Unknown'],
     thumbnail:   null,
+    prev_page:   null,
+    next_page:   null,
     layout:      'auto',
     hide_nav:    false,
-    prevPage:    null,
-    nextPage:    null,
+    abs_paths:   false,
   };
 
   if (!meta)
@@ -152,9 +155,9 @@ function procDocOpts(meta) {
 
   setIfType('title',     'string');
   setIfType('about',     'string');
-  setIfType('prevPage',  'string');
-  setIfType('nextPage',  'string');
   setIfType('thumbnail', 'string');
+  setIfType('prev_page', 'string');
+  setIfType('next_page', 'string');
   setIfType('layout',    'string');
   /* Rendering options. */
   setIfType('hide_nav',  'boolean');
@@ -190,7 +193,7 @@ function procDocOpts(meta) {
 function renderMarkdownDocument(mdPath) {
   const srcPath = path.join(config.SRC_DIR, mdPath);
   const servePath = mdPath.slice(0, -2) + 'html';
-  const destPath = path.join(config.BUILD_DIR, servePath);
+  const destPath = path.join(config.OUT_DIR, servePath);
 
   /* Compile markdown to HTML. */
   const content = fs.readFileSync(srcPath, 'utf8');
@@ -203,21 +206,26 @@ function renderMarkdownDocument(mdPath) {
 
   /* Build the data scope. */
   const docCtx = {
-    ident: util.encBase62(util.strFnv1a(mdPath)),
-    srcPath: mdPath,
-    path: servePath,
-    isIndex: path.basename(mdPath) == 'index.md',
-    canonical: `http://${config.SITE_ADDRESS}/${servePath}`,
-    contents: tabOfCont,
-    title: opts.title,
-    about: opts.about,
-    published: opts.published,
-    updated: opts.updated,
-    tags: opts.tags,
-    authors: opts.authors,
-    thumbnail: opts.thumbnail,
-    prevPage: opts.prevPage,
-    nextPage: opts.nextPage,
+    ident:        util.encBase62(util.strFnv1a(mdPath)),
+    canonical:    `http://${config.SITE_ADDRESS}/${servePath}`,
+    srcPath:      mdPath,
+    path:         servePath,
+    isIndex:      path.basename(mdPath) == 'index.md',
+    contents:     tabOfCont,
+    /* Doc metadata. */
+    title:        opts.title,
+    about:        opts.about,
+    published:    opts.published,
+    updated:      opts.updated,
+    tags:         opts.tags,
+    authors:      opts.authors,
+    thumbnail:    opts.thumbnail,
+    prevPage:     opts.prev_page,
+    nextPage:     opts.next_page,
+    /* Rendering details. */
+    hasNav:       !opts.hide_nav,
+    usedLayout:   opts.layout,
+    isPathIndep:  opts.abs_paths,
   };
 
   const data = {
@@ -225,11 +233,7 @@ function renderMarkdownDocument(mdPath) {
     htmlContent:  mdAsHTML,
     htmlToc:      tocHTML,
     doc:          docCtx,
-    opts: {
-      siteDNS:    config.SITE_ADDRESS,
-      hideNav:    opts.hide_nav,
-      absPaths:   opts.abs_paths,
-    },
+    config:       config,
   };
 
   /* Include some filters. */
@@ -242,7 +246,7 @@ function renderMarkdownDocument(mdPath) {
   /* Write the final file. */
   fs.writeFileSync(destPath, finalHTML, 'utf8');
 
-  /* Do other stuff here. e.g.: tokenization, indexing. */
+  /* TODO: Do other stuff here. e.g.: tokenization, indexing. */
 }
 
 

@@ -38,6 +38,7 @@ md.use(require('markdown-it-texmath'), {
 /* Metadata. --- */
 md.use(require('markdown-it-front-matter'), (frontMatter) => {
     /* Make metadata accessible per context. */
+    md.metaDataRaw = frontMatter;
     md.metaData = null;
     md.metaData = yaml.load(frontMatter);
   });

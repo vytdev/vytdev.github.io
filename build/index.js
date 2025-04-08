@@ -2,6 +2,7 @@ const args = require('mri')(process.argv.slice(2));
 const fs = require('fs');
 const config = require('../config.js');
 
+/* TODO: refactor these.. */
 
 /* Help flag. */
 if (args.h || args.help) {
@@ -11,7 +12,7 @@ if (args.h || args.help) {
 
 /* Clean flag. */
 if (args.c || args.clean) {
-  fs.rmSync(config.BUILD_DIR, {
+  fs.rmSync(config.OUT_DIR, {
     recursive: true,
     force: true,
   });
@@ -31,7 +32,7 @@ if (args.d || args.deploy) {
     .execSync('git rev-parse --short HEAD')
     .toString()
     .trim();
-  require('gh-pages').publish('build', {
+  require('gh-pages').publish(config.OUT_DIR, {
     branch: 'gh-pages',
     repo: 'https://github.com/vytdev/vytdev.github.io.git',
     message: `deploy ${commitHash}`,
@@ -52,7 +53,7 @@ if (args.p || args.pack) {
 /* Serve flag. */
 if (args.s || args.serve) {
   const test = require('./test.js');
-  const app = test.createStaticApp(config.BUILD_DIR);
+  const app = test.createStaticApp(config.OUT_DIR);
   test.startServer(app, config.TEST_ADDRESS, config.TEST_PORT);
 }
 

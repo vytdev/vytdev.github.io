@@ -3,9 +3,9 @@ const path = require('path');
 module.exports = {
   ROOT_DIR:           __dirname,
   SITE_ADDRESS:       'vytdev.github.io',
-  BUILD_DIR:          path.join(__dirname, 'build'),
+  OUT_DIR:            path.join(__dirname, 'dist'),
   SRC_DIR:            path.join(__dirname, 'src'),
-  SCRIPTS_DIR:        path.join(__dirname, 'scripts'),
+  BUILDER_DIR:        path.join(__dirname, 'build'),
   CLIENT_JS_DIR:      path.join(__dirname, 'src-client'),
   CLIENT_ENTRY:       'index.js',
   CLIENT_OUTPUT:      'assets/main.js',

@@ -31,7 +31,7 @@ function startWatchingSrc() {
 
     /* Delete, move, rename, etc. */
     if ([ 'unlink', 'unlinkDir' ].includes(ev))
-      fs.rmSync(path.join(config.BUILD_DIR, relPath), {
+      fs.rmSync(path.join(config.OUT_DIR, relPath), {
         recursive: true,
         force: true
       });

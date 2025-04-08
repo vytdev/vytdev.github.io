@@ -4,7 +4,7 @@
   <url>
     <loc><% page.location %></loc>
     <%- if (page.lastmod) { %>
-    <lastmod>{{ page.lastmod }}</lastmod>
+    <lastmod><%= page.lastmod %></lastmod>
     <%- } >
     <changefreq>daily</changefreq>
     <priority>1</priority>

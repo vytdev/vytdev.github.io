@@ -24,7 +24,7 @@ function createModules(mods) {
         exports: {},
       };
       mod.self = mods[k].bind(mod);
-      mod.require = require.bind(mod);
+      mod.require = reqr.bind(mod);
     });
 
   /**
@@ -32,7 +32,7 @@ function createModules(mods) {
    * @param x The module path. Can be relative or absolute.
    * @returns The exports of that module.
    */
-  function require(x) {
+  function reqr(x) {
     const name = this?.id
       ? absPath(dirName(this.id), x)
       : normPath(x);
@@ -120,7 +120,7 @@ function createModules(mods) {
   }
 
   /* Return the require function bound to null. */
-  return require.bind(null);
+  return reqr.bind(null);
 }
 
 
@@ -146,9 +146,9 @@ function packModules(dir, entry, out) {
 
     /* Add the file. */
     if (fileName.endsWith('.js'))
-      append(fs.readFileSync(fileName));
+      append(fs.readFileSync(fileName, 'utf8'));
     else if (fileName.endsWith('.json'))
-      append('module.exports=' + fs.readFileSync(fileName));
+      append('module.exports=' + fs.readFileSync(fileName, 'utf8'));
 
     /* Module epilogue. */
     append('},');
@@ -163,7 +163,7 @@ function packModules(dir, entry, out) {
  * Pack the client js source.
  */
 function packClientJs() {
-  const outputName = path.join(config.BUILD_DIR, config.CLIENT_OUTPUT);
+  const outputName = path.join(config.OUT_DIR, config.CLIENT_OUTPUT);
   fs.mkdirSync(path.dirname(outputName), { recursive: true });
   packModules(
     config.CLIENT_JS_DIR,
