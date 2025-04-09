@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const util = require('./util.js');
-const config = require('../config.js');
 
 /**
  * Create a module system.
@@ -159,22 +158,7 @@ function packModules(dir, entry, out) {
 }
 
 
-/**
- * Pack the client js source.
- */
-function packClientJs() {
-  const outputName = path.join(config.OUT_DIR, config.CLIENT_OUTPUT);
-  fs.mkdirSync(path.dirname(outputName), { recursive: true });
-  packModules(
-    config.CLIENT_JS_DIR,
-    config.CLIENT_ENTRY,
-    outputName
-  );
-}
-
-
 module.exports = {
   createModules,
   packModules,
-  packClientJs,
 };

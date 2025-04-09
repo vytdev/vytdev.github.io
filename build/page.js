@@ -5,75 +5,7 @@ const config = require('../config.js');
 const util = require('./util.js');
 const md = require('./markdown.js');
 const filters = require('./filters.js');
-
-
-/**
- * Add filters to the data scope.
- * @param data The data.
- */
-function mixInFilters(data) {
-  for (const k of Object.keys(filters)) {
-    if (typeof filters[k] != 'function')
-      continue;
-    if (typeof data[k] != 'undefined')
-      continue;
-    data[k] = filters[k].bind(data);
-  }
-}
-
-/**
- * Emit files from the src folder.
- */
-function emitAll() {
-  util.listRecursiveSync(config.SRC_DIR).forEach(([ file, stat ]) => {
-    emitFile(path.relative(config.SRC_DIR, file));
-  });
-}
-
-
-/**
- * Emit a source file.
- * @param srcFile The source file relative to source folder.
- */
-function emitFile(srcFile) {
-  const srcPath = path.join(config.SRC_DIR, srcFile);
-  const stat = fs.statSync(srcPath);
-
-  /* File is a directory. */
-  if (stat.isDirectory()) {
-    fs.mkdirSync(path.join(config.OUT_DIR, srcFile), { recursive: true });
-    return;
-  }
-
-  /* It is a template file. */
-  if (srcFile.endsWith('.ejs'))
-    return;
-
-  util.log("emit: " + srcFile);
-
-  /* Not a markdown file. Special file or a static asset? */
-  if (!srcFile.endsWith('.md')) {
-    handleUnknownFile(srcFile);
-    return;
-  }
-
-  /* Markdown files. */
-  renderMarkdownDocument(srcFile);
-}
-
-
-/**
- * Handle the emission of unknown files.
- * @param srcFile The source file name.
- */
-function handleUnknownFile(srcFile) {
-  const name = path.basename(srcFile);
-
-  /* Other static assets. */
-  fs.copyFileSync(
-    path.join(config.SRC_DIR, srcFile),
-    path.join(config.OUT_DIR, srcFile));
-}
+const search = require('./search.js');
 
 
 /**
@@ -173,14 +105,16 @@ function procDocOpts(meta) {
 
   /* Tags for search indexing. */
   if (meta.tags instanceof Array)
-    result.tags = meta.tags
+    result.tags = util.removeDuplicatesFromArr(meta.tags
       .filter(v => typeof v == 'string')
-      .flatMap(v => v.split(/\s*,\s*/));
+      .flatMap(v => v.split(/\s*,\s*/))
+    );
 
   /* List of authors. */
   if (meta.authors instanceof Array)
-    result.authors = meta.authors
-      .filter(v => typeof v == 'string');
+    result.authors = util.removeDuplicatesFromArr(meta.authors
+      .filter(v => typeof v == 'string')
+    );
 
   return result;
 }
@@ -191,6 +125,9 @@ function procDocOpts(meta) {
  * @param mdPath The markdown path.
  */
 function renderMarkdownDocument(mdPath) {
+  if (!mdPath.endsWith('.md'))
+    return;
+
   const srcPath = path.join(config.SRC_DIR, mdPath);
   const servePath = mdPath.slice(0, -2) + 'html';
   const destPath = path.join(config.OUT_DIR, servePath);
@@ -223,7 +160,7 @@ function renderMarkdownDocument(mdPath) {
     prevPage:     opts.prev_page,
     nextPage:     opts.next_page,
     /* Rendering details. */
-    hasNav:       !opts.hide_nav,
+    navHidden:    opts.hide_nav,
     usedLayout:   opts.layout,
     isPathIndep:  opts.abs_paths,
   };
@@ -237,7 +174,7 @@ function renderMarkdownDocument(mdPath) {
   };
 
   /* Include some filters. */
-  mixInFilters(data);
+  filters.mixInFilters(data);
 
   /* Put into a template. */
   const finalHTML =
@@ -246,15 +183,15 @@ function renderMarkdownDocument(mdPath) {
   /* Write the final file. */
   fs.writeFileSync(destPath, finalHTML, 'utf8');
 
-  /* TODO: Do other stuff here. e.g.: tokenization, indexing. */
+  /* Add this document to record for later index gen.
+     We don't want the metadata part in the content,
+     so let's remove it. */
+  search.setRecord(docCtx.ident, docCtx,
+    content.replace(md.md.metaDataRaw || '', ''));
 }
 
 
 module.exports = {
-  mixInFilters,
-  emitAll,
-  emitFile,
-  handleUnknownFile,
   renderHTML,
   locateTemplateForDoc,
   procDocOpts,

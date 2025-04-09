@@ -1,6 +1,7 @@
 const args = require('mri')(process.argv.slice(2));
 const fs = require('fs');
 const config = require('../config.js');
+const pipeline = require('./pipeline.js');
 
 /* TODO: refactor these.. */
 
@@ -21,8 +22,7 @@ if (args.c || args.clean) {
 
 /* Build flag. */
 if (args.b || args.build) {
-  require('./emit.js').emitAll();
-  require('./jspack.js').packClientJs();
+  pipeline.emitAll();
   console.log('Build complete!');
 }
 

@@ -134,6 +134,16 @@ function isValidDateFmt(str) {
 }
 
 
+/**
+ * Remove duplicates from an array.
+ * @param arr The array.
+ * @returns An array with duplicates removed.
+ */
+function removeDuplicatesFromArr(arr) {
+  return [ ... new Set(arr) ];
+}
+
+
 module.exports = {
   listRecursiveSync,
   isNormFile,
@@ -142,4 +152,5 @@ module.exports = {
   strFnv1a,
   encBase62,
   isValidDateFmt,
+  removeDuplicatesFromArr,
 };

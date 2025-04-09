@@ -84,7 +84,7 @@ Link to [external doc](https://github.com/vytdev/README.md). plus
 :::
 
 :::  hl
-No class.
+No class. Who wants to talk in pages? Page page, page page page!
 :::
 
 HTML is a markup language.
