@@ -4,6 +4,8 @@ const fs = require('fs');
 const config = require('../config.js');
 const util = require('./util.js');
 const pipeline = require('./pipeline.js');
+const search = require('./search.js');
+const page = require('./page.js');
 
 
 /**
@@ -15,27 +17,41 @@ function startWatchingSrc() {
       persistent: true,
     });
 
-  watcher.on('ready', () =>
-    util.log(`[watch] Ready to rock. (${config.SRC_DIR})`));
+  let isReady = false;
+
+  watcher.on('ready', () => {
+    isReady = true;
+    util.log(`[watch] Ready to rock. (${config.SRC_DIR})`);
+  });
 
   watcher.on('all', (ev, p) => {
-    if (ev == 'ready')
+    if (!isReady || ev == 'ready')
       return;
 
     const relPath = path.relative(config.SRC_DIR, p);
 
     /* Create, modify, new folder, etc. */
-    if ([ 'add', 'addDir', 'change' ].includes(ev))
+    if ([ 'add', 'addDir', 'change' ].includes(ev)) {
       pipeline.emitSource(relPath);
+    }
 
     /* Delete, move, rename, etc. */
-    if ([ 'unlink', 'unlinkDir' ].includes(ev))
+    if ([ 'unlink', 'unlinkDir' ].includes(ev)) {
       fs.rmSync(path.join(config.OUT_DIR, relPath), {
         recursive: true,
         force: true
       });
+      if (p.endsWith('.md'))
+        search.rmRecord(page.getUidForDoc(relPath));
+    }
 
-    util.log(`[watch] ${ev}: ${p}`);
+    /* Update the sitemap and indices. */
+    if (p.endsWith('.md')) {
+      pipeline.emitIndices();
+      pipeline.emitSitemap();
+    }
+
+    util.log(`[watch] ${ev}: ${relPath}`);
   });
 
   return watcher;
@@ -51,15 +67,21 @@ function startWatchingClientJsSrc() {
       persistent: true,
     });
 
-  watcher.on('ready', () =>
-    util.log(`[watch] Ready to rock. (${config.CLIENT_JS_DIR})`));
+  let isReady = false;
+
+  watcher.on('ready', () => {
+    isReady = true;
+    util.log(`[watch] Ready to rock. (${config.CLIENT_JS_DIR})`);
+  });
 
   watcher.on('all', (ev, p) => {
-    if (ev == 'ready')
+    if (!isReady || ev == 'ready')
       return;
 
+    const relPath = path.relative(config.SRC_DIR, p);
+
     pipeline.emitClientJs();
-    util.log(`[watch] ${ev}: ${p}`);
+    util.log(`[watch] ${ev}: ${relPath}`);
   });
 
   return watcher;

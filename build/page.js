@@ -8,6 +8,8 @@ const filters = require('./filters.js');
 const search = require('./search.js');
 
 
+/* TODO: add dont_index option to disable indexing of document */
+
 /**
  * Render using the given template file.
  * @param templ The template file path (relative to src folder).
@@ -85,15 +87,15 @@ function procDocOpts(meta) {
       result[key] = meta[key];
   };
 
-  setIfType('title',     'string');
-  setIfType('about',     'string');
-  setIfType('thumbnail', 'string');
-  setIfType('prev_page', 'string');
-  setIfType('next_page', 'string');
-  setIfType('layout',    'string');
-  /* Rendering options. */
-  setIfType('hide_nav',  'boolean');
-  setIfType('abs_paths', 'boolean');
+  setIfType('title',       'string');
+  setIfType('about',       'string');
+  setIfType('thumbnail',   'string');
+  setIfType('prev_page',   'string');
+  setIfType('next_page',   'string');
+  /* Extra options. */
+  setIfType('layout',      'string');
+  setIfType('hide_nav',    'boolean');
+  setIfType('abs_paths',   'boolean');
 
   /* Publication time, in YYYY-MM-DD. */
   if (typeof meta.published == 'string' && util.isValidDateFmt(meta.published))
@@ -121,6 +123,20 @@ function procDocOpts(meta) {
 
 
 /**
+ * Generate a UID for a document by path.
+ * @param name The path of the document.
+ * @returns The UID string.
+ */
+function getUidForDoc(name) {
+  name = path.normalize(name);
+  name = name.replace('\\', '/');  /* Windows separator. */
+  name = name.replace(/^\//, '');  /* Leading slashes. */
+  name = name.replace(/\/$/, '');  /* Trailing slashes. */
+  return util.encBase62(util.strFnv1a(name));
+}
+
+
+/**
  * Render a markdown document.
  * @param mdPath The markdown path.
  */
@@ -143,10 +159,11 @@ function renderMarkdownDocument(mdPath) {
 
   /* Build the data scope. */
   const docCtx = {
-    ident:        util.encBase62(util.strFnv1a(mdPath)),
+    ident:        getUidForDoc(mdPath),
     canonical:    `http://${config.SITE_ADDRESS}/${servePath}`,
     srcPath:      mdPath,
     path:         servePath,
+    relRoot:      mdPath.replace(/[^\/]+/g, '..').slice(1) + '/',
     isIndex:      path.basename(mdPath) == 'index.md',
     contents:     tabOfCont,
     /* Doc metadata. */
@@ -159,9 +176,9 @@ function renderMarkdownDocument(mdPath) {
     thumbnail:    opts.thumbnail,
     prevPage:     opts.prev_page,
     nextPage:     opts.next_page,
-    /* Rendering details. */
-    navHidden:    opts.hide_nav,
+    /* Extra options. */
     usedLayout:   opts.layout,
+    navHidden:    opts.hide_nav,
     isPathIndep:  opts.abs_paths,
   };
 
@@ -195,5 +212,6 @@ module.exports = {
   renderHTML,
   locateTemplateForDoc,
   procDocOpts,
+  getUidForDoc,
   renderMarkdownDocument,
 };

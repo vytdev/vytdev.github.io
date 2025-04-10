@@ -150,3 +150,20 @@ exports.fetchText = function(url) {
     xhr.send();
   });
 }
+
+
+/**
+ * Load a script.
+ * @param url The url to the script.
+ * @returns A Promise.
+ */
+exports.loadScript = function(url) {
+  return new Promise((res, rej) => {
+    const sc   = document.createElement('script');
+    sc.type    = 'text/javascript';
+    sc.src     = url;
+    sc.onload  = () => res();
+    sc.onerror = () => rej();
+    document.head.appendChild(sc);
+  });
+}

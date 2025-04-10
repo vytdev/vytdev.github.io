@@ -131,7 +131,8 @@ function createSearchIndex() {
 
       /* For each tag, store an array of documents
          that contains that tag. */
-      for (const tok in tags) {
+      for (let tok of tags) {
+        tok = nlp.normalize(tok);
         const ref = getTermRef(tok);
         if (!index[ref])
           index[ref] = [];

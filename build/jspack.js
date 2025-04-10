@@ -79,7 +79,7 @@ function createModules(mods) {
         if (v == '.')
           return;
         if (v == '..')
-          newPath.pop();
+          return newPath.pop();
         v = v.trim();
         if (v.length == 0)
           return;
@@ -108,7 +108,7 @@ function createModules(mods) {
         if (v == '.')
           return;
         if (v == '..')
-          newPath.pop();
+          return newPath.pop();
         v = v.trim();
         if (v.length == 0)
           return;

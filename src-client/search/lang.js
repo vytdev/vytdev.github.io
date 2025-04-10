@@ -10,8 +10,8 @@ const punctuation = /[\s~`’‘|^°{}[\]()<>\\%@#$&\-+=*/"':;!?.,]+/;
  * For expanding quoted contractions.
  */
 const quotedContractions = [
-    [/n't([ ,:;.!?]|$)/gi, ' not '],
     [/can't([ ,:;.!?]|$)/gi, 'can not '],
+    [/n't([ ,:;.!?]|$)/gi, ' not '],
     [/'ll([ ,:;.!?]|$)/gi, ' will '],
     [/'s([ ,:;.!?]|$)/gi, ' is '],
     [/'re([ ,:;.!?]|$)/gi, ' are '],
@@ -37,7 +37,8 @@ const unquotedContractions = {
  */
 function normalize(str) {
   return str.normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
 };
 
 
@@ -47,9 +48,6 @@ function normalize(str) {
  * @returns An array of tokens.
  */
 function tokenize(str) {
-  /* Every casing must be consistent. */
-  str = str.toLowerCase();
-
   /* Expand quoted contractions. */
   for (let i = 0; i < quotedContractions.length; i++) {
     str = str.replace(

@@ -21,7 +21,7 @@ if (args.c || args.clean) {
 }
 
 /* Build flag. */
-if (args.b || args.build) {
+if (args.b || args.build || args.w || args.watch) {
   pipeline.emitAll();
   console.log('Build complete!');
 }

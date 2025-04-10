@@ -68,4 +68,7 @@ function startServer(app, addr, port) {
 }
 
 
-module.exports = { createStaticApp, startServer };
+module.exports = {
+  createStaticApp,
+  startServer,
+};

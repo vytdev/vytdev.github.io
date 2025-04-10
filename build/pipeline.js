@@ -8,7 +8,7 @@ const search = require('./search.js');
 const util = require('./util.js');
 
 
-const print = (...args) => util.log('[pipeline]', ...args);
+const print = (...args) => util.log('[gen]', ...args);
 
 
 /**
