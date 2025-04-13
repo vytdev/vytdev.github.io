@@ -230,7 +230,7 @@ function genTocHTML(toc) {
     return outStr;
   }
 
-  return genLvl([...toc], 1);
+  return '<div class="toc">' + genLvl([...toc], 1) + '</div>';
 }
 
 module.exports = {

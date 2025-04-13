@@ -8,8 +8,6 @@ const filters = require('./filters.js');
 const search = require('./search.js');
 
 
-/* TODO: add dont_index option to disable indexing of document */
-
 /**
  * Render using the given template file.
  * @param templ The template file path (relative to src folder).
@@ -76,6 +74,7 @@ function procDocOpts(meta) {
     layout:      'auto',
     hide_nav:    false,
     abs_paths:   false,
+    dont_index:  false,
   };
 
   if (!meta)
@@ -96,6 +95,7 @@ function procDocOpts(meta) {
   setIfType('layout',      'string');
   setIfType('hide_nav',    'boolean');
   setIfType('abs_paths',   'boolean');
+  setIfType('dont_index',  'boolean');
 
   /* Publication time, in YYYY-MM-DD. */
   if (typeof meta.published == 'string' && util.isValidDateFmt(meta.published))
@@ -180,6 +180,7 @@ function renderMarkdownDocument(mdPath) {
     usedLayout:   opts.layout,
     navHidden:    opts.hide_nav,
     isPathIndep:  opts.abs_paths,
+    notIndexed:   opts.dont_index,
   };
 
   const data = {
@@ -203,8 +204,11 @@ function renderMarkdownDocument(mdPath) {
   /* Add this document to record for later index gen.
      We don't want the metadata part in the content,
      so let's remove it. */
-  search.setRecord(docCtx.ident, docCtx,
-    content.replace(md.md.metaDataRaw || '', ''));
+  if (!opts.dont_index)
+    search.setRecord(docCtx.ident, docCtx,
+      content.replace(md.md.metaDataRaw || '', ''));
+  else
+    search.rmRecord(docCtx.ident);
 }
 
 

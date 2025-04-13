@@ -5,6 +5,8 @@
   outline: none;
   box-sizing: border-box;
   scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; /* For consistent font sizes. */
 }
 
 body {
@@ -12,8 +14,8 @@ body {
   background-color: var(--generic-bg-color);
   font-size: 12px;
   font-family: NotoSans;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 blockquote {
@@ -22,7 +24,7 @@ blockquote {
   margin-left: 1.5em;
   font-size: 90%;
   color: #aaa;
-  border-left: 3px solid var(--blockquote-color);
+  border-left: 4px solid var(--blockquote-color);
 }
 
 a {
@@ -59,24 +61,28 @@ sub, a.footnote-backref {
 /* --- Headings and permalinks
  * ------------------------------------------------------------------------- */
 
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+
 h1 {
-  font-size: 36px;
+  font-size: 28px;
 }
 
 h2 {
-  font-size: 30px;
+  font-size: 22px;
 }
 
 h3 {
-  font-size: 24px;
+  font-size: 16px;
 }
 
 h4 {
-  font-size: 20px;
+  font-size: 16px;
 }
 
 h5 {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 h6 {
@@ -87,13 +93,12 @@ h6 {
   position: relative;
   top: -12px;
   font-size: 50%;
-  display: inline-block;
-}
-
-:not(:hover) .header-anchor {
   display: none;
 }
 
+:hover > .header-anchor {
+  display: inline-block;
+}
 
 
 /* --- Snippets and inline code
@@ -165,7 +170,7 @@ input[type=checkbox] {
   height: 15px;
   border: 1px solid var(--generic-border-color);
   border-radius: 1px;
-  background-color: #fff;
+  background-color: #8882;
 }
 
 input[type=checkbox]:checked {
@@ -229,18 +234,21 @@ dd {
 
 .toc-item {
   margin-left: 1.5em;
-  padding-left: 5px;
-  border-left: 1px solid var(--generic-border-color);
+  padding-left: 0;
 }
 
 .toc-item > a {
   color: var(--generic-color);
-  padding: 6px;
+  padding: 5px;
+  padding-left: 10px;
   display: block;
+  text-decoration: none;
 }
 
-.toc-item > a:hover {
-  background-color: #666;
+.toc-item > a.current {
+  padding-left: 8px;
+  border-left: 2px solid var(--anchor-color);
+  color: var(--anchor-color);
 }
 
 
@@ -309,4 +317,136 @@ div.admonition.warning {
 div.admonition.caution {
   background-color: var(--admonition-caution-bg);
   border-left-color: var(--admonition-caution-border);
+}
+
+
+/* --- Content layout
+ * ------------------------------------------------------------------------- */
+
+.navbar {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  width: 100vw;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  background-color: var(--generic-bg-color);
+  border-bottom: 1px solid var(--generic-border-color);
+}
+
+.navbar > p {
+  font-weight: bolder;
+}
+
+.view-wrapper {
+  width: 100vw;
+  /* Last resort... Prevents the .main-view
+     from overflowing */
+  contain: layout paint;
+}
+
+.main-view {
+  display: flex;
+  flex-direction: row;
+  width: 190vw;
+  transform: translateX(-90vw);
+  transition: transform 120ms ease;
+}
+
+.main-view > * {
+  flex-shrink: 0;
+}
+
+.sidebar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 40px;
+  width: 90vw;
+  height: calc(100vh - 40px);
+  background-color: var(--generic-bg-color);
+  border-right: 1px solid var(--generic-border-color);
+  overflow: auto;
+  overflow-x: hidden;
+  padding: 8px;
+}
+
+.content {
+  width: 100vw;
+  padding: 8px
+}
+
+.content * {
+  scroll-margin-top: 50px;
+}
+
+.footer {
+  border-top: 1px solid var(--generic-border-color);
+}
+
+
+/* --- Sidebar toggle btn
+ * ------------------------------------------------------------------------- */
+
+input#sidebar-toggle {
+  display: none;
+}
+
+label[for=sidebar-toggle] {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  position: relative;
+  top: 0;
+  left: 0;
+  padding: 5px;
+  display: flex;
+}
+
+label[for=sidebar-toggle] > span {
+  margin: auto;
+  margin-top: 13px;
+  position: relative;
+}
+
+label[for=sidebar-toggle] > span::before,
+label[for=sidebar-toggle] > span::after {
+  position: absolute;
+}
+
+label[for=sidebar-toggle] > span,
+label[for=sidebar-toggle] > span::before,
+label[for=sidebar-toggle] > span::after {
+  content: "";
+  display: block;
+  background-color: var(--menu-hamburger-color);
+  border-radius: 4px;
+  height: 3px;
+  width: 20px;
+  transition: all 120ms ease;
+}
+
+label[for=sidebar-toggle] > span::before {
+  top: -7px;
+}
+
+label[for=sidebar-toggle] > span::after {
+  bottom: -7px;
+}
+
+input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::before {
+  transform: rotate(-45deg);
+  width: 75%;
+  top: -5px;
+  left: -4px;
+}
+
+input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
+  transform: rotate(45deg);
+  width: 75%;
+  bottom: -4px;
+  left: -4px;
 }

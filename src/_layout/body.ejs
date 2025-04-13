@@ -1,0 +1,17 @@
+<div clsss="page-frame">
+  <%- include('navbar') %>
+  <div class="view-wrapper">
+    <div class="main-view">
+      <% if (!doc.navHidden) { %>
+      <%- include('sidebar') %>
+      <% } %>
+      <div class="content">
+        <%- htmlContent %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer" style="padding-bottom: 2000px;">
+<p>Footer start</p>
+</div>

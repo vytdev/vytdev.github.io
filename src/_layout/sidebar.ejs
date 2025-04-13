@@ -1,0 +1,20 @@
+<% if (!doc.navHidden) { %>
+<div class="sidebar">
+
+<p><b><%= doc.title %></b>
+  <%= doc.about %></p>
+
+<p><%= doc.published %> &bull;
+  <%= doc.updated %></p>
+
+<p>
+<% for (const tag in doc.tags) { %>
+<span class="key-tag"><%= tag %></span>
+<% } %>
+</p>
+
+<h2>In this page</h2>
+<%- htmlToc %>
+
+</div>
+<% } %>

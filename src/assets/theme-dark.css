@@ -9,7 +9,8 @@
   --anchor-visited-color:       #87ceeb;
   --blockquote-color:           #555;
   --highlight-bg:               #aa0;
-  --math-text-color:            #fff;
+  --math-text-color:            #ccc;
+  --menu-hamburger-color:       #888;
   /* Admonition colors. */
   --admonition-tip-bg:          #283800;
   --admonition-tip-border:      #c0ff25;
