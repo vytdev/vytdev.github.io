@@ -149,9 +149,10 @@ function renderMarkdownDocument(mdPath) {
   const destPath = path.join(config.OUT_DIR, servePath);
 
   /* Compile markdown to HTML. */
+  const mdEnv = Object.create(null);
   const content = fs.readFileSync(srcPath, 'utf8');
-  const mdAsHTML = md.md.render(content);
-  const opts = procDocOpts(md.md.metaData);
+  const mdAsHTML = md.renderMarkdown(content, mdEnv);
+  const opts = procDocOpts(mdEnv.metaData);
 
   /* Generate toc. */
   const tabOfCont = md.genTableOfCont(content);
@@ -206,7 +207,7 @@ function renderMarkdownDocument(mdPath) {
      so let's remove it. */
   if (!opts.dont_index)
     search.setRecord(docCtx.ident, docCtx,
-      content.replace(md.md.metaDataRaw || '', ''));
+      content.replace(mdEnv.metaDataRaw || '', ''));
   else
     search.rmRecord(docCtx.ident);
 }

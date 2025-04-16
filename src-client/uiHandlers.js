@@ -24,9 +24,8 @@ events.globalEvents.on('load', () => {
 
   /* Simply update the main-view x-offset. */
   toggle.addEventListener('change', () => {
-    mainView.style.transform = toggle.checked
-      ? 'translateX(0vw)'
-      : 'translateX(-90vw)';
+    mainView.style.left = toggle.checked
+      ? '0' : '-90%';
   });
 });
 

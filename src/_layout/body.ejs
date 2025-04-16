@@ -1,7 +1,7 @@
 <div clsss="page-frame">
   <%- include('navbar') %>
   <div class="view-wrapper">
-    <div class="main-view">
+    <div class="main-view<%= doc.navHidden ? ' no-sidebar' : '' %>">
       <% if (!doc.navHidden) { %>
       <%- include('sidebar') %>
       <% } %>
@@ -11,7 +11,4 @@
     </div>
   </div>
 </div>
-
-<div class="footer" style="padding-bottom: 2000px;">
-<p>Footer start</p>
-</div>
+<%- include('footer') %>

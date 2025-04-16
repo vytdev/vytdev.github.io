@@ -12,8 +12,10 @@
 body {
   color: var(--generic-color);
   background-color: var(--generic-bg-color);
-  font-size: 12px;
+  font-size: 14px;
   font-family: NotoSans;
+  line-height: 1.6;
+  letter-spacing: 0.2px;
   margin: 0;
   padding: 0;
 }
@@ -62,7 +64,7 @@ sub, a.footnote-backref {
  * ------------------------------------------------------------------------- */
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: normal;
+  font-weight: 1200;
 }
 
 h1 {
@@ -328,7 +330,7 @@ div.admonition.caution {
   position: sticky;
   z-index: 100;
   top: 0;
-  width: 100vw;
+  width: 100%;
   height: 40px;
   display: flex;
   flex-direction: row;
@@ -349,15 +351,16 @@ div.admonition.caution {
   contain: layout paint;
 }
 
-.main-view {
+.main-view:not(.no-sidebar) {
   display: flex;
+  position: relative;
   flex-direction: row;
-  width: 190vw;
-  transform: translateX(-90vw);
-  transition: transform 120ms ease;
+  flex-wrap: nowrap;
+  left: -90%;
+  transition: left 120ms ease;
 }
 
-.main-view > * {
+.main-view:not(.no-sidebar) > * {
   flex-shrink: 0;
 }
 
@@ -365,7 +368,7 @@ div.admonition.caution {
   position: -webkit-sticky;
   position: sticky;
   top: 40px;
-  width: 90vw;
+  width: 90%;
   height: calc(100vh - 40px);
   background-color: var(--generic-bg-color);
   border-right: 1px solid var(--generic-border-color);
@@ -375,7 +378,7 @@ div.admonition.caution {
 }
 
 .content {
-  width: 100vw;
+  width: 100%;
   padding: 8px
 }
 
@@ -385,6 +388,49 @@ div.admonition.caution {
 
 .footer {
   border-top: 1px solid var(--generic-border-color);
+  padding: 8px;
+}
+
+.footer > .links {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.footer > .links > div {
+  margin-bottom: 1em;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 100%;  /* Adjust this to make it responsive. */
+  text-align: center;
+}
+
+.footer > .description-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer > .description-grid > .brand-div > * {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.footer > .description-grid > * {
+  padding: 8px;
+}
+
+.footer > .description-grid > .license-notice {
+  flex: 1;
+}
+
+.footer > .description-grid > .brand-div > img {
+  display: block;
+}
+
+.footer a {
+  text-decoration: underline;
+  color: var(--generic-color);
 }
 
 
@@ -449,4 +495,59 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   width: 75%;
   bottom: -4px;
   left: -4px;
+}
+
+
+/* --- For responsiveness
+ * ------------------------------------------------------------------------- */
+
+/* Default styles are already made for this size range. */
+/*@media (max-width: 480px) {
+}*/
+
+/* Larger phones, tablets, etc. */
+@media (min-width: 481px) {
+  .footer > .links > div {
+    flex-basis: 50%;
+  }
+
+  .footer > .description-grid {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .footer > .description-grid > .license-notice {
+    text-align: center;
+  }
+}
+
+/* Larger tablets, laptops, etc. */
+@media (min-width: 769px) {
+  input#sidebar-toggle, label[for=sidebar-toggle] {
+    display: none;
+  }
+
+  .main-view:not(.no-sidebar) {
+    left: 0;
+  }
+
+  .main-view:not(.no-sidebar) > .sidebar {
+    width: 30%;
+    border-right: none;
+  }
+
+  .main-view:not(.no-sidebar) > .content {
+    width: 70%;
+  }
+
+  .footer > .links > div {
+    flex-basis: calc(100% / 3);
+  }
+}
+
+/* Desktop, TVs, and any other larger screens. */
+@media (min-width: 1281px) {
+  .footer > .links > div {
+    flex-basis: 25%;
+  }
 }

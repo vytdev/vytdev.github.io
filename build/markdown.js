@@ -13,6 +13,7 @@ const md = require('markdown-it')({
     langPrefix:   "lang-",
     highlight:    mdHighlightFunc,
   });
+let currEnv = null;
 
 /* General extensions for markdown. */
 md.use(require('markdown-it-sub'));
@@ -37,10 +38,9 @@ md.use(require('markdown-it-texmath'), {
 
 /* Metadata. --- */
 md.use(require('markdown-it-front-matter'), (frontMatter) => {
-    /* Make metadata accessible per context. */
-    md.metaDataRaw = frontMatter;
-    md.metaData = null;
-    md.metaData = yaml.load(frontMatter);
+    /* Parse the metadata. */
+    currEnv.metaDataRaw = frontMatter;
+    currEnv.metaData = yaml.load(frontMatter);
   });
 
 /* Permalinks in headings. */
@@ -175,6 +175,19 @@ function slugify(txt) {
 }
 
 /**
+ * Render markdown content.
+ * @param cont The markdown content.
+ * @param [env] Optional env object.
+ * @returns The generated HTML.
+ */
+function renderMarkdown(cont, env) {
+  if (!env)
+    env = Object.create(null);
+  currEnv = env;
+  return md.render(cont, env);
+}
+
+/**
  * Generates a table of contents.
  * @param src The markdown source.
  * @returns The table of contents (flat array).
@@ -187,7 +200,7 @@ function genTableOfCont(src) {
     const token = tokens[i];
     if (token.type === 'heading_open') {
       const level = parseInt(token.tag.slice(1)); /* h1 -> 1 */
-      const content = tokens[i + 1].content;
+      const content = md.renderInline(tokens[i + 1].content);
 
       /* markdown-it-anchor adds an ID to the token attrs. */
       const idAttr = token.attrs?.find(attr => attr[0] === 'id');
@@ -216,7 +229,7 @@ function genTocHTML(toc) {
       outStr += '<div class="toc-item"><a href="#';
       outStr += md.utils.escapeHtml(curr.id);
       outStr += '">';
-      outStr += md.utils.escapeHtml(curr.content);
+      outStr += curr.content;
       outStr += '</a>';
       curr = toc[0];
       if (curr?.level > lvl)
@@ -234,10 +247,11 @@ function genTocHTML(toc) {
 }
 
 module.exports = {
-  md,
+  mdInstance: md,
   wrapCodeBlock,
   mdHighlightFunc,
   slugify,
+  renderMarkdown,
   genTableOfCont,
   genTocHTML,
 };

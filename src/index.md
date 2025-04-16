@@ -86,4 +86,23 @@ HTML is a markup language.
 
 :smile: emoji.
 
+# More things here :smile:
+## Headings?
+## Doesn't get bored?
+## Are you numb?
+## No!!
+## Hello, world!
+# The list of domination
+## I simply wanted...
+## ...to overflow the...
+## ...sidebar TOC.
+## We need verifications
+## ... whether it is alright.
+## no exceptions
+# And we're about to complete the task.
+## The sidebar is about to overflow.
+## What could happen?
+## Will it clip?
+## Or will the overflow be handled correctly?
+
 [^1]: This is a footnote.
