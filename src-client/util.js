@@ -1,24 +1,66 @@
 /* Themes (and their media query). */
-exports.THEMES = {
-  auto: '(prefers-color-scheme: dark)',
-  light: 'not all',
-  dark: 'all',
+const THEMES = {
+  auto: 'auto',
+  light: 'light',
+  dark: 'dark',
 };
+
 
 /**
  * Change the theme.
  * @param theme The theme to use.
  */
-exports.changeTheme = function(theme) {
-  document.getElementById('dark-theme').media = theme;
+function changeTheme(theme) {
+  const classList = document.documentElement.classList;
+
+  /* Remove the existing .theme-* classes. */ 
+  Array.from(classList).forEach(v => {
+    if (v.startsWith('theme-'))
+      classList.remove(v);
+  });
+
+  /* Auto theme. */
+  if (theme == THEMES.auto) {
+    theme = window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? THEMES.dark : THEMES.light;
+  }
+
+  /* Update the page theme. */
+  classList.add(`theme-${theme}`);
+  localStorage.setItem('theme', theme);
 }
+
+
+/**
+ * Get the current theme.
+ * @returns The current theme.
+ */
+function getCurrTheme() {
+  return localStorage.getItem('theme') || THEMES.auto;
+}
+
+
+/**
+ * Initialize the theme.
+ */
+function initTheme() {
+  changeTheme(getCurrTheme());
+
+  /* Auto theme updates. */
+  window.matchMedia('(prefers-color-scheme: dark)')
+    .addEventListener('change', ev => {
+      if (getCurrTheme() == THEMES.auto)
+        changeTheme(THEMES.auto);
+    });
+}
+
 
 /**
  * Highlight the terms from a node.
  * @param text The terms.
  * @param node The node.
  */
-exports.highlight = function(text, node) {
+function highlight(text, node) {
   const words = text.normalize('NFD').toLowerCase().split(/\s+/g);
 
   /* A text node. */
@@ -51,7 +93,7 @@ exports.highlight = function(text, node) {
         node.nextSibling));
       node.nodeValue = org.substring(0, idx);
 
-      exports.highlight(text, node.parentNode);
+      highlight(text, node.parentNode);
       break;
     }
 
@@ -65,7 +107,7 @@ exports.highlight = function(text, node) {
 
   /* iterate through child nodes. */
   for (let i = 0; i < node.childNodes.length; i++) {
-    exports.highlight(text, node.childNodes[i]);
+    highlight(text, node.childNodes[i]);
   }
 }
 
@@ -74,7 +116,7 @@ exports.highlight = function(text, node) {
  * Remove highlights from a node.
  * @param node The node where to remove all 'span.highlight'.
  */
-exports.unHighlight = function(node) {
+function unHighlight(node) {
   if (node.tagName == 'SPAN' && node.classList.contains('highlight')) {
     const prev = node.previousSibling;
     const next = node.nextSibling;
@@ -111,7 +153,7 @@ exports.unHighlight = function(node) {
   for (let i = 0; i < len; i++) {
     const child = node.childNodes[i];
     if (child.nodeType != document.ELEMENT_NODE) { continue; }
-    exports.unHighlight(child);
+    unHighlight(child);
 
     /* The node length might change if we remove highlights from them. */
     len = node.childNodes.length;
@@ -128,7 +170,7 @@ exports.unHighlight = function(node) {
  * @param url The url where to fetch the string.
  * @returns A Promise which you can extend.
  */
-exports.fetchText = function(url) {
+function fetchText(url) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
@@ -157,7 +199,7 @@ exports.fetchText = function(url) {
  * @param url The url to the script.
  * @returns A Promise.
  */
-exports.loadScript = function(url) {
+function loadScript(url) {
   return new Promise((res, rej) => {
     const sc   = document.createElement('script');
     sc.type    = 'text/javascript';
@@ -167,3 +209,15 @@ exports.loadScript = function(url) {
     document.head.appendChild(sc);
   });
 }
+
+
+module.exports = {
+  THEMES,
+  changeTheme,
+  getCurrTheme,
+  initTheme,
+  highlight,
+  unHighlight,
+  fetchText,
+  loadScript,
+};

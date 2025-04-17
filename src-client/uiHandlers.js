@@ -31,6 +31,52 @@ events.globalEvents.on('load', () => {
 
 
 /**
+ * Back to top btn.
+ */
+events.globalEvents.on('load', () => {
+  const backToTop = document.getElementById('back-to-top');
+
+  /* Show/hide behaviour of the btn. */
+  document.addEventListener('scroll', () => {
+    const scrollY = document.documentElement?.scrollTop
+        ?? document.body?.scrollTop
+        ?? window.scrollY ?? 0;
+
+    if (scrollY > 40)
+      backToTop.style.right = "1em";
+    else
+      backToTop.style.right = "-5em";
+  });
+
+  /* Scroll back to top when the btn is clicked. */
+  backToTop.addEventListener('click', () => {
+    window.scrollTo(0, 0);
+  })
+});
+
+
+/**
+ * Behaviour for the theme chooser.
+ */
+events.globalEvents.on('load', () => {
+  if (pageInfo.navHidden)
+    return;
+  let currTheme = util.getCurrTheme();
+
+  /* Theme chooser mechanics. */
+  const themeChooser = document.getElementById('theme');
+  themeChooser.querySelector(`option[value=${currTheme}]`)
+    .selected = true;
+
+  /* Theme updates. */
+  themeChooser.addEventListener('change', () => {
+    currTheme = themeChooser.value;
+    util.changeTheme(currTheme);
+  })
+});
+
+
+/**
  * ScrollSpy for TOC.
  */
 events.globalEvents.on('load', () => {

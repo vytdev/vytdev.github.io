@@ -1,5 +1,10 @@
 @charset 'utf-8';
 @import 'fonts.css';
+@import 'themes.css';
+
+.with-js .noscript, .no-js .yescript {
+  display: none;
+}
 
 *, ::before, ::after, html {
   outline: none;
@@ -12,7 +17,7 @@
 body {
   color: var(--generic-color);
   background-color: var(--generic-bg-color);
-  font-size: 14px;
+  font-size: 12px;
   font-family: NotoSans;
   line-height: 1.6;
   letter-spacing: 0.2px;
@@ -25,8 +30,23 @@ blockquote {
   margin: 8px;
   margin-left: 1.5em;
   font-size: 90%;
-  color: #aaa;
+  color: var(--blockquote-color);
   border-left: 4px solid var(--blockquote-color);
+}
+
+details {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border: 1px solid var(--generic-border-color);
+  padding: 2px;
+}
+
+summary {
+  padding: 2px;
+}
+
+details[open] summary {
+  border-bottom: 1px solid var(--generic-border-color);
 }
 
 a {
@@ -155,12 +175,12 @@ code {
 }
 
 .task-list-item-checkbox:checked {
-  background-color: #007bff;
+  background-color: var(--accent-color);
 }
 
 
 
-/* --- Checkboxes
+/* --- Input types
  * ------------------------------------------------------------------------- */
 
 input[type=checkbox] {
@@ -172,11 +192,11 @@ input[type=checkbox] {
   height: 15px;
   border: 1px solid var(--generic-border-color);
   border-radius: 1px;
-  background-color: #8882;
+  background-color: var(--transparent-color);
 }
 
 input[type=checkbox]:checked {
-  background-color: #007bff;
+  background-color: var(--accent-color);
 }
 
 input[type=checkbox]:checked::after {
@@ -186,6 +206,11 @@ input[type=checkbox]:checked::after {
   content: '✔';
   color: #fff;
   font-size: 10px;
+}
+
+select {
+  color: var(--generic-color);
+  background-color: var(--transparent-color);
 }
 
 
@@ -209,11 +234,11 @@ table, th, td, tr, thead, tbody {
 }
 
 th, thead {
-  font-size: 14px;
+  font-size: 110%;
 }
 
 tbody {
-  font-size: 12px;
+  font-size: 100%;
 }
 
 
@@ -222,7 +247,7 @@ tbody {
  * ------------------------------------------------------------------------- */
 
 dt {
-  font-size: 14px;
+  font-size: 110%;
 }
 
 dd {
@@ -231,8 +256,40 @@ dd {
 
 
 
-/* --- Table of contents
+/* --- Collapsible sections (not spoilers)
  * ------------------------------------------------------------------------- */
+
+.section:not([data-open]):not(:has(:target)) > :not(.section-title:first-child)
+{
+  /* We don't know the display type of some elems.
+     Let's use :not([data-open]) */
+  display: none;
+}
+
+.section > .section-title:first-child::before {
+  content: '▶';
+}
+
+.section[data-open] > .section-title:first-child::before {
+  content: '▼';
+}
+
+.section > .section-title:first-child {
+  margin-top: 1em;
+  font-size: 18px;
+  font-weight: 1200;
+  padding: 4px;
+  border-bottom: 1px solid var(--generic-border-color);
+}
+
+
+
+/* --- Sidebar contents
+ * ------------------------------------------------------------------------- */
+
+.sidebar a {
+  color: var(--generic-color);
+}
 
 .toc-item {
   margin-left: 1.5em;
@@ -253,6 +310,33 @@ dd {
   color: var(--anchor-color);
 }
 
+.sidebar .xtra-links {
+  display: block;
+  text-decoration: underline;
+  margin-left: 1.5em;
+}
+
+.sidebar .author-name {
+  display: flex;
+  align-items: center;
+  font-family: SourceCodePro;
+  margin-top: 8px;
+  margin-left: 1.5em;
+  gap: 8px;
+}
+
+
+
+/* --- No-JS warning
+ * ------------------------------------------------------------------------- */
+
+.no-js-warning-block {
+  background-color: var(--no-js-warning-bg);
+  border: 2px solid var(--no-js-warning-border);
+  border-radius: 1px;
+  padding: 8px;
+}
+
 
 
 /* --- Admonitions
@@ -261,17 +345,17 @@ dd {
 div.admonition {
   border-left: 3px solid;
   background-color: var(--generic-bg-color);
-  font-size: 85%;
   padding: 8px;
   width: 95%;
   border-radius: 1px;
   margin-top: 4px;
   margin-left: auto;
   margin-right: auto;
+  font-size: 90%;
 }
 
 p.admonition-title {
-  font-size: 1.25em !important;
+  font-size: 110% !important;
   font-weight: bold;
   margin: 2px;
 }
@@ -322,6 +406,7 @@ div.admonition.caution {
 }
 
 
+
 /* --- Content layout
  * ------------------------------------------------------------------------- */
 
@@ -336,12 +421,20 @@ div.admonition.caution {
   flex-direction: row;
   align-items: center;
   gap: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
   background-color: var(--generic-bg-color);
   border-bottom: 1px solid var(--generic-border-color);
 }
 
 .navbar > p {
   font-weight: bolder;
+}
+
+.navbar > a {
+  height: 40px;
+  display: flex;
+  align-items: center;
 }
 
 .view-wrapper {
@@ -369,7 +462,7 @@ div.admonition.caution {
   position: sticky;
   top: 40px;
   width: 90%;
-  height: calc(100vh - 40px);
+  max-height: calc(100vh - 40px);
   background-color: var(--generic-bg-color);
   border-right: 1px solid var(--generic-border-color);
   overflow: auto;
@@ -379,7 +472,8 @@ div.admonition.caution {
 
 .content {
   width: 100%;
-  padding: 8px
+  padding: 8px;
+  min-height: calc(100vh - 40px);
 }
 
 .content * {
@@ -387,7 +481,9 @@ div.admonition.caution {
 }
 
 .footer {
+  background-color: var(--generic-bg-color);
   border-top: 1px solid var(--generic-border-color);
+  font-size: 90%;
   padding: 8px;
 }
 
@@ -434,6 +530,33 @@ div.admonition.caution {
 }
 
 
+
+/* --- Back to top btn
+ * ------------------------------------------------------------------------- */
+
+#back-to-top {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--back-to-top-color);
+  border-radius: 100%;
+  background-color: var(--transparent-color);
+  z-index: 100;
+  bottom: 1em;
+  right: -5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: right 150ms ease;
+}
+
+#back-to-top > svg {
+  fill: var(--back-to-top-color);
+}
+
+
+
 /* --- Sidebar toggle btn
  * ------------------------------------------------------------------------- */
 
@@ -447,14 +570,19 @@ label[for=sidebar-toggle] {
   cursor: pointer;
   position: relative;
   top: 0;
-  left: 0;
-  padding: 5px;
   display: flex;
+  align-items: center;
+  /* The .navbar has a padding-left: 4px;, let's remove that. */
+  left: -4px;
+  margin-right: -4px;
+}
+
+label[for=sidebar-toggle]:hover {
+  background-color: var(--transparent-color);
 }
 
 label[for=sidebar-toggle] > span {
   margin: auto;
-  margin-top: 13px;
   position: relative;
 }
 
@@ -496,6 +624,50 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   bottom: -4px;
   left: -4px;
 }
+
+
+
+/* --- Search
+ * ------------------------------------------------------------------------- */
+
+.search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  border: 1px solid var(--generic-border-color);
+  border-radius: 2px;
+  transition: flex 150ms ease;
+}
+
+.search > * {
+  border: 0;
+}
+
+.search input[type="search"] {
+  flex: 1;
+  box-sizing: border-box;
+  transition: width 0.3s ease;
+  color: var(--generic-color);
+  background: var(--generic-bg-color);
+}
+
+.search label {
+  border-left: 1px solid;
+  border-color: inherit;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+}
+
+.search input[type="submit"] {
+  display: none;
+}
+
+.search:hover, .search:hover label {
+  border-width: 2px;
+}
+
 
 
 /* --- For responsiveness

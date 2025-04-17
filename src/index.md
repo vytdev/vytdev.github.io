@@ -1,10 +1,22 @@
 ---
 title: Ur landing page.
+authors: [ vytdev, G13-newton ]
+published: '2025-03-29'
+updated: '2025-04-16'
+prev_page: 404.md
+next_page: README.md
+no_toc: true
 ---
 
 [reload](?a=b)
 
 [reload2](?a=c)
+
+[link to there](./a/b/index.html)
+
+:::: section Simple admonition tests
+
+### lvl 3 heading
 
 # Hello!
 ## Are you mad?
@@ -14,6 +26,44 @@ title: Ur landing page.
 # Suppositions?
 ## I don't want to elaborate your underlying assumptions.
 ## Give me a good rationale.
+
+::: hl tip Admonition Tip
+This is a tip.
+:::
+
+::: hl warning
+Without title.
+Some link to [other doc](./file.md).
+Link to [external doc](https://github.com/vytdev/README.md). plus
+[other doc with hash](./file.md#123) and
+[other doc with query](./file.md?ab=c).
+
+[doc with both](./file.md?ab=c#123)
+
+[doc with both, reversed](./file.md?ab=c#123)
+:::
+
+:::  hl
+No class. Who wants to talk in pages? Page page, page page page!
+:::
+
+::: spoiler Closed spoiler
+This is initially closed.
+:::
+
+::: spoiler-opened Open spoiler
+This is initially open.
+:::
+
+::: hl tip Multiline \
+titles?
+Will this work?
+:::
+
+::::
+
+
+::: section You might find some stuff here... A very long name stress test huahahah
 
 - list
 - list2
@@ -62,25 +112,12 @@ $$ \int_{0}^{1} x^2 \, dx = \frac{x^3}{3} + c $$
 
 > nice maths!
 
-::: hl tip Admonition Tip
-This is a tip.
 :::
 
-::: hl warning
-Without title.
-Some link to [other doc](./file.md).
-Link to [external doc](https://github.com/vytdev/README.md). plus
-[other doc with hash](./file.md#123) and
-[other doc with query](./file.md?ab=c).
+::: section More content! :cat:
 
-[doc with both](./file.md?ab=c#123)
-
-[doc with both, reversed](./file.md?ab=c#123)
-:::
-
-:::  hl
-No class. Who wants to talk in pages? Page page, page page page!
-:::
+## As per the heading \
+   too?
 
 HTML is a markup language.
 
@@ -104,5 +141,7 @@ HTML is a markup language.
 ## What could happen?
 ## Will it clip?
 ## Or will the overflow be handled correctly?
+
+:::
 
 [^1]: This is a footnote.

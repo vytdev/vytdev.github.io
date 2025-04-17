@@ -55,12 +55,12 @@ md.use(mdItAnchor, {
 
 /* For admonitions. */
 md.use(mdContainer, 'hl', {
-    render(tokens, idx) {
+    render: (tokens, idx) => {
       const tok = tokens[idx];
 
       if (tok.nesting === 1) {
         /* ::: hl note Title here! */
-        const type = tok.info.trim().slice(2).trim();
+        const type = tok.info.trim().slice('hl'.length).trim();
         let cls = type.match(/[^\s]+/)?.[0] || 'note';
         let title = type.slice(cls.length).trim();
         cls = cls.toLowerCase();
@@ -71,12 +71,62 @@ md.use(mdContainer, 'hl', {
 
         /* Ensure sanity... */
         cls = md.utils.escapeHtml(cls);
-        title = md.utils.escapeHtml(title);
+        title = md.renderInline(title);
 
         return `<div class="admonition ${cls}">\n` +
           `<p class="admonition-title">${title}</p>\n`;
       }
       return '</div>\n';
+    },
+  });
+
+/* For spoilers. */
+md.use(mdContainer, 'spoiler', {
+    validate: (params) => {
+      return /^spoiler(?:-opened)?\s+/.test(params.trim());
+    },
+    render: (tokens, idx) => {
+      const tok = tokens[idx];
+
+      if (tok.nesting === 1) {
+        /* ::: spoiler Title here!
+           OR
+           ::: spoiler-opened Title here! */
+        let data = tok.info.trim().slice('spoiler'.length);
+
+        /* Whether the spoiler is initially opened. */
+        let isOpen = false;
+        if (data.startsWith('-opened')) {
+          data = data.slice('-opened'.length);
+          isOpen = true;
+        }
+
+        /* Get the title. */
+        data = data.trimStart();
+        const title = md.renderInline(data);
+
+        return `<details${isOpen ? ' open' : ''}>\n` +
+          `<summary>${title}</summary>\n`;
+      }
+      return `</details>\n`;
+    },
+  });
+
+/* For collapsible sections. */
+md.use(mdContainer, 'section', {
+    render: (tokens, idx) => {
+      const tok = tokens[idx];
+
+      if (tok.nesting === 1) {
+        /* ::: section Title here */
+        const title = md.renderInline(tok.info
+            .trim().slice('section'.length).trimStart());
+
+        return '<div class="section yescript"><div class="section-title"\n' +
+          '  onclick="this.parentElement.toggleAttribute(\'data-open\')">\n' +
+          `${title}\n</div><div class="section-content">\n`;
+      }
+      return `</div></div>\n`;
     }
   });
 
@@ -91,6 +141,13 @@ md.renderer.rules.table_close = function(tokens, idx, options, env, self) {
   return self.renderToken(tokens, idx, options) +
     '\n</div>';
 };
+
+/* Rules to customise footnotes. */
+md.renderer.rules.footnote_block_open = () =>
+  '<div class="footnotes">\n<ol class="footnotes-list">\n';
+
+md.renderer.rules.footnote_block_close = () =>
+  '</ol></div>\n';
 
 
 /* Replace links: *.md -> *.html ; and

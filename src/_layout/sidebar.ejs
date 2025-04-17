@@ -1,6 +1,13 @@
 <% if (!doc.navHidden) { %>
 <div class="sidebar">
 
+<label for="theme">Theme</label>
+<select id="theme" name="theme">
+  <option value="auto">Auto</option>
+  <option value="light">Light</option>
+  <option value="dark">Dark</option>
+</select>
+
 <p><b><%= doc.title %></b>
   <%= doc.about %></p>
 
@@ -13,8 +20,39 @@
 <% } %>
 </p>
 
+
+<% if (!doc.noToc) { %>
 <h2>In this page</h2>
 <%- htmlToc %>
+<% } %>
+
+
+<h2>Utility links</h2>
+
+  <% if (doc.prevPage) { %>
+  <a href="<%= url(doc.prevPage) %>" class="xtra-links">Previous page</a>
+  <% } %>
+
+  <% if (doc.nextPage) { %>
+  <a href="<%= url(doc.nextPage) %>" class="xtra-links">Next page</a>
+  <% } %>
+
+  <a href="https://github.com/vytdev/vytdev.github.io/edit/master/src/<%=
+     doc.srcPath %>" target="_blank" class="xtra-links">Edit this page</a>
+  <a href="https://github.com/vytdev/vytdev.github.io/blob/master/src/<%=
+     doc.srcPath %>" target="_blank" class="xtra-links">View source</a>
+
+
+<h2>Contributors</h2>
+
+  <% for (const name of doc.authors) { %>
+  <a class="author-name" href="https://github.com/<%= name %>"
+      target="_blank">
+  <img width="30px" height="30px" alt="avatar"
+       src="https://avatars.githubusercontent.com/<%= name %>" />
+  <%= name %>
+  </a>
+  <% } %>
 
 </div>
 <% } %>

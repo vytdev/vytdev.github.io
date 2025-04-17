@@ -75,6 +75,8 @@ function procDocOpts(meta) {
     hide_nav:    false,
     abs_paths:   false,
     dont_index:  false,
+    no_toc:      false,
+    no_breadcrumbs:  false,
   };
 
   if (!meta)
@@ -89,13 +91,19 @@ function procDocOpts(meta) {
   setIfType('title',       'string');
   setIfType('about',       'string');
   setIfType('thumbnail',   'string');
-  setIfType('prev_page',   'string');
-  setIfType('next_page',   'string');
   /* Extra options. */
   setIfType('layout',      'string');
   setIfType('hide_nav',    'boolean');
   setIfType('abs_paths',   'boolean');
   setIfType('dont_index',  'boolean');
+  setIfType('no_toc',      'boolean');
+  setIfType('no_breadcrumbs',  'boolean');
+
+  /* Prev and next page. */
+  if (typeof meta.prev_page == 'string')
+    result.prev_page = meta.prev_page.replace(/\.md$/g, '.html');
+  if (typeof meta.next_page == 'string')
+    result.next_page = meta.next_page.replace(/\.md$/g, '.html');
 
   /* Publication time, in YYYY-MM-DD. */
   if (typeof meta.published == 'string' && util.isValidDateFmt(meta.published))
@@ -133,6 +141,44 @@ function getUidForDoc(name) {
   name = name.replace(/^\//, '');  /* Leading slashes. */
   name = name.replace(/\/$/, '');  /* Trailing slashes. */
   return util.encBase62(util.strFnv1a(name));
+}
+
+
+/**
+ * Generate breadcrumbs HTML for path.
+ * @param filePath The path to process.
+ * @param isIndex Whether the path is an index page.
+ * @returns The generated HTML.
+ */
+function genBreadcrumbs(filePath, isIndex) {
+  const parts = filePath.split(path.sep);
+  const len = parts.length + (isIndex ? -1 : 0);
+  parts.unshift('.'); /* The root. */
+
+  /* Current anchor link. */
+  let currPath = path.relative(path.dirname(filePath), '.');
+  let html = '<div class="breadcrumbs">\n';
+
+  for (let i = 0; i < len; i++) {
+    const name = parts[i];
+    const displayName = i == 0 ? 'Hub'
+        : name.charAt(0).toUpperCase() + name.slice(1);
+
+    /* Process the next path. */
+    currPath = path.join(currPath, name);
+    const thisPath = path.join(currPath, 'index.html');
+
+    /* We need a separator. */
+    if (i != 0)
+      html += '<span class="breadcrumbs-sep"> &gt; </span>\n';
+
+    /* Add the html. */
+    html += '<a class="breadcrumbs-path"'
+         +  ' href="' + md.mdInstance.utils.escapeHtml(thisPath) + '">'
+         +  md.mdInstance.utils.escapeHtml(displayName) + '</a>\n';
+  }
+
+  return html + '</div>\n';
 }
 
 
@@ -182,12 +228,15 @@ function renderMarkdownDocument(mdPath) {
     navHidden:    opts.hide_nav,
     isPathIndep:  opts.abs_paths,
     notIndexed:   opts.dont_index,
+    noToc:        opts.no_toc,
+    noBreadcrumbs:  opts.no_breadcrumbs,
   };
 
   const data = {
     sourceName:   mdPath,
     htmlContent:  mdAsHTML,
     htmlToc:      tocHTML,
+    htmlBreadcrumbs:  genBreadcrumbs(mdPath, docCtx.isIndex),
     doc:          docCtx,
     config:       config,
   };

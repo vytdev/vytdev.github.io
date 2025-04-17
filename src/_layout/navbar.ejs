@@ -2,7 +2,7 @@
 
   <% if (!doc.navHidden) { %>
   <input type="checkbox" id="sidebar-toggle" />
-  <label for="sidebar-toggle"><span></span></label>
+  <label class="yescript" for="sidebar-toggle"><span></span></label>
   <% } %>
 
   <a href="https://<%= config.SITE_ADDRESS %>">
@@ -11,5 +11,7 @@
   </a>
 
   <p>VYT Hub</p>
+
+  <%- include('searchbar') %>
 
 </div>

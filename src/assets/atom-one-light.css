@@ -18,77 +18,77 @@ hue-6-2: #c18401
 
 */
 
-.hljs {
+.theme-light .hljs {
   color: #383a42;
   background: #fafafa;
 }
 
-.hljs-comment,
-.hljs-quote {
+.theme-light .hljs-comment,
+.theme-light .hljs-quote {
   color: #a0a1a7;
   font-style: italic;
 }
 
-.hljs-doctag,
-.hljs-keyword,
-.hljs-formula {
+.theme-light .hljs-doctag,
+.theme-light .hljs-keyword,
+.theme-light .hljs-formula {
   color: #a626a4;
 }
 
-.hljs-section,
-.hljs-name,
-.hljs-selector-tag,
-.hljs-deletion,
-.hljs-subst {
+.theme-light .hljs-section,
+.theme-light .hljs-name,
+.theme-light .hljs-selector-tag,
+.theme-light .hljs-deletion,
+.theme-light .hljs-subst {
   color: #e45649;
 }
 
-.hljs-literal {
+.theme-light .hljs-literal {
   color: #0184bb;
 }
 
-.hljs-string,
-.hljs-regexp,
-.hljs-addition,
-.hljs-attribute,
-.hljs-meta .hljs-string {
+.theme-light .hljs-string,
+.theme-light .hljs-regexp,
+.theme-light .hljs-addition,
+.theme-light .hljs-attribute,
+.theme-light .hljs-meta .hljs-string {
   color: #50a14f;
 }
 
-.hljs-attr,
-.hljs-variable,
-.hljs-template-variable,
-.hljs-type,
-.hljs-selector-class,
-.hljs-selector-attr,
-.hljs-selector-pseudo,
-.hljs-number {
+.theme-light .hljs-attr,
+.theme-light .hljs-variable,
+.theme-light .hljs-template-variable,
+.theme-light .hljs-type,
+.theme-light .hljs-selector-class,
+.theme-light .hljs-selector-attr,
+.theme-light .hljs-selector-pseudo,
+.theme-light .hljs-number {
   color: #986801;
 }
 
-.hljs-symbol,
-.hljs-bullet,
-.hljs-link,
-.hljs-meta,
-.hljs-selector-id,
-.hljs-title {
+.theme-light .hljs-symbol,
+.theme-light .hljs-bullet,
+.theme-light .hljs-link,
+.theme-light .hljs-meta,
+.theme-light .hljs-selector-id,
+.theme-light .hljs-title {
   color: #4078f2;
 }
 
-.hljs-built_in,
-.hljs-title.class_,
-.hljs-class .hljs-title {
+.theme-light .hljs-built_in,
+.theme-light .hljs-title.class_,
+.theme-light .hljs-class .hljs-title {
   color: #c18401;
 }
 
-.hljs-emphasis {
+.theme-light .hljs-emphasis {
   font-style: italic;
 }
 
-.hljs-strong {
+.theme-light .hljs-strong {
   font-weight: bold;
 }
 
-.hljs-link {
+.theme-light .hljs-link {
   text-decoration: underline;
 }
