@@ -4,6 +4,7 @@
 <meta name="revised" content="<%= doc.updated %>" />
 <meta name="author" content="<%= doc.authors.join(', ') %>" />
 
+<% if (!doc.notIndexed) { %>
 <!-- open graph -->
 <meta property="og:title" content="<%= doc.title %>" />
 <meta property="og:description" content="<%= doc.about %>" />
@@ -23,11 +24,12 @@
 <meta name="keywords" content="<%= doc.tags.join(', ') %>" />
 <link rel="canonical" href="<%= doc.canonical %>" />
 <link rel="EditURI" href="https://github.com/vytdev/vytdev.github.io/edit/master/src/<%= doc.srcPath %>" />
-
+<% } %>
 
 <% if (doc.prevPage) { %><link rel="prev" href="<%= doc.prevPage %>" /><% } %>
 <% if (doc.nextPage) { %><link rel="next" href="<%= doc.nextPage %>" /><% } %>
 
+<% if (!doc.notIndexed) { %>
 <script type="application/json+ld">
 <%- JSON.stringify({
   "@context": "https://schema.org/",
@@ -52,6 +54,7 @@
   },
 }) %>
 </script>
+<% } %>
 
 <!-- page information -->
 <script type="text/javascript">

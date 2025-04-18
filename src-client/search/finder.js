@@ -29,59 +29,6 @@ function bm25FillDefaults(params) {
 
 
 /**
- * Compute for the length normalization factors for
- * each document in the BM25 index 'indx'.
- * @param indx The BM25 index to process.
- * @param [p] BM25 parameters. (k1, b)
- * @returns A {docRef:normFactor} pairs for index 'indx'.
- */
-function bm25NormFactors(indx, p = bm25Defs) {
-  const result = Object.create(null);
-  for (const [ docRef, docLen ] of Object.entries(indx.docLengths))
-    result[docRef] = p.k1 * (1 - p.b + p.b * (docLen / indx.avgDocLen));
-  return result;
-}
-
-
-/**
- * Compute the BM25 scores for term 'query'.
- * @param query The query term index.
- * @param indx The BM25 index where to search.
- * @param out A {docRef:score} pairs.
- * @param fieldW Weight to give for the field.
- * @param normFactors Doc length normalization factors.
- * @param [qBoost] Term query boost.
- * @param [p] BM25 parameters. (k1, delta)
- */
-function bm25QueryTerm(query, indx, out, fieldW, normFactors,
-                       qBoost = 1, p = bm25Defs)
-{
-  if (!(query in indx.termFreqs))
-    return;
-
-  const result = Object.create(null);
-  const docsContainingQuery = indx.termFreqs[query];
-
-  /* Compute for the term's idf. */
-  const idf = Math.log(
-    (searchIndex.totalNumOfDocs - docsContainingQuery.length + 0.5) /
-    (docsContainingQuery.length + 0.5) + 1);
-  const otherFactors = idf * qBoost * fieldW;
-
-  /* Process each document that contains the term. */
-  for (const [ docRef, freqInDoc ] of docsContainingQuery) {
-
-    /* Compute for the normalized term freq component of the document. */
-    const normTF = freqInDoc / (freqInDoc + normFactors[docRef]) * (p.k1 + 1);
-
-    /* BM25 score of the doc for term 'query'. */
-    out[docRef] = (out[docRef] ?? 0) + (normTF + p.delta) * otherFactors;
-  }
-
-}
-
-
-/**
  * Perform a search for 'queries' on 'indx'.
  * @param queries An object containing query terms
  * and query boosts.
@@ -91,31 +38,47 @@ function bm25QueryTerm(query, indx, out, fieldW, normFactors,
  * @param fieldW Weight to give for the field.
  * @param [p] BM25 parameters.
  */
-function bm25QueryOnField(queries, term2ref, out, indx, fieldW, p = bm25Defs) {
-  const normFactors = bm25NormFactors(indx, p);
+function bm25QueryOnField(queries, term2ref, out, indx, fieldW, p = bm25Defs)
+{
+  /* Cached TF normalisation factors. */
+  const normFactors = Object.create(null);
+
   for (const [ tok, qBoost ] of Object.entries(queries)) {
     if (!(tok in term2ref))
       continue;
-    bm25QueryTerm(term2ref[tok], indx, out, fieldW, normFactors, qBoost, p);
+
+    /* Compute the scores of the documents that contains this term. */
+    const query = term2ref[tok];
+    if (!(query in indx.termFreqs))
+      return;
+
+    const docsContainingQuery = indx.termFreqs[query];
+
+    /* Compute for the term's idf. */
+    const idf = Math.log(
+      (searchIndex.totalNumOfDocs - docsContainingQuery.length + 0.5) /
+      (docsContainingQuery.length + 0.5) + 1);
+    const otherFactors = idf * qBoost * fieldW;
+
+    /* Process each document that contains the term. */
+    for (const [ docRef, freqInDoc ] of docsContainingQuery) {
+
+      /* Norm factor not yet computed. */
+      if (!(docRef in normFactors))
+        normFactors[docRef] = p.k1 * (1 - p.b + p.b *
+          (indx.docLengths[docRef] / indx.avgDocLen));
+
+      /* Compute for the normalized term freq component of the document. */
+      const normTF = freqInDoc / (freqInDoc +
+        normFactors[docRef]) * (p.k1 + 1);
+
+      /* BM25 score of the doc for term 'query'. */
+      const docResult = out[docRef] || (out[docRef] = {});
+      docResult.relevance = (docResult.relevance ?? 0) +
+        (normTF + p.delta) * otherFactors;
+    }
+
   }
-}
-
-
-/**
- * Perform a tag index scoring for the documents
- * that contains the tag 'query'.
- * @param query The query tag.
- * @param indx The tag index where to search.
- * @param out Where to output the scores.
- * @param fieldW Weight to give for the field.
- * @param [qBoost] Term query boost.
- */
-function tagNdxQueryTerm(query, indx, out, fieldW, qBoost = 1) {
-  if (!(query in indx))
-    return;
-  const score = fieldW * qBoost;
-  for (const docRef in indx[query])
-    out[docRef] = (out[docRef] ?? 0) + score;
 }
 
 
@@ -127,12 +90,33 @@ function tagNdxQueryTerm(query, indx, out, fieldW, qBoost = 1) {
  * @param out Where to output the scores.
  * @param indx The tag search index.
  * @param fieldW Weight to give for the field.
+ * @param [tagList] The key where to place the found tags.
  */
-function tagNdxQueryOnField(queries, term2ref, out, indx, fieldW) {
+function tagNdxQueryOnField(queries, term2ref, out, indx, fieldW,
+                            tagList = null)
+{
   for (const [ tok, qBoost ] of Object.entries(queries)) {
     if (!(tok in term2ref))
       continue;
-    tagNdxQueryTerm(term2ref[tok], indx, out, fieldW, qBoost);
+
+    const query = term2ref[tok];
+    if (!(query in indx))
+      return;
+
+    /* Score to add per document. */
+    const score = fieldW * qBoost;
+
+    for (const docRef in indx[query]) {
+      const docResult = out[docRef] || (out[docRef] = {});
+      docResult.relevance = (docResult.relevance ?? 0) + score;
+
+      /* List the found tags. */
+      if (tagList) {
+        if (docResult[tagList] instanceof Array)
+          docResult[tagList] = [];
+        docResult[tagList].push(tok);
+      }
+    }
   }
 }
 
@@ -175,16 +159,16 @@ function performSearch(query) {
   const out = Object.create(null);
 
   /* Perform the search for different fields. */
-  bm25QueryOnField     (q, searchIndex.term2ref, out,
-                        searchIndex.title,   config.F_TITLE);
-  bm25QueryOnField     (q, searchIndex.term2ref, out,
-                        searchIndex.about,   config.F_ABOUT);
-  bm25QueryOnField     (q, searchIndex.term2ref, out,
-                        searchIndex.content, config.F_CONTENT);
-  tagNdxQueryOnField   (q, searchIndex.term2ref, out,
-                        searchIndex.tags,    config.F_TAGS);
-  tagNdxQueryOnField   (q, searchIndex.term2ref, out,
-                        searchIndex.authors, config.F_AUTHORS);
+  bm25QueryOnField   (q, searchIndex.term2ref, out,
+                      searchIndex.title,   config.F_TITLE);
+  bm25QueryOnField   (q, searchIndex.term2ref, out,
+                      searchIndex.about,   config.F_ABOUT);
+  bm25QueryOnField   (q, searchIndex.term2ref, out,
+                      searchIndex.content, config.F_CONTENT);
+  tagNdxQueryOnField (q, searchIndex.term2ref, out,
+                      searchIndex.tags,    config.F_TAGS,    'tags');
+  tagNdxQueryOnField (q, searchIndex.term2ref, out,
+                      searchIndex.authors, config.F_AUTHORS, 'authors');
 
   /* We need a doc uid, not an index reference. */
   const remappedOut = Object.create(null);
@@ -198,10 +182,7 @@ function performSearch(query) {
 module.exports = {
   bm25Defs,
   bm25FillDefaults,
-  bm25NormFactors,
-  bm25QueryTerm,
   bm25QueryOnField,
-  tagNdxQueryTerm,
   tagNdxQueryOnField,
   processQuery,
   performSearch,

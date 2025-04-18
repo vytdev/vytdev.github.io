@@ -5,10 +5,26 @@
       <h3>Navigation</h3>
       <a href="<%= url('index.html') %>">Home</a><br/>
       <a href="<%= url('about.html') %>">About</a><br/>
+      <!--
       <a href="<%= url('faqs.html') %>">FAQs</a><br/>
       <a href="<%= url('wiki/index.html') %>">Wikis</a><br/>
       <a href="<%= url('blogs/index.html') %>">Blogs</a><br/>
-      <a href="<%= url('sitemap.html') %>">Sitemap</a><br/>
+      <a href="<%= url('notes/index.html') %>">Notes</a><br/>
+      -->
+    </div>
+
+    <div class="utility-links">
+      <h3>Utility</h3>
+      <% if (doc.prevPage) { %>
+      <a href="<%= url(doc.prevPage) %>">Previous page</a><br/>
+      <% } %>
+      <% if (doc.nextPage) { %>
+      <a href="<%= url(doc.nextPage) %>">Next page</a><br/>
+      <% } %>
+      <a href="https://github.com/vytdev/vytdev.github.io/edit/master/src/<%=
+         doc.srcPath %>" target="_blank">Edit this page</a><br/>
+      <a href="https://github.com/vytdev/vytdev.github.io/blob/master/src/<%=
+         doc.srcPath %>" target="_blank">View source</a><br/>
     </div>
 
     <div class="contact-links">

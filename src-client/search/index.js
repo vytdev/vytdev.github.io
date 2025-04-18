@@ -65,10 +65,10 @@ function query(text) {
   if (!exports.searchIndex || !exports.pageDataIndex)
     return null;
   return Object.entries(finder.performSearch(text))
-    .map(([docRef, score]) => ({
+    .map(([docRef, result]) => ({
       docUid: docRef,
-      relevance: score,
       pageInfo: pageDataIndex[docRef],
+      ...result,
     }));
 }
 

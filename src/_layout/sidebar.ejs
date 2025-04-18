@@ -8,7 +8,7 @@
   <option value="dark">Dark</option>
 </select>
 
-<p><b><%= doc.title %></b>
+<p><b><%= doc.title %></b>.
   <%= doc.about %></p>
 
 <p>Published <%= doc.published %> &bull;
@@ -25,22 +25,6 @@
 <h2>In this page</h2>
 <%- htmlToc %>
 <% } %>
-
-
-<h2>Utility links</h2>
-
-  <% if (doc.prevPage) { %>
-  <a href="<%= url(doc.prevPage) %>" class="xtra-links">Previous page</a>
-  <% } %>
-
-  <% if (doc.nextPage) { %>
-  <a href="<%= url(doc.nextPage) %>" class="xtra-links">Next page</a>
-  <% } %>
-
-  <a href="https://github.com/vytdev/vytdev.github.io/edit/master/src/<%=
-     doc.srcPath %>" target="_blank" class="xtra-links">Edit this page</a>
-  <a href="https://github.com/vytdev/vytdev.github.io/blob/master/src/<%=
-     doc.srcPath %>" target="_blank" class="xtra-links">View source</a>
 
 
 <h2>Contributors</h2>

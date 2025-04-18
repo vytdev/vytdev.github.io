@@ -26,6 +26,14 @@ function createModules(mods) {
       mod.require = reqr.bind(mod);
     });
 
+  /* The global object. */
+  const globalObj =
+    typeof window     !== 'undefined' ? window     :
+    typeof self       !== 'undefined' ? self       :
+    typeof globalThis !== 'undefined' ? globalThis :
+    typeof global     !== 'undefined' ? global     :
+    Object.create(null);
+
   /**
    * Require a module.
    * @param x The module path. Can be relative or absolute.
@@ -45,7 +53,7 @@ function createModules(mods) {
     if (!mod.loaded) {
       mod.loaded = true;
       mod.parent = this?.id ?? null;
-      mod.self(mod.require, mod, mod.exports);
+      mod.self(mod.require, mod, mod.exports, globalObj);
     }
 
     /* Add this module to childrens. */
@@ -141,7 +149,7 @@ function packModules(dir, entry, out) {
 
     /* Module prologue. */
     append(`${JSON.stringify(path.relative(dir, fileName))}:` +
-      'function(require,module,exports){\n');
+      'function(require,module,exports,global){\n');
 
     /* Add the file. */
     if (fileName.endsWith('.js'))

@@ -123,11 +123,16 @@ h6 {
 }
 
 
+
 /* --- Snippets and inline code
  * ------------------------------------------------------------------------- */
 
 code {
   font-family: SourceCodePro;
+  font-size: 90%;
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  border-radius: 2px;
 }
 
 .snippet {
@@ -138,10 +143,7 @@ code {
   border: 1px solid var(--generic-border-color);
   border-radius: 2px;
   padding: 4px;
-}
-
-.snippet pre {
-  margin: 0;
+  white-space: pre;
 }
 
 
@@ -444,6 +446,13 @@ div.admonition.caution {
   contain: layout paint;
 }
 
+.main-view {
+  width: 100%;
+  max-width: 100vw; /* 100% fluid */
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .main-view:not(.no-sidebar) {
   display: flex;
   position: relative;
@@ -497,7 +506,7 @@ div.admonition.caution {
   margin-bottom: 1em;
   flex-grow: 0;
   flex-shrink: 0;
-  flex-basis: 100%;  /* Adjust this to make it responsive. */
+  flex-basis: 100%;  /* Make it responsive. */
   text-align: center;
 }
 
@@ -673,14 +682,16 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 /* --- For responsiveness
  * ------------------------------------------------------------------------- */
 
-/* Default styles are already made for this size range. */
-/*@media (max-width: 480px) {
+/* Extra small. */
+/*@media (max-width: 575px) {
 }*/
 
-/* Larger phones, tablets, etc. */
-@media (min-width: 481px) {
+/* Small. */
+@media (min-width: 576px) {
+  /* Sidebar is still toggle-able. */
+
   .footer > .links > div {
-    flex-basis: 50%;
+    flex-basis: calc(100% / 2);
   }
 
   .footer > .description-grid {
@@ -693,14 +704,18 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   }
 }
 
-/* Larger tablets, laptops, etc. */
-@media (min-width: 769px) {
+/* Medium. */
+@media (min-width: 768px) {
+  .main-view {
+    max-width: 720px; /* <93.75% */
+  }
+
   input#sidebar-toggle, label[for=sidebar-toggle] {
     display: none;
   }
 
   .main-view:not(.no-sidebar) {
-    left: 0;
+    left: 0 !important; /* Prevent js from overriding. */
   }
 
   .main-view:not(.no-sidebar) > .sidebar {
@@ -717,9 +732,27 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   }
 }
 
-/* Desktop, TVs, and any other larger screens. */
-@media (min-width: 1281px) {
+/* Large. */
+@media (min-width: 992px) {
+  .main-view {
+    max-width: 930px; /* <93.75% */
+  }
+}
+
+/* Extra large. */
+@media (min-width: 1280px) {
+  .main-view {
+    max-width: 1152px; /* <90% */
+  }
+
   .footer > .links > div {
-    flex-basis: 25%;
+    flex-basis: calc(100% / 4);
+  }
+}
+
+/* Double extra large. */
+@media (min-width: 1440px) {
+  .main-view {
+    max-width: 1260px; /* <87.5% */
   }
 }

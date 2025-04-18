@@ -10,7 +10,6 @@ const md = require('markdown-it')({
     html:         true,
     linkify:      true,
     typographer:  true,
-    langPrefix:   "lang-",
     highlight:    mdHighlightFunc,
   });
 let currEnv = null;
@@ -153,51 +152,49 @@ md.renderer.rules.footnote_block_close = () =>
 /* Replace links: *.md -> *.html ; and
  * Use _blank target for external links. */
 md.renderer.rules.link_open = function(tokens, idx, options, env, self) {
-  const tok = tokens[idx];
-  const attr = tok.attrs.find(attr => attr[0] === 'href');
-  const href = attr[1].trim();
-  const isRelativePath =
-      /^\/[^\/]*/.test(href) ||
-      href.startsWith('./') ||
-      href.startsWith('../');
-  const isRelative =
-      isRelativePath ||
-      href.startsWith('#') ||
-      href.startsWith('?');
+    const tok = tokens[idx];
+    const attr = tok.attrs.find(attr => attr[0] === 'href');
+    const href = attr[1].trim();
+    const isRelativePath =
+        /^\/[^\/]*/.test(href) ||
+        href.startsWith('./') ||
+        href.startsWith('../');
+    const isRelative =
+        isRelativePath ||
+        href.startsWith('#') ||
+        href.startsWith('?');
 
-  /* Check if it is a local link. */
-  if (isRelativePath) {
+    /* Check if it is a local link. */
+    if (isRelativePath) {
 
-    /* Determine what index to split. */
-    const sepIdx = Math.min(
-      href.indexOf('?') >>> 0,
-      href.indexOf('#') >>> 0);
-    const INV = -1 >>> 0;
+      /* Determine what index to split. */
+      const sepIdx = Math.min(
+        href.indexOf('?') >>> 0,
+        href.indexOf('#') >>> 0);
+      const INV = -1 >>> 0;
 
-    const pathPart = sepIdx != INV ? href.slice(0, sepIdx) : href;
-    const extrPart = sepIdx != INV ? href.slice(sepIdx)    : '';
+      const pathPart = sepIdx != INV ? href.slice(0, sepIdx) : href;
+      const extrPart = sepIdx != INV ? href.slice(sepIdx)    : '';
 
-    if (pathPart.endsWith('.md'))
-      attr[1] = pathPart.slice(0, -2) + 'html' + extrPart;
-  }
+      if (pathPart.endsWith('.md'))
+        attr[1] = pathPart.slice(0, -2) + 'html' + extrPart;
+    }
 
-  /* External links. */
-  if (!isRelative)
-    tok.attrs.push([ 'target', '_blank' ]);
+    /* External links. */
+    if (!isRelative)
+      tok.attrs.push([ 'target', '_blank' ]);
 
-  return self.renderToken(tokens, idx, options);
-};
+    return self.renderToken(tokens, idx, options);
+  };
 
+/* Custom code renderer. */
+md.renderer.rules.fence = function(tokens, idx, options, env, self) {
+    const tok = tokens[idx];
+    const lang = tok.info.trim();
+    const codeHtml = mdHighlightFunc(tok.content, lang);
+    return `<div class="snippet hljs lang-${lang}">${codeHtml}</div>`;
+  };
 
-/**
- * Wraps a fenced code block output.
- * @param str The code block html string.
- * @returns The wrapped string.
- */
-function wrapCodeBlock(str) {
-  return '<div class="hljs snippet"><pre><code>' +
-    str + '</code></pre></div>';
-}
 
 /**
  * Function for markdown fenced-code block highlighting.
@@ -213,10 +210,10 @@ function mdHighlightFunc(str, lang) {
         language: lang,
         ignoreIllegals: true,
       }).value;
-    return wrapCodeBlock(result);
+    return result;
   }
   catch (__) {}
-  return wrapCodeBlock(md.utils.escapeHtml(str));
+  return md.utils.escapeHtml(str);
 }
 
 /**
@@ -273,12 +270,19 @@ function genTableOfCont(src) {
 /**
  * Generate table of contents html.
  * @param toc The table of contents object.
+ * @param [maxLvl] The maximum nest level to process.
  * @returns The html string.
  */
-function genTocHTML(toc) {
+function genTocHTML(toc, maxLvl = 2) {
 
   /* Wrapper function to generate each level. */
   function genLvl(toc, lvl) {
+    if (lvl > maxLvl) {
+      while (toc[0] && toc[0].level > maxLvl)
+        toc.shift();
+      return '';
+    }
+
     let outStr = '<div class="toc-list">\n';
     let curr = toc.shift();
 
@@ -305,7 +309,6 @@ function genTocHTML(toc) {
 
 module.exports = {
   mdInstance: md,
-  wrapCodeBlock,
   mdHighlightFunc,
   slugify,
   renderMarkdown,
