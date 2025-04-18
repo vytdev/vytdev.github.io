@@ -1,11 +1,21 @@
 const path = require('path');
 const fs = require('fs');
-const ejs = require('ejs');
+const nunjucks = require('nunjucks');
 const config = require('../config.js');
 const page = require('./page.js');
 const jspack = require('./jspack.js');
 const search = require('./search.js');
 const util = require('./util.js');
+const filters = require('./filters.js');
+
+
+const njkEnv = new nunjucks.Environment(
+  new nunjucks.FileSystemLoader(config.SRC_DIR,
+    { noCache: true, watch: true }),
+  { autoescape: true });
+exports.njkEnv = njkEnv;
+
+filters.mixInFilters(njkEnv);
 
 
 const print = (...args) => util.log('[gen]', ...args);
@@ -60,7 +70,7 @@ function emitSource(relPath) {
   }
 
   /* Skip template files. */
-  if (relPath.endsWith('.ejs'))
+  if (relPath.endsWith('.njk'))
     return;
 
   /* Markdown docs. */
@@ -141,10 +151,8 @@ function emitSitemap() {
       urlLocation: v.pageInfo.canonical,
     }))
   };
-  const pathName = path.join(config.SRC_DIR, config.SITEMAP_FILE + '.ejs');
-  const result = ejs.render(
-      fs.readFileSync(pathName, 'utf8'),
-      data, { filename: pathName });
+  const pathName = path.join(config.SRC_DIR, config.SITEMAP_FILE + '.njk');
+  const result = njkEnv.render(pathName, data);
   writeToOutDir(config.SITEMAP_FILE, result);
   print('generated sitemap');
 }
@@ -162,6 +170,7 @@ function emitDynamicFiles() {
 
 
 module.exports = {
+  njkEnv,
   writeToOutDir,
   emitAll,
   emitSource,

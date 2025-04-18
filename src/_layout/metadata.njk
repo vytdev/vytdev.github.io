@@ -1,0 +1,42 @@
+<!-- metadata -->
+<title>{{ doc.title }}</title>
+<meta name="description" content="{{ doc.about }}" />
+<meta name="revised" content="{{ doc.updated }}" />
+<meta name="author" content="{{ doc.authors.join(', ') }}" />
+
+{% if not doc.notIndexed %}
+<!-- open graph -->
+<meta property="og:title" content="{{ doc.title }}" />
+<meta property="og:description" content="{{ doc.about }}" />
+<meta property="og:url" content="{{ doc.canonical }}" />
+<meta property="og:site_name" content="VYT Hub" />
+<meta property="og:type" content="website" />
+<meta name="og:locale" content="en_US" />
+
+<!-- twitter -->
+<meta property="twitter:title" content="{{ doc.title }}" />
+<meta name="twitter:card" content="summary" />
+
+<!-- google and other seo -->
+<meta name="language" content="en" />
+<meta name="robots" content="index,follow" />
+<meta name="generator" content="VYT Hub Static Generator" />
+<meta name="keywords" content="{{ doc.tags.join(', ') }}" />
+<link rel="canonical" href="{{ doc.canonical }}" />
+<link rel="EditURI" href="https://github.com/vytdev/vytdev.github.io/edit/master/src/{{ doc.srcPath }}" />
+{% endif %}
+
+{% if doc.prevPage %}<link rel="prev" href="{{ doc.prevPage }}" />{% endif %}
+{% if doc.nextPage %}<link rel="next" href="{{ doc.nextPage }}" />{% endif %}
+
+{% if not doc.notIndexed %}
+<script type="application/json+ld">
+{{ jsonLdSeo | safe }}
+</script>
+{% endif %}
+
+<!-- page information -->
+<script type="text/javascript">
+var pageInfo = {{ doc | json_stringify }}
+</script>
+

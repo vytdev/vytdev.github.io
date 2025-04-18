@@ -7,23 +7,29 @@ const filters = {};
  * templates.
  */
 filters['url'] = function(pathName) {
-  if (this.doc.isPathIndep)
+  if (this.ctx.doc.isPathIndep)
     return '/' + path.normalize(pathName);
-  return './' + path.relative(path.dirname(this.sourceName), pathName);
-}
+  return './' + path.relative(path.dirname(this.ctx.sourceName), pathName);
+};
+
+
+/**
+ * Filter for serializing JSON objects.
+ */
+filters['json_stringify'] = function(obj) {
+  return JSON.stringify(obj);
+};
 
 
 /**
  * Add filters to the data scope.
- * @param data The data.
+ * @param env The nunjucks env.
  */
-function mixInFilters(data) {
+function mixInFilters(env) {
   for (const k of Object.keys(filters)) {
     if (typeof filters[k] != 'function')
       continue;
-    if (typeof data[k] != 'undefined')
-      continue;
-    data[k] = filters[k].bind(data);
+    env.addFilter(k, filters[k]);
   }
 }
 

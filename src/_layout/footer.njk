@@ -3,28 +3,28 @@
 
     <div class="navigation-links">
       <h3>Navigation</h3>
-      <a href="<%= url('index.html') %>">Home</a><br/>
-      <a href="<%= url('about.html') %>">About</a><br/>
+      <a href="{{ 'index.html' | url }}">Home</a><br/>
+      <a href="{{ 'about.html' | url }}">About</a><br/>
       <!--
-      <a href="<%= url('faqs.html') %>">FAQs</a><br/>
-      <a href="<%= url('wiki/index.html') %>">Wikis</a><br/>
-      <a href="<%= url('blogs/index.html') %>">Blogs</a><br/>
-      <a href="<%= url('notes/index.html') %>">Notes</a><br/>
+      <a href="{{ 'faqs.html' | url }}">FAQs</a><br/>
+      <a href="{{ 'wiki/index.html' | url }}">Wikis</a><br/>
+      <a href="{{ 'blogs/index.html' | url }}">Blogs</a><br/>
+      <a href="{{ 'notes/index.html' | url }}">Notes</a><br/>
       -->
     </div>
 
     <div class="utility-links">
       <h3>Utility</h3>
-      <% if (doc.prevPage) { %>
-      <a href="<%= url(doc.prevPage) %>">Previous page</a><br/>
-      <% } %>
-      <% if (doc.nextPage) { %>
-      <a href="<%= url(doc.nextPage) %>">Next page</a><br/>
-      <% } %>
-      <a href="https://github.com/vytdev/vytdev.github.io/edit/master/src/<%=
-         doc.srcPath %>" target="_blank">Edit this page</a><br/>
-      <a href="https://github.com/vytdev/vytdev.github.io/blob/master/src/<%=
-         doc.srcPath %>" target="_blank">View source</a><br/>
+      {% if doc.prevPage %}
+      <a href="{{ doc.prevPage | url }}">Previous page</a><br/>
+      {% endif %}
+      {% if doc.nextPage %}
+      <a href="{{ doc.nextPage | url }}">Next page</a><br/>
+      {% endif %}
+      <a href="https://github.com/vytdev/vytdev.github.io/edit/master/src/{{
+         doc.srcPath }}" target="_blank">Edit this page</a><br/>
+      <a href="https://github.com/vytdev/vytdev.github.io/blob/master/src/{{
+         doc.srcPath }}" target="_blank">View source</a><br/>
     </div>
 
     <div class="contact-links">
@@ -32,23 +32,23 @@
       <a target="_blank" href="https://github.com/vytdev">GitHub</a><br/>
       <a target="_blank" href="https://www.facebook.com/vytdev">
          Facebook</a><br/>
-      <a target="_blank" href="<%= url('contact.html') %>">E-mail</a><br/>
+      <a target="_blank" href="{{ 'contact.html' | url }}">E-mail</a><br/>
     </div>
 
     <div class="legal-links">
       <h3>Legal</h3>
-      <a href="<%= url('license.html') %>">License</a><br/>
-      <a href="<%= url('disclaimer.html') %>">Disclaimer</a><br/>
-      <a href="<%= url('privacy.html') %>">Privacy Policy</a><br/>
-      <a href="<%= url('terms.html') %>">Terms of Use</a><br/>
-      <a href="<%= url('cookie.html') %>">Cookie Statement</a><br/>
+      <a href="{{ 'license.html' | url }}">License</a><br/>
+      <a href="{{ 'disclaimer.html' | url }}">Disclaimer</a><br/>
+      <a href="{{ 'privacy.html' | url }}">Privacy Policy</a><br/>
+      <a href="{{ 'terms.html' | url }}">Terms of Use</a><br/>
+      <a href="{{ 'cookie.html' | url }}">Cookie Statement</a><br/>
     </div>
 
   </div>
   <div class="description-grid">
     <div class="brand-div">
       <img alt="logo" type="text/svg+xml" width="96px" height="96px"
-           src="<%= url('assets/logo.svg') %>" />
+           src="{{ 'assets/logo.svg' | url }}" />
       <h1>VYT Hub</h1>
       <p><em>A personal knowledge hub.</em></p>
     </div>

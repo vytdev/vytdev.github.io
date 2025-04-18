@@ -22,8 +22,7 @@
   },
   "homepage": "https://github.com/vytdev/vytdev.github.io#readme",
   "dependencies": {
-    "chokidar": "^4.0.3",
-    "ejs": "^3.1.10",
+    "chokidar": "^3.6.0",
     "express": "^5.1.0",
     "gh-pages": "^6.3.0",
     "highlight.js": "^11.11.1",
@@ -42,6 +41,7 @@
     "markdown-it-sup": "^2.0.0",
     "markdown-it-task-lists": "^2.1.1",
     "markdown-it-texmath": "^1.0.0",
-    "mri": "^1.2.0"
+    "mri": "^1.2.0",
+    "nunjucks": "^3.2.4"
   }
 }

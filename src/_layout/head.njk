@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<%= url('assets/main.js') %>"></script>
+<script type="text/javascript" src="{{ 'assets/main.js' | url }}"></script>
 
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -7,8 +7,8 @@
    content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
 <meta name="theme-color" content="#ffffff" />
 
-<%- include('metadata') %>
+{%- include '_layout/metadata.njk' %}
 
-<%- include('resources') %>
+{%- include '_layout/resources.njk' %}
 
-<%- include('3rd-party') %>
+{%- include '_layout/3rd-party.njk' %}

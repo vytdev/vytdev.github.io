@@ -1,17 +1,17 @@
 <div class="navbar">
 
-  <% if (!doc.navHidden) { %>
+  {% if not doc.navHidden %}
   <input type="checkbox" id="sidebar-toggle" />
   <label class="yescript" for="sidebar-toggle"><span></span></label>
-  <% } %>
+  {% endif %}
 
-  <a href="https://<%= config.SITE_ADDRESS %>">
+  <a href="https://{{ config.SITE_ADDRESS }}">
     <img alt="logo" type="image/svg+xml" width="25" height="25"
-         src="<%= url('assets/logo.svg') %>" />
+         src="{{ 'assets/logo.svg' | url }}" />
   </a>
 
   <p>VYT Hub</p>
 
-  <%- include('searchbar') %>
+  {%- include '_layout/searchbar.njk' %}
 
 </div>

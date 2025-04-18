@@ -1,11 +1,10 @@
 const fs = require('fs');
 const path = require('path');
-const ejs = require('ejs');
 const config = require('../config.js');
 const util = require('./util.js');
 const md = require('./markdown.js');
-const filters = require('./filters.js');
 const search = require('./search.js');
+const pipeline = require('./pipeline.js');
 
 
 /**
@@ -15,11 +14,9 @@ const search = require('./search.js');
  * @returns The rendered html raw string.
  */
 function renderHTML(templ, data) {
-  if (!templ.endsWith('.ejs'))
+  if (!templ.endsWith('.njk'))
     return null;
-  const pathName = path.join(config.SRC_DIR, templ);
-  const content = fs.readFileSync(pathName, 'utf8');
-  return ejs.render(content, data, { filename: pathName });
+  return pipeline.njkEnv.render(templ, data);
 }
 
 
@@ -30,22 +27,22 @@ function renderHTML(templ, data) {
  * @returns The template path.
  */
 function locateTemplateForDoc(mdPath, prefer) {
-  let curr = mdPath + '.ejs';
+  let curr = mdPath + '.njk';
 
   if (typeof prefer == 'string' && prefer != 'auto')
-    if (util.isNormFile(path.join(config.SRC_DIR, prefer + '.ejs')))
-      return prefer + '.ejs';
+    if (util.isNormFile(path.join(config.SRC_DIR, prefer + '.njk')))
+      return prefer + '.njk';
 
-  /* If we have 'dir1/doc1.md', check for 'dir1/doc1.md.ejs' */
+  /* If we have 'dir1/doc1.md', check for 'dir1/doc1.md.njk' */
   if (util.isNormFile(path.join(config.SRC_DIR, curr)))
     return curr;
 
-  /* Look for 'index.ejs' up to the root of src folder. */
+  /* Look for 'index.njk' up to the root of src folder. */
   while (curr != '.' || curr != '/') {
     curr = path.dirname(curr);
-    const indexTmplPath = path.join(curr, 'index.ejs');
+    const indexTmplPath = path.join(curr, 'index.njk');
 
-    /* index.ejs found! */
+    /* index.njk found! */
     if (util.isNormFile(path.join(config.SRC_DIR, indexTmplPath)))
       return indexTmplPath;
   }
@@ -182,6 +179,32 @@ function genBreadcrumbs(filePath, isIndex) {
 }
 
 
+function genJsonLdSeo(doc) {
+  return JSON.stringify({
+    "@context": "https://schema.org/",
+    "@type": doc.path == 'index.html' ? 'WebSite' : 'WebPage',
+    "title":          doc.title,
+    "headline":       doc.title,
+    "description":    doc.about,
+    "datePublished":  doc.published,
+    "dateModified":   doc.updated,
+    "image":          doc.thumbnail || undefined,
+    "keywords":       doc.tags.join(', '),
+    "author": doc.authors.map(v => ({
+      "@type": "Person",
+      "name": v,
+      "sameAs": `https://github.com/${v}`,
+    })),
+    "publisher": {
+      "@type": "Organization",
+      "name": "VYT Hub",
+      "url": `https://${config.SITE_ADDRESS}`,
+      "logo": `https://${config.SITE_ADDRESS}/assets/img/icon-1024x1024.png`,
+    },
+  });
+}
+
+
 /**
  * Render a markdown document.
  * @param mdPath The markdown path.
@@ -237,12 +260,10 @@ function renderMarkdownDocument(mdPath) {
     htmlContent:  mdAsHTML,
     htmlToc:      tocHTML,
     htmlBreadcrumbs:  genBreadcrumbs(mdPath, docCtx.isIndex),
+    jsonLdSeo:    genJsonLdSeo(docCtx),
     doc:          docCtx,
     config:       config,
   };
-
-  /* Include some filters. */
-  filters.mixInFilters(data);
 
   /* Put into a template. */
   const finalHTML =
