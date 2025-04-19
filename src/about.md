@@ -8,6 +8,12 @@ updated: '2025-04-18'
 
 # About Me
 
+Hi! I'm Vincent Yanzee J. Tan, 15 years old and endlessly curious. Welcome
+to **VYT Hub** — my personal knowledge space!
+
+Here, I’ll share my ideas, write documentation, maybe run a blog, and even
+build a mini-encyclopedia (kind of like my own Wikipedia).
+
 If you're wondering about the informal tone &mdash; well, it's a personal
 site. Who still talks *that* formal these days anyway? That said, I’ll keep
 things casual but not careless. My goal’s to be engaging, not distracting.

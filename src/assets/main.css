@@ -293,6 +293,18 @@ dd {
   color: var(--generic-color);
 }
 
+.key-tag {
+  display: inline-block;
+  height: 20px;
+  text-align: center;
+  font-size: 10px;
+  padding: 3px;
+  margin: 1px;
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  border-radius: 20px;
+}
+
 .toc-item {
   margin-left: 1.5em;
   padding-left: 0;
@@ -675,6 +687,53 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 
 .search:hover, .search:hover label {
   border-width: 2px;
+}
+
+#search-state {
+  color: #888;
+}
+
+.search-item {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  margin: 0;
+  margin-top: 3px;
+  background-color: var(--transparent-color);
+  color: var(--generic-color);
+}
+
+.search-item:hover {
+  text-decoration: none;
+}
+
+.search-item:hover > .search-item-title {
+  text-decoration: underline;
+}
+
+.search-item > * {
+  margin: 0;
+}
+
+.search-item > .search-item-title {
+  font-size: 140%;
+  font-weight: bolder;
+}
+
+.search-item > .search-item-path {
+  margin-top: 8px;
+  font-size: 85%;
+  text-decoration: underline;
+}
+
+.search-item > .search-item-about {
+  margin-top: 2em;
+  font-size: 85%;
+}
+
+.search-item > .search-item-tags {
+  margin-top: 8px;
 }
 
 

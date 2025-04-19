@@ -1,0 +1,9 @@
+{% extends '_layout/base.njk' %}
+
+{# Custom layout here. #}
+{% block content %}
+{{ super() }}
+{% include '_layout/searchbar.njk' %}
+<p id="search-state">Search here...</p>
+<div id="search-result"></div>
+{% endblock %}

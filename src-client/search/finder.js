@@ -50,7 +50,7 @@ function bm25QueryOnField(queries, term2ref, out, indx, fieldW, p = bm25Defs)
     /* Compute the scores of the documents that contains this term. */
     const query = term2ref[tok];
     if (!(query in indx.termFreqs))
-      return;
+      continue;
 
     const docsContainingQuery = indx.termFreqs[query];
 
@@ -101,7 +101,7 @@ function tagNdxQueryOnField(queries, term2ref, out, indx, fieldW,
 
     const query = term2ref[tok];
     if (!(query in indx))
-      return;
+      continue;
 
     /* Score to add per document. */
     const score = fieldW * qBoost;
@@ -112,7 +112,7 @@ function tagNdxQueryOnField(queries, term2ref, out, indx, fieldW,
 
       /* List the found tags. */
       if (tagList) {
-        if (docResult[tagList] instanceof Array)
+        if (!docResult[tagList])
           docResult[tagList] = [];
         docResult[tagList].push(tok);
       }

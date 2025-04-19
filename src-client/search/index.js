@@ -8,7 +8,7 @@ const util = require('../util.js');
  * Load the search index.
  * @returns A Promise which's resolved once the index is loaded.
  */
-function loadIndex() {
+function loadSearchIndex() {
   return util.loadScript(pageInfo.relRoot + config.INDEX_SEARCH)
     .then(() => {
       searchIndex.ref2term = Object.create(null);
@@ -42,17 +42,6 @@ function loadLinkIndex() {
     .then(() => {
       exports.linkIndex = linkIndex;
     })
-}
-
-
-/**
- * Returns the search index.
- * @returns The index or null.
- */
-function getSearchIndex() {
-  if (exports.searchIndex)
-    return searchIndex;
-  return null;
 }
 
 
@@ -97,15 +86,46 @@ function getTagsList() {
 }
 
 
+/**
+ * Sorting functions
+ */
+const sortFuncs = {};
+
+
+/**
+ * Register a sorting function.
+ * @param name The name of the func.
+ * @param fn The sorting function ((a, b) => ...).
+ */
+function registerSortingFunc(name, fn) {
+  sortFuncs[name] = function(arr, rev = false) {
+    const revVal = rev ? -1 : 1;
+    return arr.sort((a, b) => fn(a, b) * revVal);
+  };
+}
+
+
+/* Register some preset sorting funcs. */
+registerSortingFunc('relevance',
+  (a, b) => b.relevance - a.relevance);
+registerSortingFunc('title',
+  (a, b) => a.pageInfo.title < b.pageInfo.title ? -1 : 1);
+registerSortingFunc('published',
+  (a, b) => a.pageInfo.published < b.pageInfo.published ? -1 : 1);
+registerSortingFunc('updated',
+  (a, b) => a.pageInfo.updated < b.pageInfo.updated ? -1 : 1);
+
+
 module.exports = {
   searchIndex:    null,
   pageDataIndex:  null,
   linkIndex:      null,
-  loadIndex,
+  loadSearchIndex,
   loadPageDataIndex,
   loadLinkIndex,
-  getSearchIndex,
   query,
   getAuthorsList,
   getTagsList,
+  sortFuncs,
+  registerSortingFunc,
 };

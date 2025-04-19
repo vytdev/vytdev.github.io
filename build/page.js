@@ -14,7 +14,7 @@ const pipeline = require('./pipeline.js');
  * @returns The rendered html raw string.
  */
 function renderHTML(templ, data) {
-  if (!templ.endsWith('.njk'))
+  if (!templ.endsWith(config.TMPL_SUFFIX))
     return null;
   return pipeline.njkEnv.render(templ, data);
 }
@@ -27,11 +27,12 @@ function renderHTML(templ, data) {
  * @returns The template path.
  */
 function locateTemplateForDoc(mdPath, prefer) {
-  let curr = mdPath + '.njk';
+  let curr = mdPath + config.TMPL_SUFFIX;
 
   if (typeof prefer == 'string' && prefer != 'auto')
-    if (util.isNormFile(path.join(config.SRC_DIR, prefer + '.njk')))
-      return prefer + '.njk';
+    if (util.isNormFile(path.join(config.SRC_DIR, prefer +
+        config.TMPL_SUFFIX)))
+      return prefer + config.TMPL_SUFFIX;
 
   /* If we have 'dir1/doc1.md', check for 'dir1/doc1.md.njk' */
   if (util.isNormFile(path.join(config.SRC_DIR, curr)))
@@ -40,7 +41,7 @@ function locateTemplateForDoc(mdPath, prefer) {
   /* Look for 'index.njk' up to the root of src folder. */
   while (curr != '.' || curr != '/') {
     curr = path.dirname(curr);
-    const indexTmplPath = path.join(curr, 'index.njk');
+    const indexTmplPath = path.join(curr, 'index' + config.TMPL_SUFFIX);
 
     /* index.njk found! */
     if (util.isNormFile(path.join(config.SRC_DIR, indexTmplPath)))
@@ -73,7 +74,8 @@ function procDocOpts(meta) {
     abs_paths:   false,
     dont_index:  false,
     no_toc:      false,
-    no_breadcrumbs:  false,
+    no_trail:    false,
+    no_sbar:     false,
   };
 
   if (!meta)
@@ -94,7 +96,8 @@ function procDocOpts(meta) {
   setIfType('abs_paths',   'boolean');
   setIfType('dont_index',  'boolean');
   setIfType('no_toc',      'boolean');
-  setIfType('no_breadcrumbs',  'boolean');
+  setIfType('no_trail',    'boolean'); /* Breadcrumbs */
+  setIfType('no_sbar',     'boolean'); /* Search bar */
 
   /* Prev and next page. */
   if (typeof meta.prev_page == 'string')
@@ -252,14 +255,16 @@ function renderMarkdownDocument(mdPath) {
     isPathIndep:  opts.abs_paths,
     notIndexed:   opts.dont_index,
     noToc:        opts.no_toc,
-    noBreadcrumbs:  opts.no_breadcrumbs,
+    noBreadcrumbs:  opts.no_trail,
+    noSearchBar:  opts.no_sbar,
   };
 
   const data = {
     sourceName:   mdPath,
     htmlContent:  mdAsHTML,
     htmlToc:      tocHTML,
-    htmlBreadcrumbs:  genBreadcrumbs(mdPath, docCtx.isIndex),
+    htmlBreadcrumbs:  opts.no_trail
+        ? '' : genBreadcrumbs(mdPath, docCtx.isIndex),
     jsonLdSeo:    genJsonLdSeo(docCtx),
     doc:          docCtx,
     config:       config,

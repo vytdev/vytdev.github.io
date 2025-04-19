@@ -1,7 +1,7 @@
 const events = require('./events.js');
 const config = require('./config.js');
-const query = require('./query.js');
 const util = require('./util.js');
+const query = util.query;
 
 
 /**
@@ -9,7 +9,7 @@ const util = require('./util.js');
  */
 events.globalEvents.on('load', () => {
   if (query['h'])
-    util.highlight(query['h'], document.body);
+    util.highlight(query['h'], document.getElementById('main-content'));
 });
 
 

@@ -16,6 +16,7 @@ module.exports = {
   INDEX_LINKS:        'assets/linkIndex.js',
   INDEX_PAGEDATA:     'assets/pageDataIndex.js',
 
+  TMPL_SUFFIX:        '.njk',
   SITEMAP_FILE:       'sitemap.xml',
   NOT_FOUND_PAGE:     '404.html',
   TEST_PORT:          3000,

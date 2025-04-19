@@ -3,14 +3,63 @@
 <!-- Hand-forged with VYT Hub's bespoke site builder. -->
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
-      class="no-js theme-light">
+      class="no-js theme-light"><head>
 
-  <head>
-    {%- include '_layout/head.njk' %}
-  </head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport"
+     content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+  <meta name="theme-color" content="#ffffff" />
 
-  <body>
-    {%- include '_layout/body.njk' %}
+  {# Page info. -#}
+  <script type="text/javascript">
+  var pageInfo = {{ doc | json_stringify | safe }}
+  </script>
+
+  {# Load as early as possible, so we can do some updates
+     before rendering. -#}
+  <script type="text/javascript" src="{{ 'assets/main.js' | url }}"></script>
+
+  {%- include '_layout/metadata.njk' %}
+
+  {%- include '_layout/resources.njk' %}
+
+  {%- include '_layout/3rd-party.njk' %}
+
+</head>
+<body>
+
+  {%- include '_layout/back-to-top.njk' %}
+
+  <div clsss="page-frame">
+
+    {%- include '_layout/navbar.njk' %}
+
+    <div class="view-wrapper">
+      <div class="main-view{{ ' no-sidebar' if doc.navHidden else '' }}">
+
+        {% if not doc.navHidden %}
+        {%- include '_layout/sidebar.njk' %}
+        {% endif %}
+
+        <div class="content">
+          {%- include '_layout/noscript.njk' %}
+          {%- include '_layout/breadcrumbs.njk' %}
+
+          <div id="main-content">
+            {% block content -%}
+            {{ htmlContent | safe }}
+            {%- endblock %}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  {%- include '_layout/footer.njk' %}
+
+
   </body>
-
 </html>

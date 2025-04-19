@@ -1,3 +1,35 @@
+/**
+ * Parse URL queries.
+ * @param url The URL string.
+ * @returns The parse result.
+ */
+function parseUrlQueries(url) {
+  const qIdx = url.indexOf('?');
+  const hIdx = url.indexOf('#');
+
+  /* .../path?q=a&r=b#hash */
+  if (qIdx == -1 || (hIdx > -1 && qIdx > hIdx))
+    return {};
+  const searchPart = url.slice(qIdx, hIdx > -1 ? hIdx : undefined);
+
+  /* Here we parse the query string. */
+  const pairs = searchPart.slice(1).split('&');
+  const result = {};
+
+  const dec = (x) => decodeURIComponent((x || '').replace(/\+/g, ' '));
+  for (let i = 0; i < pairs.length; i++) {
+    const [key, val] = pairs[i].split('=');
+    result[dec(key)] = dec(val);
+  }
+
+  return result;
+}
+
+
+/* Parse the current URL queries. */
+const query = parseUrlQueries(window.location.search);
+
+
 /* Themes (and their media query). */
 const THEMES = {
   auto: 'auto',
@@ -211,7 +243,56 @@ function loadScript(url) {
 }
 
 
+/**
+ * Parse an HTML from text. (not HTMLDocument object)
+ * @param htmlText The HTML text.
+ * @returns The instance of the first root child.
+ */
+function parsePartHTML(htmlText) {
+  const tmp = document.createElement('div');
+  tmp.innerHTML = htmlText;
+  return tmp.firstChild;
+}
+
+
+/**
+ * Parse a full HTML object.
+ * @param htmlText The full HTML.
+ * @returns HTMLDocument object.
+ */
+function parseFullHTML(htmlText) {
+  return new DOMParser().parseFromString(htmlText, 'text/html');
+}
+
+
+/**
+ * Escape HTML from string.
+ * @param text The text.
+ * @returns The escaped HTML.
+ */
+function escapeHTML(text) {
+  return text
+    .replace('&', '&amp;')
+    .replace('<', '&lt;')
+    .replace('>', '&gt;')
+    .replace('"', '&quot;')
+    .replace('\'', '&apos;');
+}
+
+
+/**
+ * Sleep by `n` milliseconds.
+ * @param n The sleep time.
+ * @returns A Promise resolved after the timeout.
+ */
+function asyncSleep(n) {
+  return new Promise(res => setTimeout(res, n));
+}
+
+
 module.exports = {
+  parseUrlQueries,
+  query,
   THEMES,
   changeTheme,
   getCurrTheme,
@@ -220,4 +301,8 @@ module.exports = {
   unHighlight,
   fetchText,
   loadScript,
+  parsePartHTML,
+  parseFullHTML,
+  escapeHTML,
+  asyncSleep,
 };

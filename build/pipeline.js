@@ -70,7 +70,7 @@ function emitSource(relPath) {
   }
 
   /* Skip template files. */
-  if (relPath.endsWith('.njk'))
+  if (relPath.endsWith(config.TMPL_SUFFIX))
     return;
 
   /* Markdown docs. */
@@ -151,7 +151,8 @@ function emitSitemap() {
       urlLocation: v.pageInfo.canonical,
     }))
   };
-  const pathName = path.join(config.SRC_DIR, config.SITEMAP_FILE + '.njk');
+  const pathName = path.join(config.SRC_DIR,
+      config.SITEMAP_FILE + config.TMPL_SUFFIX);
   const result = njkEnv.render(pathName, data);
   writeToOutDir(config.SITEMAP_FILE, result);
   print('generated sitemap');
