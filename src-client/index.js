@@ -13,3 +13,4 @@ util.initTheme();
 
 require('uiHandlers.js');
 require('searchPage.js');
+require('3rd-parties.js');

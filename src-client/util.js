@@ -229,15 +229,31 @@ function fetchText(url) {
 /**
  * Load a script.
  * @param url The url to the script.
+ * @param [extras] Other extra options.
  * @returns A Promise.
  */
-function loadScript(url) {
+function loadScript(url, extras = {}) {
   return new Promise((res, rej) => {
     const sc   = document.createElement('script');
     sc.type    = 'text/javascript';
     sc.src     = url;
-    sc.onload  = () => res();
-    sc.onerror = () => rej();
+    sc.onload  = v => res(v);
+    sc.onerror = v => rej(v);
+    sc.onabort = v => rej(v);
+
+    /* Allow some extra options. */
+    const allowedAttrs = [
+        'async', 'defer', 'integrity', 'crossOrigin',
+        'charset', 'nonce', 'referrerPolicy', 'type'
+      ];
+    for (const k in extras) {
+      if (k.startsWith('data-'))
+        sc.setAttribute(k, extras[k]);
+      else if (allowedAttrs.includes(k))
+        sc[k] = extras[k];
+    }
+
+    /* Load the script. */
     document.head.appendChild(sc);
   });
 }
@@ -290,6 +306,59 @@ function asyncSleep(n) {
 }
 
 
+/**
+ * Possible cookie consent states.
+ */
+const COOKIE_CONSENTS = {
+  accepted: 'accepted',
+  rejected: 'rejected',
+  none: 'none',
+};
+
+
+/**
+ * Get the current cookie consent state.
+ * @returns The consent state.
+ */
+function getCookieConsent() {
+  return localStorage.getItem('cookie-decision') ?? 'none';
+}
+
+
+/**
+ * Set the current cookie state.
+ * @param val The cookie state to set.
+ */
+function setCookieConsent(val) {
+  localStorage.setItem('cookie-decision', val);
+}
+
+
+/**
+ * Load a Google Tag Manager.
+ * @param id The Google Tag Manager tracking ID.
+ * @param [layer] The data layer to use.
+ * @returns Promise that's resolved once GTM's loaded.
+ */
+function loadGTM(id, layer = 'dataLayer') {
+  /* Setup the initial event. */
+  window[layer] = window[layer] || [];
+  window[layer].push({
+      'gtm.start': new Date().getTime(),
+      event: 'gtm.js',
+    });
+
+  /* Build the script URL. */
+  let url = `https://www.googletagmanager.com/gtm.js?id=${id}`;
+
+  if (layer !== 'dataLayer')
+    url += `&l=${layer}`;
+
+  /* Load. */
+  return loadScript(url, { async: true });
+}
+
+
 exports = module.exports = {
   parseUrlQueries,
   query,
@@ -305,4 +374,8 @@ exports = module.exports = {
   parseFullHTML,
   escapeHTML,
   asyncSleep,
+  COOKIE_CONSENTS,
+  getCookieConsent,
+  setCookieConsent,
+  loadGTM,
 };

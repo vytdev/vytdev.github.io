@@ -7,6 +7,7 @@
   --generic-border-color:       #aaa;
   --generic-bg-color:           #fff;
   --accent-color:               #b08d57;
+  --fade-color:                 #eee;
   --transparent-color:          #8882;
   --anchor-color:               #00bfff;
   --anchor-visited-color:       #87ceeb;
@@ -43,6 +44,7 @@
   --generic-border-color:       #555;
   --generic-bg-color:           #1e1e1e;
   --accent-color:               #b08d57;
+  --fade-color:                 #2a2a2a;
   --transparent-color:          #8882;
   --anchor-color:               #00bfff;
   --anchor-visited-color:       #87ceeb;

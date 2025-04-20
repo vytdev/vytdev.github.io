@@ -132,3 +132,34 @@ events.globalEvents.on('load', () => {
     }
   });
 });
+
+
+/**
+ * Cookie notice.
+ */
+events.globalEvents.on('load', () => {
+  if (util.getCookieConsent() == util.COOKIE_CONSENTS.accepted)
+    events.globalEvents.emit('cookie-consented');
+
+  /* Ask the user for consent if we haven't already. */
+  if (util.getCookieConsent() != util.COOKIE_CONSENTS.none)
+    return;
+
+
+  /* Display the cookie notice. */
+  const cookieNotice = document.querySelector('.cookie-notice');
+  cookieNotice.style.display = 'block';
+
+  cookieNotice.querySelector('.accept-cookies')
+    .addEventListener('click', ev => {
+      util.setCookieConsent(util.COOKIE_CONSENTS.accepted);
+      cookieNotice.style.display = 'none';
+      events.globalEvents.emit('cookie-consented');
+    });
+
+  cookieNotice.querySelector('.reject-cookies')
+    .addEventListener('click', ev => {
+      util.setCookieConsent(util.COOKIE_CONSENTS.rejected);
+      cookieNotice.style.display = 'none';
+    });
+});

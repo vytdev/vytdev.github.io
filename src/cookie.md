@@ -44,10 +44,10 @@ to customize and optimize your interaction with our website. Below is a table
 detailing the types of data we store, their purposes, available options, and
 the storage methods employed:
 
-| Key               | Purpose                                               | Options                 | Storage            | Duration  |
-| ----------------- | ----------------------------------------------------- | ----------------------- | ------------------ | --------- |
-| `theme`           | Personalize your browsing experience with themes      | `light`, `dark`, `auto` | Persistent storage | No expiry |
-| `cookiesAccepted` | Indicates whether you accepted cookies in our website | `yes`, `no`             | Persistent storage | No expiry |
+| Key               | Purpose                                                  | Options                 | Storage            | Duration  |
+| ----------------- | -------------------------------------------------------- | ----------------------- | ------------------ | --------- |
+| `theme`           | Personalize your browsing experience with themes         | `light`, `dark`, `auto` | Persistent storage | No expiry |
+| `cookie-decision` | Indicates your decision about the cookies in our website | `accepted`, `rejected`  | Persistent storage | No expiry |
 
 Rest assured, this data is used solely to enhance your user experience on our
 website. We respect your privacy and ensure that this information is stored
