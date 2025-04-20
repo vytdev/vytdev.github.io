@@ -39,7 +39,11 @@ md.use(require('markdown-it-texmath'), {
 md.use(require('markdown-it-front-matter'), (frontMatter) => {
     /* Parse the metadata. */
     currEnv.metaDataRaw = frontMatter;
-    currEnv.metaData = yaml.load(frontMatter);
+    currEnv.metaData = {};
+    try {
+      currEnv.metaData = yaml.load(frontMatter);
+    }
+    catch {  }
   });
 
 /* Permalinks in headings. */
@@ -121,7 +125,7 @@ md.use(mdContainer, 'section', {
         const title = md.renderInline(tok.info
             .trim().slice('section'.length).trimStart());
 
-        return '<div class="section yescript"><div class="section-title"\n' +
+        return '<div class="section"><div class="section-title"\n' +
           '  onclick="this.parentElement.toggleAttribute(\'data-open\')">\n' +
           `${title}\n</div><div class="section-content">\n`;
       }

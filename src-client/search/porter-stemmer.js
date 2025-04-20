@@ -188,4 +188,4 @@ var stemmer = (function(){
 
 
 /* Export the stemmer func. */
-module.exports = stemmer;
+exports = module.exports = stemmer;

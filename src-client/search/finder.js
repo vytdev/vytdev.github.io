@@ -106,7 +106,7 @@ function tagNdxQueryOnField(queries, term2ref, out, indx, fieldW,
     /* Score to add per document. */
     const score = fieldW * qBoost;
 
-    for (const docRef in indx[query]) {
+    for (const docRef of indx[query]) {
       const docResult = out[docRef] || (out[docRef] = {});
       docResult.relevance = (docResult.relevance ?? 0) + score;
 
@@ -179,7 +179,7 @@ function performSearch(query) {
 }
 
 
-module.exports = {
+exports = module.exports = {
   bm25Defs,
   bm25FillDefaults,
   bm25QueryOnField,

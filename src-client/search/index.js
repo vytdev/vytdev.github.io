@@ -12,8 +12,8 @@ function loadSearchIndex() {
   return util.loadScript(pageInfo.relRoot + config.INDEX_SEARCH)
     .then(() => {
       searchIndex.ref2term = Object.create(null);
-      for (const [ term, ref ] in Object.entries(searchIndex.term2ref))
-        searchIndex.ref2term[ref] = term;
+      for (const term of Object.keys(searchIndex.term2ref))
+        searchIndex.ref2term[searchIndex.term2ref[term]] = term;
     })
     .then(() => {
       exports.searchIndex = searchIndex;
@@ -116,7 +116,7 @@ registerSortingFunc('updated',
   (a, b) => a.pageInfo.updated < b.pageInfo.updated ? -1 : 1);
 
 
-module.exports = {
+exports = module.exports = {
   searchIndex:    null,
   pageDataIndex:  null,
   linkIndex:      null,

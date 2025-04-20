@@ -104,7 +104,7 @@ function processText(str) {
 }
 
 
-module.exports = {
+exports = module.exports = {
   stemmer,
   stopwords,
   punctuation,

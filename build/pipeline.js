@@ -106,7 +106,7 @@ function emitClientJs() {
  */
 function emitSearchIndex() {
   writeToOutDir(config.INDEX_SEARCH, 'var searchIndex = ' +
-    JSON.stringify(search.createSearchIndex()));
+    util.serializeJSObject(search.createSearchIndex()));
   print('generated search index');
 }
 
@@ -116,7 +116,7 @@ function emitSearchIndex() {
  */
 function emitLinkIndex() {
   writeToOutDir(config.INDEX_LINKS, 'var linkIndex = ' +
-    JSON.stringify(search.createLinkIndex()));
+    util.serializeJSObject(search.createLinkIndex()));
   print('generated link index');
 }
 
@@ -126,7 +126,7 @@ function emitLinkIndex() {
  */
 function emitPageDataIndex() {
   writeToOutDir(config.INDEX_PAGEDATA, 'var pageDataIndex = ' +
-    JSON.stringify(search.createPageDataIndex()));
+    util.serializeJSObject(search.createPageDataIndex()));
   print('generated page data index');
 }
 

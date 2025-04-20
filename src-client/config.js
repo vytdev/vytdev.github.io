@@ -1,6 +1,9 @@
-module.exports = {
+exports = module.exports = {
 
-  /* Field weights. */
+  /* Exposes 'clientJSRequire' for the sake of debugging. */
+  EXPOSE_INTERNAL_REQUIRE: false,
+
+  /* Search field weights. */
   F_CONTENT:  20,
   F_TITLE:    16,
   F_TAGS:     15,

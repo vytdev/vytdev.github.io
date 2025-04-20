@@ -196,7 +196,7 @@ events.globalEvents.on('load', () => {
 });
 
 
-module.exports = {
+exports = module.exports = {
   queryText,
   queryTokens,
   searchResults,

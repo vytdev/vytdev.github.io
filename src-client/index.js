@@ -1,7 +1,12 @@
+const util = require('./util.js');
+const config = require('./config.js');
+
+/* Make 'require' accessible. */
+if (config.EXPOSE_INTERNAL_REQUIRE)
+  global.clientJSRequire = require.bind(null);
+
 /* Hides '.noscript's immediately */
 document.documentElement.classList.replace('no-js', 'with-js');
-
-const util = require('./util.js');
 
 /* Load the theme. */
 util.initTheme();

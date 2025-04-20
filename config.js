@@ -1,6 +1,8 @@
 const path = require('path');
 
 module.exports = {
+  DEVMODE:            false,
+
   ROOT_DIR:           __dirname,
   SITE_ADDRESS:       'vytdev.github.io',
 

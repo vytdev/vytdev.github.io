@@ -137,9 +137,9 @@ function procDocOpts(meta) {
  */
 function getUidForDoc(name) {
   name = path.normalize(name);
-  name = name.replace('\\', '/');  /* Windows separator. */
-  name = name.replace(/^\//, '');  /* Leading slashes. */
-  name = name.replace(/\/$/, '');  /* Trailing slashes. */
+  name = name.replaceAll('\\', '/');  /* Windows separator. */
+  name = name.replace(/^\//g, '');    /* Leading slashes. */
+  name = name.replace(/\/$/g, '');    /* Trailing slashes. */
   return util.encBase62(util.strFnv1a(name));
 }
 

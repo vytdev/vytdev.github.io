@@ -3,7 +3,7 @@
  * Got from: http://snowball.tartarus.org/algorithms/english/stop.txt
  */
 
-module.exports = [
+exports = module.exports = [
 
  //| An English stop word list. Comments begin with vertical bar. Each stop
  //| word is at the start of a line.

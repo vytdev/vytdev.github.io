@@ -12,6 +12,12 @@
      content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
   <meta name="theme-color" content="#ffffff" />
 
+  {# Enable eruda in dev mode. -#}
+  {% if config.DEVMODE  -%}
+  <script type="text/javascript" src="{{ 'assets/eruda.min.js' | url }}"
+          onload="eruda.init()"></script>
+  {%- endif %}
+
   {# Page info. -#}
   <script type="text/javascript">
   var pageInfo = {{ doc | json_stringify | safe }}
@@ -34,6 +40,7 @@
 
   <div clsss="page-frame">
 
+    {%- include '_layout/noscript.njk' %}
     {%- include '_layout/navbar.njk' %}
 
     <div class="view-wrapper">
@@ -44,7 +51,6 @@
         {% endif %}
 
         <div class="content">
-          {%- include '_layout/noscript.njk' %}
           {%- include '_layout/breadcrumbs.njk' %}
 
           <div id="main-content">

@@ -139,7 +139,7 @@ window.onload = function() {
 };
 
 
-module.exports = {
+exports = module.exports = {
   EventHandler,
   globalEvents,
 };

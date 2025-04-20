@@ -261,18 +261,20 @@ dd {
 /* --- Collapsible sections (not spoilers)
  * ------------------------------------------------------------------------- */
 
-.section:not([data-open]):not(:has(:target)) > :not(.section-title:first-child)
+.with-js .section:not([data-open]):not(:has(:target)) >
+  :not(.section-title:first-child)
 {
   /* We don't know the display type of some elems.
      Let's use :not([data-open]) */
   display: none;
 }
 
-.section > .section-title:first-child::before {
+.with-js .section > .section-title:first-child::before {
   content: '▶';
 }
 
-.section[data-open] > .section-title:first-child::before {
+.no-js .section > .section-title:first-child::before,
+.with-js .section[data-open] > .section-title:first-child::before {
   content: '▼';
 }
 
@@ -324,6 +326,10 @@ dd {
   color: var(--anchor-color);
 }
 
+.sidebar .article-dates {
+  font-size: 85%;
+}
+
 .sidebar .xtra-links {
   display: block;
   text-decoration: underline;
@@ -341,14 +347,19 @@ dd {
 
 
 
-/* --- No-JS warning
+/* --- Before-the-nav notices
  * ------------------------------------------------------------------------- */
 
 .no-js-warning-block {
   background-color: var(--no-js-warning-bg);
-  border: 2px solid var(--no-js-warning-border);
-  border-radius: 1px;
+  border-bottom: 1px solid var(--no-js-warning-border);
+  font-size: 85%;
   padding: 8px;
+}
+
+.no-js-warning-block a {
+  color: var(--generic-color);
+  text-decoration: underline;
 }
 
 
