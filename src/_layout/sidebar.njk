@@ -1,20 +1,26 @@
 {% if not doc.navHidden %}
-<div class="sidebar">
+<div class="sidebar" role="complementary" aria-label="Sidebar content"
+     aria-hidden="true">
 
-<label for="theme">Theme</label>
-<select id="theme" name="theme">
-  <option value="auto">Auto</option>
-  <option value="light">Light</option>
-  <option value="dark">Dark</option>
-</select>
+<div class="theme-chooser">
+  <label for="theme">Theme</label>
+  <select id="theme" name="theme" aria-label="Choose theme">
+    <option value="auto">Auto</option>
+    <option value="light">Light</option>
+    <option value="dark">Dark</option>
+  </select>
+</div>
+
 
 <p><b>{{ doc.title }}</b>.
   {{ doc.about }}</p>
+
 
 <p class="article-dates">
    Published {{ doc.published }} &bull;
    Updated {{ doc.updated }}
 </p>
+
 
 <p>
 {% for tag in doc.tags %}
@@ -33,7 +39,7 @@
 
   {% for name in doc.authors %}
   <a class="author-name" href="https://github.com/{{ name }}"
-      target="_blank">
+       target="_blank" aria-label="Author {{ name }}">
   <img width="30px" height="30px" alt="avatar"
        src="https://avatars.githubusercontent.com/{{ name }}" />
   {{ name }}

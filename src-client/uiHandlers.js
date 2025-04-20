@@ -21,12 +21,24 @@ events.globalEvents.on('load', () => {
     return;
   const mainView = document.querySelector('.main-view');
   const toggle = document.getElementById('sidebar-toggle');
+  const sidebar = document.querySelector('.sidebar');
 
   /* Simply update the main-view x-offset. */
   toggle.addEventListener('change', () => {
     mainView.style.left = toggle.checked
       ? '0' : '-90%';
+    toggle.setAttribute('aria-expanded', `${toggle.checked}`);
+    sidebar.setAttribute('aria-hidden', `${!toggle.checked}`);
   });
+
+  /* Responsive sidebar. */
+  const vport = window.matchMedia('(min-width: 768px)');
+  function handleViewportChange(e) {
+    sidebar.setAttribute('aria-hidden', `${!e.matches}`);
+  }
+
+  handleViewportChange(vport.matches);
+  vport.addEventListener('change', handleViewportChange);
 });
 
 
@@ -51,7 +63,16 @@ events.globalEvents.on('load', () => {
   /* Scroll back to top when the btn is clicked. */
   backToTop.addEventListener('click', () => {
     window.scrollTo(0, 0);
-  })
+  });
+
+  /* Clicked via keyboard. */
+  backToTop.addEventListener('keydown', e => {
+    const key = e.key.toLowerCase();
+    if (key == 'enter' || key == 'space' || key == ' ') {
+      e.preventDefault();
+      window.scrollTo(0, 0);
+    }
+  });
 });
 
 

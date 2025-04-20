@@ -1,0 +1,101 @@
+{% extends "_layout/base.njk" %}
+
+{% block head -%}
+{{ super() }}
+<style type="text/css">
+  .required-indicator {
+    color: #f00;
+    font-size: 85%;
+    position: relative;
+    top: -0.25em;
+  }
+
+  .contact-form {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .contact-form p {
+    font-size: 85%;
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+
+  .contact-form input {
+    width: 100%;
+  }
+
+  .contact-form textarea {
+    width: 100%;
+    height: 10em;
+    resize: none;
+    font-family: NotoSans, Sans-Serif;
+  }
+
+  .contact-form textarea, .contact-form input {
+    border: 1px solid var(--generic-border-color);
+    border-radius: 2px;
+    background-color: var(--generic-bg-color);
+    color: var(--generic-color);
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .contact-form input[type='submit']:active {
+    background-color: var(--transparent-color);
+  }
+
+  .contact-form textarea:hover,
+  .contact-form input:not([type='submit']):hover {
+    border-width: 2px;
+  }
+</style>
+
+<script type="text/javascript">
+
+  function onContactFormSubmit() {
+    // got from: https://www.w3resource.com/javascript/form/email-validation.php
+    var validEmailRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    if (!validEmailRegExp.test(this['email'].value)) {
+      alert('Invalid email!');
+      return false;
+    }
+
+    return true;
+  }
+
+</script>
+{% endblock %}
+
+
+{% block content %}
+  {{ super() }}
+
+<form action="https://script.google.com/macros/s/AKfycbwOMCu-CmL6GoejogKhk-wva1eq2sD-PuAuiI0ih3JDcJKvo3W-5I97TCFf0XOynLJV/exec"
+  method="POST" class="contact-form" onsubmit="return onContactFormSubmit()">
+
+  <p><em>Fields marked with <span class="required-indicator">*</span> are
+  required. We kindly ask for your email in case we need to get in touch with
+  you regarding your message. Your privacy is important to us!</em></p>
+
+  <p id="name-label">Name:</p>
+  <input type="text" name="name" id="name" placeholder="Your name"
+    aria-required="true" aria-labelledby="name-label" />
+
+  <p id="email-label">Email: <span class="required-indicator">*</span></p>
+  <input type="email" name="email" id="email" placeholder="Your Email"
+    required aria-required="true" aria-labelledby="email-label" />
+
+  <p id="msg-label">Message: <span class="required-indicator">*</span></p>
+  <textarea name="msg" id="msg" placeholder="Your Message" required
+    aria-required="true" aria-labelledby="msg-label"></textarea><br/>
+
+  <input type="submit" value="Send message" aria-label="Submit Button" />
+
+  <p id="send-status"></p>
+</form>
+
+{% endblock %}

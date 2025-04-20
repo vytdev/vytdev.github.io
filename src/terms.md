@@ -34,7 +34,7 @@ authority to bind the organization to these Terms.
 ## Use of Content
 
 Our content is made available under specific licenses, which are detailed in
-our [license](license.md) page. Please review the licensing information before
+our [license](./license.md) page. Please review the licensing information before
 using or redistributing any content from VYT Hub.
 
 ## Disclaimer of Warranties
@@ -66,5 +66,5 @@ jurisdiction, ensuring fairness and impartiality for all users.
 ## Contact Us
 
 If you have any questions or concerns about these Terms, please feel free to
-visit our [contact page](contact.md). We value your feedback and are here to
+visit our [contact page](./contact.md). We value your feedback and are here to
 assist you.

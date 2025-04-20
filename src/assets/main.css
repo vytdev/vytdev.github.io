@@ -274,7 +274,8 @@ dd {
 }
 
 .no-js .section > .section-title:first-child::before,
-.with-js .section[data-open] > .section-title:first-child::before {
+.with-js .section[data-open] > .section-title:first-child::before,
+.section:has(:target) > .section-title:first-child::before {
   content: '▼';
 }
 
@@ -293,6 +294,17 @@ dd {
 
 .sidebar a {
   color: var(--generic-color);
+}
+
+.sidebar .theme-chooser {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.sidebar .theme-chooser > select {
+  display: block;
+  flex: 1;
 }
 
 .key-tag {
@@ -500,6 +512,8 @@ div.admonition.caution {
   overflow: auto;
   overflow-x: hidden;
   padding: 8px;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
 .content {

@@ -73,6 +73,6 @@ practices and legal obligations. Any changes will be posted on this page.
 ## Contact Us
 
 If you have any questions or concerns about our Cookie Policy, please feel
-free to visit our [contact page](contact.md). Your privacy and online safety
+free to visit our [contact page](./contact.md). Your privacy and online safety
 are important to us, and we are here to assist you with any inquiries you may
 have.

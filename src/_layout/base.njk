@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
       class="no-js theme-light"><head>
 
+  {% block head %}
   <meta charset="utf-8" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -33,12 +34,14 @@
 
   {%- include '_layout/3rd-party.njk' %}
 
+  {% endblock %}
+
 </head>
 <body>
 
   {%- include '_layout/back-to-top.njk' %}
 
-  <div clsss="page-frame">
+  <div class="page-frame">
 
     {%- include '_layout/noscript.njk' %}
     {%- include '_layout/navbar.njk' %}
@@ -53,7 +56,7 @@
         <div class="content">
           {%- include '_layout/breadcrumbs.njk' %}
 
-          <div id="main-content">
+          <div id="main-content" role="main">
             {% block content -%}
             {{ htmlContent | safe }}
             {%- endblock %}

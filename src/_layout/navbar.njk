@@ -1,9 +1,12 @@
-<div class="navbar">
+<div class="navbar" role="navigation" aria-label="Main navigation">
 
   {# Sidebar toggle #}
   {% if not doc.navHidden -%}
-  <input type="checkbox" id="sidebar-toggle" />
-  <label class="yescript" for="sidebar-toggle"><span></span></label>
+  <input type="checkbox" id="sidebar-toggle" aria-expanded="false"
+      aria-label="Toggle sidebar" />
+  <label class="yescript" for="sidebar-toggle">
+    <span aria-hidden="true"></span>
+  </label>
   {%- endif %}
 
   {# Logo #}
