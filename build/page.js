@@ -76,6 +76,7 @@ function procDocOpts(meta) {
     no_toc:      false,
     no_trail:    false,
     no_sbar:     false,
+    no_print:    false,
   };
 
   if (!meta)
@@ -98,6 +99,7 @@ function procDocOpts(meta) {
   setIfType('no_toc',      'boolean');
   setIfType('no_trail',    'boolean'); /* Breadcrumbs */
   setIfType('no_sbar',     'boolean'); /* Search bar */
+  setIfType('no_print',    'boolean'); /* Print btn */
 
   /* Prev and next page. */
   if (typeof meta.prev_page == 'string')
@@ -157,7 +159,7 @@ function genBreadcrumbs(filePath, isIndex) {
 
   /* Current anchor link. */
   let currPath = path.relative(path.dirname(filePath), '.');
-  let html = '<div class="breadcrumbs">\n';
+  let html = '<div class="breadcrumbs noprint">\n';
 
   for (let i = 0; i < len; i++) {
     const name = parts[i];
@@ -232,31 +234,32 @@ function renderMarkdownDocument(mdPath) {
 
   /* Build the data scope. */
   const docCtx = {
-    ident:        getUidForDoc(mdPath),
-    canonical:    `http://${config.SITE_ADDRESS}/${servePath}`,
-    srcPath:      mdPath,
-    path:         servePath,
-    relRoot:      mdPath.replace(/[^\/]+/g, '..').slice(1) + '/',
-    isIndex:      path.basename(mdPath) == 'index.md',
-    contents:     tabOfCont,
+    ident:         getUidForDoc(mdPath),
+    canonical:     `http://${config.SITE_ADDRESS}/${servePath}`,
+    srcPath:       mdPath,
+    path:          servePath,
+    relRoot:       mdPath.replace(/[^\/]+/g, '..').slice(1) + '/',
+    isIndex:       path.basename(mdPath) == 'index.md',
+    contents:      tabOfCont,
     /* Doc metadata. */
-    title:        opts.title,
-    about:        opts.about,
-    published:    opts.published,
-    updated:      opts.updated,
-    tags:         opts.tags,
-    authors:      opts.authors,
-    thumbnail:    opts.thumbnail,
-    prevPage:     opts.prev_page,
-    nextPage:     opts.next_page,
+    title:         opts.title,
+    about:         opts.about,
+    published:     opts.published,
+    updated:       opts.updated,
+    tags:          opts.tags,
+    authors:       opts.authors,
+    thumbnail:     opts.thumbnail,
+    prevPage:      opts.prev_page,
+    nextPage:      opts.next_page,
     /* Extra options. */
-    usedLayout:   opts.layout,
-    navHidden:    opts.hide_nav,
-    isPathIndep:  opts.abs_paths,
-    notIndexed:   opts.dont_index,
-    noToc:        opts.no_toc,
-    noBreadcrumbs:  opts.no_trail,
-    noSearchBar:  opts.no_sbar,
+    usedLayout:    opts.layout,
+    navHidden:     opts.hide_nav,
+    isPathIndep:   opts.abs_paths,
+    notIndexed:    opts.dont_index,
+    noToc:         opts.no_toc,
+    noBreadcrumbs:   opts.no_trail,
+    noSearchBar:   opts.no_sbar,
+    notPrintable:  opts.no_print,
   };
 
   const data = {

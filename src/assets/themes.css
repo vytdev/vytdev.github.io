@@ -2,6 +2,8 @@
 @import 'atom-one-light.css';
 @import 'atom-one-dark.css';
 
+@media screen {
+
 .theme-light {
   --generic-color:              #444;
   --generic-border-color:       #aaa;
@@ -18,6 +20,8 @@
   --back-to-top-color:          #888;
   --no-js-warning-bg:           #ffe299;
   --no-js-warning-border:       #f3ae00;
+  --announcement-bg:            #abf0ff;
+  --announcement-border:        #00b6de;
   /* Admonition colors. */
   --admonition-tip-bg:          #e4ffa1;
   --admonition-tip-border:      #c0ff25;
@@ -55,6 +59,8 @@
   --back-to-top-color:          #888;
   --no-js-warning-bg:           #5c4820;
   --no-js-warning-border:       #f3ae00;
+  --announcement-bg:            #2c3a3f;
+  --announcement-border:        #00b6de;
   /* Admonition colors. */
   --admonition-tip-bg:          #283800;
   --admonition-tip-border:      #c0ff25;
@@ -75,3 +81,42 @@
   --admonition-caution-bg:      #56351e;
   --admonition-caution-border:  #f78700;
 }
+
+} /* @media screen */
+
+@media print {
+
+html {
+  --generic-color:              #111;
+  --generic-border-color:       #888;
+  --generic-bg-color:           #fff;
+  --accent-color:               #b08d57;
+  --fade-color:                 #eee;
+  --transparent-color:          #8882;
+  --anchor-color:               #00bfff;
+  --anchor-visited-color:       #87ceeb;
+  --blockquote-color:           #aaa;
+  --highlight-bg:               #ff4;
+  --math-text-color:            #111;
+  /* Admonition colors. */
+  --admonition-tip-bg:          #e4ffa1;
+  --admonition-tip-border:      #c0ff25;
+  --admonition-attention-bg:    #fff6c6;
+  --admonition-attention-border:  #ffdb1d;
+  --admonition-danger-bg:       #ffcba4;
+  --admonition-danger-border:   #ff7813;
+  --admonition-error-bg:        #ffc7c7;
+  --admonition-error-border:    #ff4a4a;
+  --admonition-hint-bg:         #b6ffc7;
+  --admonition-hint-border:     #34ff63;
+  --admonition-important-bg:    #95ffea;
+  --admonition-important-border:  #00fcca;
+  --admonition-note-bg:         #abf0ff;
+  --admonition-note-border:     #00b6de;
+  --admonition-warning-bg:      #ffe299;
+  --admonition-warning-border:  #f3ae00;
+  --admonition-caution-bg:      #ffd29b;
+  --admonition-caution-border:  #f78700;
+}
+
+} /* @media print */

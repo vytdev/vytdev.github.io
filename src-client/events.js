@@ -55,17 +55,20 @@ EventHandler.prototype = {
    * @param ...args The args to pass to the listeners.
    */
   dispatchEvent: function(ev, ...args) {
-    for (const listener of this._listeners) {
+    const len = this._listeners.length;
+    for (let i = 0; i < len; i++) {
+      const listener = this._listeners[0];
       if (listener.ev != ev)
         continue;
+      this._listeners.shift();
       try {
         listener.func.apply(this, args);
       }
       catch {
         /* no-op */
       }
-      if (listener.once)
-        this.removeEventListener(listener.id);
+      if (!listener.once)
+        this._listeners.push(listener);
     }
   },
 

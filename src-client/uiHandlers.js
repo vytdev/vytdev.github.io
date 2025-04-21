@@ -7,7 +7,7 @@ const query = util.query;
 /**
  * Highlight query.
  */
-events.globalEvents.on('load', () => {
+events.globalEvents.once('load', () => {
   if (query['h'])
     util.highlight(query['h'], document.getElementById('main-content'));
 });
@@ -16,7 +16,7 @@ events.globalEvents.on('load', () => {
 /**
  * Behaviour for the sidebar toggle btn.
  */
-events.globalEvents.on('load', () => {
+events.globalEvents.once('load', () => {
   if (pageInfo.navHidden)
     return;
   const mainView = document.querySelector('.main-view');
@@ -45,7 +45,7 @@ events.globalEvents.on('load', () => {
 /**
  * Back to top btn.
  */
-events.globalEvents.on('load', () => {
+events.globalEvents.once('load', () => {
   const backToTop = document.getElementById('back-to-top');
 
   /* Show/hide behaviour of the btn. */
@@ -79,7 +79,7 @@ events.globalEvents.on('load', () => {
 /**
  * Behaviour for the theme chooser.
  */
-events.globalEvents.on('load', () => {
+events.globalEvents.once('load', () => {
   if (pageInfo.navHidden)
     return;
   let currTheme = util.getCurrTheme();
@@ -100,7 +100,7 @@ events.globalEvents.on('load', () => {
 /**
  * ScrollSpy for TOC.
  */
-events.globalEvents.on('load', () => {
+events.globalEvents.once('load', () => {
   if (pageInfo.navHidden)
     return;
   const anchors = document.querySelectorAll('.toc a');
@@ -137,7 +137,7 @@ events.globalEvents.on('load', () => {
 /**
  * Cookie banner.
  */
-events.globalEvents.on('load', () => {
+events.globalEvents.once('load', () => {
   if (util.getCookieConsent() == util.COOKIE_CONSENTS.accepted)
     events.globalEvents.emit('cookie-consented');
 

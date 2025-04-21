@@ -176,7 +176,7 @@ async function doSearch(query) {
 /**
  * Start the search once the DOM is loaded.
  */
-events.globalEvents.on('load', () => {
+events.globalEvents.once('load', () => {
   if (pageInfo.relRoot != './' || pageInfo.path != 'search.html')
     return;
 

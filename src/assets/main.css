@@ -399,6 +399,7 @@ dd {
 .no-js-warning-block {
   background-color: var(--no-js-warning-bg);
   border-bottom: 1px solid var(--no-js-warning-border);
+  width: 100%;
   font-size: 85%;
   padding: 8px;
 }
@@ -406,6 +407,15 @@ dd {
 .no-js-warning-block a {
   color: var(--generic-color);
   text-decoration: underline;
+}
+
+.announcement-block {
+  display: none;
+  background-color: var(--announcement-bg);
+  border-bottom: 1px solid var(--announcement-border);
+  width: 100%;
+  font-size: 85%;
+  padding: 8px;
 }
 
 
@@ -872,5 +882,53 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 @media (min-width: 1440px) {
   .main-view {
     max-width: 1260px; /* <87.5% */
+  }
+}
+
+
+
+/* --- Print layout.
+ * ------------------------------------------------------------------------- */
+
+@media not print {
+  .yesprint {
+    display: none !important;
+  }
+
+  .page-break {
+    display: none;
+  }
+}
+
+@media print {
+  .noprint {
+    display: none !important;
+  }
+
+  .page-break {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  body {
+    font-size: 12pt !important;
+  }
+
+  #main-content {
+    margin: 1in;
+  }
+
+  .main-view:not(.no-sidebar) {
+    left: 0 !important;
+  }
+
+  .header-anchor {
+    display: none !important;
+  }
+
+  .footer {
+    border-top: none !important;
+    break-before: page;
+    page-break-before: always;
   }
 }

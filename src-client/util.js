@@ -88,6 +88,53 @@ function initTheme() {
 
 
 /**
+ * Possible cookie consent states.
+ */
+const COOKIE_CONSENTS = {
+  accepted: 'accepted',
+  rejected: 'rejected',
+  none: 'none',
+};
+
+
+/**
+ * Get the current cookie consent state.
+ * @returns The consent state.
+ */
+function getCookieConsent() {
+  return localStorage.getItem('cookie-decision') ?? 'none';
+}
+
+
+/**
+ * Set the current cookie state.
+ * @param val The cookie state to set.
+ */
+function setCookieConsent(val) {
+  localStorage.setItem('cookie-decision', val);
+}
+
+
+/**
+ * Change the announcement.
+ * @param infoHtml The announcement text in HTML.
+ */
+function changeAnnouncement(infoHtml) {
+  const block = document.querySelector('.announcement-block');
+  block.innerHTML = infoHtml;
+  block.style.display = 'block';
+}
+
+
+/**
+ * Hie the announcement.
+ */
+function hideAnnouncement() {
+  document.querySelector('.announcement-block').style.display = 'none';
+}
+
+
+/**
  * Highlight the terms from a node.
  * @param text The terms.
  * @param node The node.
@@ -306,41 +353,26 @@ function asyncSleep(n) {
 }
 
 
-/**
- * Possible cookie consent states.
- */
-const COOKIE_CONSENTS = {
-  accepted: 'accepted',
-  rejected: 'rejected',
-  none: 'none',
-};
-
-
-/**
- * Get the current cookie consent state.
- * @returns The consent state.
- */
-function getCookieConsent() {
-  return localStorage.getItem('cookie-decision') ?? 'none';
-}
-
-
-/**
- * Set the current cookie state.
- * @param val The cookie state to set.
- */
-function setCookieConsent(val) {
-  localStorage.setItem('cookie-decision', val);
-}
-
-
 exports = module.exports = {
   parseUrlQueries,
   query,
+
+  /* Themes. */
   THEMES,
   changeTheme,
   getCurrTheme,
   initTheme,
+
+  /* Cookie consents. */
+  COOKIE_CONSENTS,
+  getCookieConsent,
+  setCookieConsent,
+
+  /* Announcements. */
+  changeAnnouncement,
+  hideAnnouncement,
+
+  /* Extra utils. */
   highlight,
   unHighlight,
   fetchText,
@@ -349,7 +381,4 @@ exports = module.exports = {
   parseFullHTML,
   escapeHTML,
   asyncSleep,
-  COOKIE_CONSENTS,
-  getCookieConsent,
-  setCookieConsent,
 };

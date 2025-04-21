@@ -37,13 +37,15 @@
 </head>
 <body>
 
+  {# Fixed floating stuff. -#}
   {%- include '_layout/back-to-top.njk' %}
-
   {%- include '_layout/cookie-notice.njk' %}
 
   <div class="page-frame">
 
+    {# Notices and navbar. -#}
     {%- include '_layout/noscript.njk' %}
+    {%- include '_layout/announcement.njk' %}
     {%- include '_layout/navbar.njk' %}
 
     <div class="view-wrapper">
@@ -68,6 +70,8 @@
 
   </div>
 
+  {# The footer must be outside the .page-frame. This is
+     for the footer-pushing-navbar effect. -#}
   {%- include '_layout/footer.njk' %}
 
 </body></html>

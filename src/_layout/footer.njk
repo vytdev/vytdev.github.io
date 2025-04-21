@@ -1,5 +1,5 @@
 <div class="footer">
-  <div class="links" role="navigation" aria-label="Footer links">
+  <div class="links noprint" role="navigation" aria-label="Footer links">
 
     <div class="navigation-links">
       <h3>Navigation</h3>
@@ -16,16 +16,20 @@
 
     <div class="utility-links">
       <h3>Utility</h3>
-      {% if doc.prevPage %}
+      {% if doc.prevPage -%}
       <a href="{{ doc.prevPage | url }}">Previous page</a><br/>
-      {% endif %}
-      {% if doc.nextPage %}
+      {%- endif %}
+      {% if doc.nextPage -%}
       <a href="{{ doc.nextPage | url }}">Next page</a><br/>
-      {% endif %}
+      {%- endif %}
       <a href="https://github.com/vytdev/vytdev.github.io/edit/master/src/{{
          doc.srcPath }}" target="_blank">Edit this page</a><br/>
       <a href="https://github.com/vytdev/vytdev.github.io/blob/master/src/{{
          doc.srcPath }}" target="_blank">View source</a><br/>
+      {% if not doc.notPrintable -%}
+      <a href="#" onclick="event.preventDefault(); window.print()"
+         aria-label="Print this document">Print</a><br/>
+      {%- endif %}
     </div>
 
     <div class="contact-links">
