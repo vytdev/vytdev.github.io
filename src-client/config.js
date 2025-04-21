@@ -1,9 +1,5 @@
 exports = module.exports = {
 
-  /* Google Tag Manager. */
-  GTM_TRACK_ID:    'GTM-TXP39RH5',
-  GTM_DATA_LAYER:  'dataLayer',
-
   /* Exposes 'clientJSRequire' for the sake of debugging. */
   EXPOSE_INTERNAL_REQUIRE: false,
 

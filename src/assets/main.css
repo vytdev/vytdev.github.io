@@ -377,8 +377,7 @@ dd {
   text-align: center;
 }
 
-.cookie-notice .accept-cookies,
-.cookie-notice .reject-cookies {
+.cookie-notice button {
   display: block;
   cursor: pointer;
   background-color: var(--fade-color);

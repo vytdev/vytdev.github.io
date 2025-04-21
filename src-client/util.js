@@ -334,31 +334,6 @@ function setCookieConsent(val) {
 }
 
 
-/**
- * Load a Google Tag Manager.
- * @param id The Google Tag Manager tracking ID.
- * @param [layer] The data layer to use.
- * @returns Promise that's resolved once GTM's loaded.
- */
-function loadGTM(id, layer = 'dataLayer') {
-  /* Setup the initial event. */
-  window[layer] = window[layer] || [];
-  window[layer].push({
-      'gtm.start': new Date().getTime(),
-      event: 'gtm.js',
-    });
-
-  /* Build the script URL. */
-  let url = `https://www.googletagmanager.com/gtm.js?id=${id}`;
-
-  if (layer !== 'dataLayer')
-    url += `&l=${layer}`;
-
-  /* Load. */
-  return loadScript(url, { async: true });
-}
-
-
 exports = module.exports = {
   parseUrlQueries,
   query,
@@ -377,5 +352,4 @@ exports = module.exports = {
   COOKIE_CONSENTS,
   getCookieConsent,
   setCookieConsent,
-  loadGTM,
 };

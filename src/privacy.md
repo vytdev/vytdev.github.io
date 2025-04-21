@@ -1,83 +1,82 @@
 ---
 title: Privacy Policy
 about: |
-  The Privacy Policy outlines the data collection, usage, and protection
-  practices for VYT Hub. It provides detailed information about the
-  information we collect, store, and safeguard.
+  This Privacy Policy outlines how we handle your
+  data on our informational website, VYT Hub.
 authors: [ vytdev ]
 tags: [ legal ]
 published: '2023-11-05'
-updated: '2023-11-05'
+updated: '2025-04-21'
 ---
+
 
 # Privacy Policy
 
-Welcome to VYT Hub! We deeply respect your privacy and strive to be
-transparent about how we handle your information. This Privacy Policy provides
-comprehensive details about our practices concerning the collection, use,
-and protection of data when you use our website.
+This Privacy Policy outlines how we handle your data on this informational
+website, VYT Hub.
 
-## Information We Collect and How We Use It
+## What Data Do We Collect?
 
-We prioritize your privacy and aim to provide a transparent understanding of
-the information we collect and how it is used. Rest assured, your trust is
-important to us.
+We **do not collect** any personal information from you.
 
-### Personal Information
+To "collect data" means storing or transmitting information for purposes
+beyond the immediate function it serves &mdash; and we do not do that. We may
+store certain preferences (like your theme choice), but these stay entirely
+on your device and are not transmitted anywhere.
 
-We do not collect any personal information such as names, addresses, phone
-numbers, or email addresses. Your anonymity and privacy are paramount.
+::: hl note
+Our [contact page](./contact.md) may ask for your email address. This is only
+used to respond directly to your inquiries or concerns &mdash; nothing more.
+:::
 
-### Non-Personal Information
+## How Do We Use This Data?
 
-We do not gather data on browser types, device types, operating systems, or
-any other non-personal information. Your online interactions remain anonymous.
+Since we do not collect personal data, we do not use it.
 
-### User Activities
+The only information stored (such as your theme preference) is used locally
+on your device to improve your experience. It serves a functional purpose
+and is never shared or analyzed.
 
-Rest assured, we do not track your activities on our website. Your browsing
-habits remain private, ensuring a secure and personalized browsing experience.
-
-### Cookies and User Preferences
-
-We utilize cookies and tracking technologies to enhance your experience on
-our website. These technologies are employed solely for understanding user
-preferences and optimizing the website's functionality. For detailed
-information about how we use cookies, please refer to our
+For more information about your preferences, please see our
 [Cookie Statement](./cookie.md).
 
-Your privacy is of utmost importance to us. By respecting your anonymity and
-ensuring a secure online environment, we are committed to providing you with
-a positive and personalized browsing experience on VYT Hub.
+## Data Sharing
 
-## Third-Party Links
+We do not share any data because we do not collect any to begin with. There
+is no analytics, no ads, and no third-party integrations &mdash; your data
+remains untouched and private.
 
-Our website may include links to third-party websites for your convenience.
-Be aware that **we do not control the privacy practices of these external
-sites.** Clicking on these links may allow third parties to collect or share
-data about you. We advise reviewing the privacy policies of these third-party
-sites before providing any information.
+## Your Rights
+
+You are in full control of your data, because it never leaves your device.
+This site is built to be privacy-neutral &mdash; no data is processed,
+stored, or tracked.
 
 ## Children's Privacy
 
-Our website is not intended for children under the age of 13, and we do not
-knowingly collect any information from individuals in this age group.
+This website is intended for a general audience and does not target or
+knowingly collect information from children under 13.
 
-## Data Security
+As no personal data is collected from any users, there is nothing gathered
+from minors either &mdash; by design.
 
-We take **reasonable precautions** to protect your preferences stored in your
-device. However, please understand that no method of transmission over the
-internet or electronic storage is 100% secure. We cannot guarantee absolute
-security.
+## Security
 
-## Changes to This Privacy Policy
+Because we do not collect or transmit any of your data, your privacy is
+inherently protected. Nothing is sent to our servers (we do not have any!),
+so your information stays with you.
 
-We reserve the right to modify this Privacy Policy at any time. Changes will
-be effective immediately upon posting on the website. We encourage you to
-check this page periodically to stay informed about our privacy practices.
+However, if you manually tamper with your local settings or data, any
+resulting issues are your responsibility. We are not liable for an
+self-inflicted technical hiccups.
 
-## Contact Us
+## Changes and Amendments
 
-If you have any questions or concerns about our Privacy Policy, please feel
-free to visit our [contact page](./contact.md). Your privacy is paramount,
-and we are here to assist you with any inquiries you may have.
+We may update this Privacy Policy to reflect changes in our practices or
+legal requirements. Any updates will be posted on this page and communicated
+across the site.
+
+## Contact Information
+
+If you have any questions or concerns about this Privacy Policy, please feel
+free to [contact us](./contact.md). We value your feedback.

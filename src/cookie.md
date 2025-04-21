@@ -1,78 +1,77 @@
 ---
 title: Cookie Statement
 about: |
-  The Cookie Statement explains how cookies and similar technologies are used
-  on VYT Hub to enhance user experience and improve website functionality.
+  This Cookie Statement explains how we use cookies and similar technologies
+  to provide, customize, and improve your experience on VYT Hub.
 authors: [ vytdev ]
 tags: [ legal ]
 published: '2023-11-05'
-updated: '2023-11-05'
+updated: '2025-04-21'
 ---
 
 # Cookie Statement
 
-Welcome to VYT Hub! This Cookie Statement explains how we use cookies and
-similar technologies to provide, customize, and improve your experience while
-using our website. By continuing to browse or use our services, you agree to
-our use of cookies as described in this policy.
+This Cookie Statement explains how we use cookies and similar technologies to
+provide, customize, and improve your experience on VYT Hub. By continuing
+to browse or use our services, you agree to our use of cookies as described
+in this policy.
 
-## What are Cookies?
+## What Are Cookies?
 
-Cookies are small text files that are placed on your device by websites you
-visit. They are widely used to make websites work more efficiently and enhance
-user experience. Cookies can store preferences, enable specific
-functionalities, and help analyze website usage.
+Cookies are small text files stored on your device by websites you visit.
+They are commonly used to make websites function properly and to enhance your
+experience. For example, cookies can remember your preferences, such as your
+chosen theme or language.
 
 ## How We Use Cookies
 
-We use cookies for various purposes, including:
+We use cookies for the following purposes:
 
-- **Essential Cookies:** These cookies are necessary for the website to
-  function properly. They enable basic functionalities like page navigation
-  and access to secure areas of the website.
-- **Preferences Cookies:** These cookies allow us to remember your preferences
-  and settings, ensuring a more personalized experience.
-- **Analytical Cookies:** We use analytical cookies on our website. These
-  cookies are commonly used to understand user interactions.
-- **Advertising Cookies:** We may use advertising cookies, and we may
-  display third-party advertisements on our website.
+- To remember your preferred theme.
+- To remember whether you have seen our cookie banner.
 
-## Data Stored
+Unlike many other websites, we *strictly* do not use cookies for tracking page
+views or for advertising purposes. Our use of cookies is solely for your
+convenience.
 
-In order to enhance your experience on VYT Hub, we may store certain data
-to customize and optimize your interaction with our website. Below is a table
-detailing the types of data we store, their purposes, available options, and
-the storage methods employed:
+Rest assured, your data stays on your device. We do not transmit any of it
+over the internet. Your privacy is our priority.
 
-| Key               | Purpose                                                  | Options                 | Storage            | Duration  |
-| ----------------- | -------------------------------------------------------- | ----------------------- | ------------------ | --------- |
-| `theme`           | Personalize your browsing experience with themes         | `light`, `dark`, `auto` | Persistent storage | No expiry |
-| `cookie-decision` | Indicates your decision about the cookies in our website | `accepted`, `rejected`  | Persistent storage | No expiry |
+## Local Data Stored
 
-Rest assured, this data is used solely to enhance your user experience on our
-website. We respect your privacy and ensure that this information is stored
-securely.
+We use a technology called `localStorage` to store information on your device.
+It helps retain your preferences across browser tabs and sessions. Here's what
+we store:
 
-## Your Cookie Choices
+| Key | Options | Purpose |
+| --- | ------- | ------- |
+| `theme` | `light`, `dark` | To remember your preferred theme. |
+| `cookie-consent` | `accepted`, `rejected` | To remember whether you have seen and accepted our cookie banner. |
 
-Most web browsers automatically accept cookies, but you can modify your
-browser settings to decline cookies if you prefer. However, please note that
-some features of our website may not function properly without cookies.
+There are no hidden cookies. That is *everything*.
 
 ## Third-Party Cookies
 
-We may use third-party cookies for advertising or any other purposes. Any
-cookies stored on your device while visiting our website are exclusively for
-the functionalities mentioned above.
+We strictly affirm that we do not use any third-party services. This includes,
+but is not limited to, advertising networks and analytics tools. No
+third-party services means no third-party cookies.
 
-## Changes to This Cookie Policy
+## Your Cookie Choices
 
-We reserve the right to update this Cookie Policy to reflect changes in our
-practices and legal obligations. Any changes will be posted on this page.
+We do not include a built-in cookie management tool on our site, as we aim to
+avoid unnecessary bloat and maintain fast performance. However, your browser
+likely allows you to clear cookies and local data.
 
-## Contact Us
+To do so, go to your browser settings > Site settings > `vytdev.github.io` >
+Clear data (or similar). The exact steps may vary depending on your browser.
 
-If you have any questions or concerns about our Cookie Policy, please feel
-free to visit our [contact page](./contact.md). Your privacy and online safety
-are important to us, and we are here to assist you with any inquiries you may
-have.
+## Changes and Amendments
+
+We may update this Cookie Statement to reflect changes in our practices or
+legal requirements. Any updates will be posted on this page and communicated
+across the site.
+
+## Contact Information
+
+If you have any questions or concerns about this Cookie Statement, please feel
+free to [contact us](./contact.md). We value your feedback.

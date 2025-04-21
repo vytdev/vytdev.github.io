@@ -1,70 +1,68 @@
 ---
 title: Terms of Use
 about: |
-  The Terms of Use page outlines the rules and guidelines for using VYT
-  Hub services. It covers user responsibilities, content usage policies,
-  disclaimers, and limitations of liability.
+  These Terms of Use explain how you may use VYT Hub and its contents.
+  By using this website, you agree to follow these terms.
 authors: [ vytdev ]
 tags: [ legal ]
 published: '2023-11-05'
-updated: '2023-11-05'
+updated: '2025-04-21'
 ---
 
 # Terms of Use
 
-Welcome to VYT Hub! These Terms of Use ("Terms") govern your use of our
-services, including accessing our website, using our content, and interacting
-with our platform. Please read these Terms carefully before using our services.
-By accessing or using VYT Hub (referred to as "we," "us," or "our"), you agree
-to comply with and be bound by these Terms. If you do not agree with any part
-of these Terms, please do not use our services.
-
-At VYT Hub, we are committed to providing a valuable and enriching experience
-for our users. These Terms outline the rules and guidelines for using our
-platform and interacting with our content. We aim to provide accurate and
-reliable information while fostering a respectful community.
+These Terms of Use explain how you may use VYT Hub and its contents.
+By using this website, you agree to follow these terms.
 
 ## Acceptance of Terms
 
-By accessing or using our services, you acknowledge that you have read,
-understood, and agree to be bound by these Terms. If you are using our services
-on behalf of an organization, you represent and warrant that you have the
-authority to bind the organization to these Terms.
+By continuing to browse or use this website, you agree that you have read and
+understood these terms, and accept them. If you do not agree, you may stop
+using the site at any time.
 
 ## Use of Content
 
-Our content is made available under specific licenses, which are detailed in
-our [license](./license.md) page. Please review the licensing information before
-using or redistributing any content from VYT Hub.
+Unless stated otherwise, everything published on this website (such as
+articles, images, or other media) is shared under the [Creative Commons
+Attribution 4.0 International
+License](https://creativecommons.org/licenses/by/4.0).
+
+This means you are free to copy, share, and adapt the content &mdash; as long
+as long as you give proper credit. See our [License](./license.md) page for
+more info about the license.
+
+## Intellectual Property
+
+The original content on this site is the property of the website creator,
+unless otherwise noted. You are welcome to use and build on it as long as you
+follow the terms of the license, especially giving credit. Not following the
+license could lead to copyright issues.
 
 ## Disclaimer of Warranties
 
-While we strive to provide accurate and reliable information, our content is
-offered "as is," without any warranties of any kind. We do not guarantee the
-accuracy, completeness, or suitability of the information for any purpose.
+All content is provided “**as is**”, with no guarantees. While we aim for
+accuracy, we cannot promise everything is complete or always up to date. Use
+the content at your own discretion.
 
 ## Limitation of Liability
 
-We shall not be liable for any indirect, incidental, special, or consequential
-damages arising from your use or inability to use our services or any
-unauthorized access to or use of our website.
-
-## Modifications
-
-We reserve the right to modify, suspend, or discontinue any part of our
-services at any time without notice. We may update these Terms to reflect
-changes in our practices and to comply with legal obligations.
+We are not responsible for any kind of loss or damage that might result from
+how you use the website or its content. This website is a personal project,
+and all content is shared in good faith and without guarantees.
 
 ## Governing Law
 
-These Terms shall be governed by and construed in accordance with applicable
-laws and regulations worldwide, reflecting the global nature of our services.
-Any disputes arising from or in connection with these Terms shall be subject
-to the jurisdiction of the courts in a mutually agreed upon legal
-jurisdiction, ensuring fairness and impartiality for all users.
+These terms follow the laws that apply in your location or the place from
+where you access this site, unless local laws say otherwise. Any issues that
+come up will be handled fairly and under the relevant legal systems.
 
-## Contact Us
+## Changes and Amendments
 
-If you have any questions or concerns about these Terms, please feel free to
-visit our [contact page](./contact.md). We value your feedback and are here to
-assist you.
+We may update these Terms to reflect changes in our practices or legal
+requirements. Any updates will be posted on this page and communicated
+across the site.
+
+## Contact Information
+
+If you have any questions or concerns about these Terms, please feel free
+to [contact us](./contact.md). We value your feedback.
