@@ -43,6 +43,7 @@ const THEMES = {
  * @param theme The theme to use.
  */
 function changeTheme(theme) {
+  localStorage.setItem('theme', theme);
   const classList = document.documentElement.classList;
 
   /* Remove the existing .theme-* classes. */ 
@@ -59,7 +60,6 @@ function changeTheme(theme) {
 
   /* Update the page theme. */
   classList.add(`theme-${theme}`);
-  localStorage.setItem('theme', theme);
 }
 
 
