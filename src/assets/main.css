@@ -908,6 +908,7 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 
   body {
     font-size: 12pt !important;
+    line-height: 2 !important;
   }
 
   #main-content {
