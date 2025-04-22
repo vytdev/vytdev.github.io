@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const terser = require('terser');
 const util = require('./util.js');
 
 /**
@@ -137,10 +138,9 @@ function createModules(mods) {
  * @param entry The entry point.
  * @param out The output file.
  */
-function packModules(dir, entry, out) {
-  fs.writeFileSync(out, `((${createModules.toString()})({`, 'utf8');
+async function packModules(dir, entry, out) {
+  let jsStr = `((${createModules.toString()})({`;
 
-  const append = (data) => fs.appendFileSync(out, data, 'utf8');
   util.listRecursiveSync(dir).forEach(([ fileName, stat ]) => {
     if (!stat.isFile())
       return;
@@ -148,21 +148,24 @@ function packModules(dir, entry, out) {
       return;
 
     /* Module prologue. */
-    append(`${JSON.stringify(path.relative(dir, fileName))}:` +
-      'function(require,module,exports,global){\n');
+    jsStr += `${JSON.stringify(path.relative(dir, fileName))}:`
+          +  'function(require,module,exports,global){\n';
 
     /* Add the file. */
     if (fileName.endsWith('.js'))
-      append(fs.readFileSync(fileName, 'utf8'));
+      jsStr += fs.readFileSync(fileName, 'utf8');
     else if (fileName.endsWith('.json'))
-      append('module.exports=' + fs.readFileSync(fileName, 'utf8'));
+      jsStr += 'module.exports=' + fs.readFileSync(fileName, 'utf8');
 
     /* Module epilogue. */
-    append('},');
+    jsStr += '},';
   });
 
   /* The initial loading part. */
-  append(`}))(${JSON.stringify(entry)})`);
+  jsStr += `}))(${JSON.stringify(entry)})`;
+
+  const result = await terser.minify(jsStr)
+  fs.writeFileSync(out, result.code);
 }
 
 

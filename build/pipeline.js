@@ -11,8 +11,7 @@ const filters = require('./filters.js');
 
 const njkEnv = new nunjucks.Environment(
   new nunjucks.FileSystemLoader(config.SRC_DIR,
-    { noCache: true, watch: true }),
-  { autoescape: true });
+    { noCache: true }), { autoescape: true });
 exports.njkEnv = njkEnv;
 
 filters.mixInFilters(njkEnv);
@@ -96,8 +95,9 @@ function emitClientJs() {
     config.CLIENT_JS_DIR,
     config.CLIENT_ENTRY,
     outputName
-  );
-  print('generated client-js');
+  )
+   .then(() => print('generated client-js'))
+   .catch(console.error);
 }
 
 

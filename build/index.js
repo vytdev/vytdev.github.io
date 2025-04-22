@@ -1,15 +1,16 @@
 const args = require('mri')(process.argv.slice(2));
 const fs = require('fs');
+const path = require('path');
 const config = require('../config.js');
 const pipeline = require('./pipeline.js');
 
-/* TODO: refactor these.. */
 
 /* Help flag. */
 if (args.h || args.help) {
   showHelp();
   process.exit(1);
 }
+
 
 /* Clean flag. */
 if (args.c || args.clean) {
@@ -20,11 +21,13 @@ if (args.c || args.clean) {
   console.log('Clean-up finished.');
 }
 
+
 /* Build flag. */
 if (args.b || args.build || args.w || args.watch) {
   pipeline.emitAll();
   console.log('Build complete!');
 }
+
 
 /* Deploy flag. */
 if (args.d || args.deploy) {
@@ -39,16 +42,48 @@ if (args.d || args.deploy) {
   });
 }
 
+
 /* Watch flag. */
 if (args.w || args.watch) {
   const watcher = require('./watcher.js');
   watcher.startWatching();
 }
 
+
 /* Pack flag. */
 if (args.p || args.pack) {
-  /* Packing logic here. */
+  const JSZip = require("jszip");
+
+  async function zipFolder(folderPath, outPath) {
+    const zip = new JSZip();
+
+    function addDirToZip(zipObj, folder) {
+      const items = fs.readdirSync(folder);
+      for (const item of items) {
+        const fullPath = path.join(folder, item);
+        const stats = fs.statSync(fullPath);
+        if (stats.isDirectory()) {
+          const subFolder = zipObj.folder(item);
+          addDirToZip(subFolder, fullPath);
+        } else {
+          const data = fs.readFileSync(fullPath);
+          zipObj.file(item, data);
+        }
+        console.log(`pack: ${fullPath}`);
+      }
+    }
+
+    addDirToZip(zip, folderPath);
+
+    const content = await zip.generateAsync({ type: 'nodebuffer' });
+    fs.writeFileSync(outPath, content);
+  }
+
+  zipFolder(config.OUT_DIR, `${config.SITE_ADDRESS}.zip`)
+    .then(() => console.log('Zipped!'))
+    .catch(console.error);
 }
+
 
 /* Serve flag. */
 if (args.s || args.serve) {
