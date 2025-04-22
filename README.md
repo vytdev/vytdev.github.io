@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# rewriting...
-=======
 <div align="center">
 
 # VYT Hub
@@ -17,4 +14,3 @@ media, designs, etc.) is licensed under the [Creative Commons Attribution
 while all **code** used in this project (e.g., scripts, stylesheets, build
 system, etc.) is licensed under the [MIT
 License](https://opensource.org/licenses/MIT).
->>>>>>> tmp/master
