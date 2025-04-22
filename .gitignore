@@ -1,8 +1,0 @@
-# ignore paths
-site/
-dist/
-__pycache__
-*.pyc
-# editor files
-.*.swp
-*~
