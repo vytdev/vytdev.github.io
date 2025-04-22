@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Build and Deploy
+name: Deploy Static Site
 
 on:
   # Runs on pushes targetting the master branch.
@@ -57,29 +57,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-  copy:
-    needs: build
-
-    runs-on: ubuntu-latest
-    steps:
-
-      - name: Copy to 'site' branch
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email \
-            "github-actions[bot]@users.noreply.github.com"
-
-          git clone --branch=site --single-branch \
-            https://github.com/${{ github.repository }} site-branch
-          rm -rf site-branch/*
-          cp -r dist/* site-branch/
-          cd site-branch
-
-          git add .
-          git commit -m "deploy: ${GITHUB_SHA::7}" \
-            || echo "No changes to commit"
-          git push origin site
-
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
