@@ -1,0 +1,24 @@
+<div class="navbar noprint" role="navigation" aria-label="Main navigation">
+
+  {# Sidebar toggle #}
+  {% if not doc.navHidden -%}
+  <input type="checkbox" id="sidebar-toggle" aria-expanded="false"
+      aria-label="Toggle sidebar" />
+  <label class="yescript" for="sidebar-toggle">
+    <span aria-hidden="true"></span>
+  </label>
+  {%- endif %}
+
+  {# Logo #}
+  <a href="https://{{ config.SITE_ADDRESS }}">
+    <img alt="logo" type="image/svg+xml" width="25" height="25"
+         src="{{ 'assets/logo.svg' | url }}" />
+  </a>
+  <p>VYT Hub</p>
+
+  {# Search bar #}
+  {% if not doc.noSearchBar -%}
+  {% include '_layout/searchbar.njk' %}
+  {%- endif %}
+
+</div>

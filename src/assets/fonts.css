@@ -1,0 +1,17 @@
+/* ================================================================
+Load fonts
+================================================================ */
+
+@charset "utf-8";
+
+/* load noto sans font */
+@font-face {
+  src: url(NotoSans-Regular.ttf);
+  font-family: NotoSans;
+}
+
+/* load source code pro font */
+@font-face {
+  src: url(SourceCodePro-Regular.ttf);
+  font-family: SourceCodePro;
+}
