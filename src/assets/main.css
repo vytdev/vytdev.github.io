@@ -856,7 +856,7 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   }
 
   .footer > .links > div {
-    flex-basis: calc(100% / 3);
+    flex-basis: calc(100% / 4);
   }
 }
 
@@ -871,10 +871,6 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 @media (min-width: 1280px) {
   .main-view {
     max-width: 1152px; /* <90% */
-  }
-
-  .footer > .links > div {
-    flex-basis: calc(100% / 4);
   }
 }
 
