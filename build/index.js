@@ -33,12 +33,13 @@ if (args.b || args.build || args.w || args.watch) {
 if (args.d || args.deploy) {
   const commitHash = require('child_process')
     .execSync('git rev-parse --short HEAD')
-    .toString()
-    .trim();
+    .toString().toLowerCase().trim();
+
+  console.log(`Commit hash: ${commitHash}`);
+
   require('gh-pages').publish(config.OUT_DIR, {
-    branch: 'gh-pages',
-    repo: 'https://github.com/vytdev/vytdev.github.io.git',
-    message: `deploy ${commitHash}`,
+    branch: 'site',
+    message: `deploy: ${commitHash}`,
   });
 }
 
