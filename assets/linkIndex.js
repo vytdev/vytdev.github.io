@@ -1,1 +1,1 @@
-window.linkIndex={"41Czsx":"about.html","2BYYNc":"contact.html","35oL02":"cookie.html","27sqpu":"credits.html","3Jv0ml":"disclaimer.html","4on27w":"index.html","3GtdMn":"license.html","2Kg9Ho":"privacy.html","2scQAj":"terms.html"};
+var linkIndex = {"6v9HV3":"about.html",CU2Hd2:"contact.html",awgvb3:"cookie.html",YrShl:"disclaimer.html",gDW4d1:"index.html","6lRyc3":"license.html",Yl78A:"privacy.html","2Dc8C2":"terms.html"}
