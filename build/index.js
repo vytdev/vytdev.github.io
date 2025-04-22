@@ -29,21 +29,6 @@ if (args.b || args.build || args.w || args.watch) {
 }
 
 
-/* Deploy flag. */
-if (args.d || args.deploy) {
-  const commitHash = require('child_process')
-    .execSync('git rev-parse --short HEAD')
-    .toString().toLowerCase().trim();
-
-  console.log(`Commit hash: ${commitHash}`);
-
-  require('gh-pages').publish(config.OUT_DIR, {
-    branch: 'site',
-    message: `deploy: ${commitHash}`,
-  });
-}
-
-
 /* Watch flag. */
 if (args.w || args.watch) {
   const watcher = require('./watcher.js');
@@ -101,7 +86,6 @@ function showHelp() {
   console.error(`tool [options...]
   -b, --build     Build the site.
   -c, --clean     Perform some cleanups.
-  -d, --deploy    Deploy the built site to GitHub Pages.
   -h, --help      Show this help and exit.
   -p, --pack      Create an archive package of the site.
   -w, --watch     Watch changes from ${config.SRC_DIR} directory.
