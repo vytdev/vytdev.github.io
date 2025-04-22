@@ -3,7 +3,7 @@
 @import 'themes.css';
 
 .with-js .noscript, .no-js .yescript {
-  display: none;
+  display: none !important;
 }
 
 *, ::before, ::after, html {
@@ -16,7 +16,7 @@
 
 body {
   color: var(--generic-color);
-  background-color: var(--generic-bg-color);
+  background-color: var(--generic-bg);
   font-size: 12px;
   font-family: NotoSans;
   line-height: 1.6;
@@ -37,7 +37,7 @@ blockquote {
 details {
   margin-top: 1em;
   margin-bottom: 1em;
-  border: 1px solid var(--generic-border-color);
+  border: 1px solid var(--generic-border);
   padding: 2px;
 }
 
@@ -46,7 +46,7 @@ summary {
 }
 
 details[open] summary {
-  border-bottom: 1px solid var(--generic-border-color);
+  border-bottom: 1px solid var(--generic-border);
 }
 
 a {
@@ -54,7 +54,7 @@ a {
   text-decoration: none;
 }
 
-a::visited {
+a:visited {
   color: var(--anchor-visited-color);
 }
 
@@ -140,7 +140,7 @@ code {
   max-width: 100%;
   overflow: hidden;
   overflow-x: scroll;
-  border: 1px solid var(--generic-border-color);
+  border: 1px solid var(--generic-border);
   border-radius: 2px;
   padding: 4px;
   white-space: pre;
@@ -192,7 +192,7 @@ input[type=checkbox] {
   -webkit-appearance: none;
   width: 15px;
   height: 15px;
-  border: 1px solid var(--generic-border-color);
+  border: 1px solid var(--generic-border);
   border-radius: 1px;
   background-color: var(--fade-color);
 }
@@ -230,7 +230,7 @@ table {
 }
 
 table, th, td, tr, thead, tbody {
-  border: 1px solid var(--generic-border-color);
+  border: 1px solid var(--generic-border);
   border-collapse: collapse;
   padding: 8px;
 }
@@ -284,7 +284,7 @@ dd {
   font-size: 18px;
   font-weight: 1200;
   padding: 4px;
-  border-bottom: 1px solid var(--generic-border-color);
+  border-bottom: 1px solid var(--generic-border);
 }
 
 
@@ -365,8 +365,8 @@ dd {
 .cookie-notice {
   display: none;
   position: fixed;
-  background-color: var(--generic-bg-color);
-  border: 1px solid var(--generic-border-color);
+  background-color: var(--generic-bg);
+  border: 1px solid var(--generic-border);
   z-index: 9999;
   bottom: 0;
   left: 0;
@@ -425,7 +425,8 @@ dd {
 
 div.admonition {
   border-left: 3px solid;
-  background-color: var(--generic-bg-color);
+  background-color: var(--admonition-default-bg);
+  border-left-color: var(--admonition-default-border);
   padding: 8px;
   width: 95%;
   border-radius: 1px;
@@ -501,11 +502,11 @@ div.admonition.caution {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
   padding-left: 4px;
   padding-right: 4px;
-  background-color: var(--generic-bg-color);
-  border-bottom: 1px solid var(--generic-border-color);
+  background-color: var(--generic-bg);
+  border-bottom: 1px solid var(--generic-border);
 }
 
 .navbar > p {
@@ -513,9 +514,9 @@ div.admonition.caution {
 }
 
 .navbar > a {
-  height: 40px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .view-wrapper {
@@ -551,8 +552,8 @@ div.admonition.caution {
   top: 40px;
   width: 90%;
   max-height: calc(100vh - 40px);
-  background-color: var(--generic-bg-color);
-  border-right: 1px solid var(--generic-border-color);
+  background-color: var(--generic-bg);
+  border-right: 1px solid var(--generic-border);
   overflow: auto;
   overflow-x: hidden;
   padding: 8px;
@@ -571,8 +572,7 @@ div.admonition.caution {
 }
 
 .footer {
-  background-color: var(--generic-bg-color);
-  border-top: 1px solid var(--generic-border-color);
+  background-color: var(--footer-bg);
   font-size: 90%;
   padding: 8px;
 }
@@ -656,7 +656,7 @@ input#sidebar-toggle {
 
 label[for=sidebar-toggle] {
   width: 40px;
-  height: 40px;
+  height: 100%;
   cursor: pointer;
   position: relative;
   top: 0;
@@ -725,12 +725,12 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   display: flex;
   align-items: center;
   margin-left: auto;
-  border: 1px solid var(--generic-border-color);
-  border-radius: 2px;
+  border: 1px solid var(--generic-border);
   transition: flex 150ms ease;
 }
 
 .search > * {
+  height: 30px;
   border: 0;
 }
 
@@ -739,7 +739,7 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   box-sizing: border-box;
   transition: width 0.3s ease;
   color: var(--generic-color);
-  background: var(--generic-bg-color);
+  background: var(--generic-bg);
 }
 
 .search label {
@@ -770,7 +770,7 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   margin: 0;
   margin-top: 3px;
   background-color: var(--fade-color);
-  color: var(--generic-color);
+  color: var(--generic-color) !important;
 }
 
 .search-item:hover {
@@ -894,10 +894,6 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   .yesprint {
     display: none !important;
   }
-
-  .page-break {
-    display: none;
-  }
 }
 
 @media print {
@@ -928,7 +924,5 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 
   .footer {
     border-top: none !important;
-    break-before: page;
-    page-break-before: always;
   }
 }
