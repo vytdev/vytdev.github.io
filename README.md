@@ -2,9 +2,13 @@
 
 # VYT Hub
 
-The hub of my personal knowledge.
+A personal knowledge hub.
 
 </div>
+
+## About
+
+I made VYT Hub so I could organise my docs. That's it.
 
 ## License
 

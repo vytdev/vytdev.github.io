@@ -1,9 +1,16 @@
 
-  Deployment Branch
-  =================
+  Deployment-ready build
+  ======================
 
-  The `site` branch is auto-generated.
+
+  The files here are auto-generated.
 
   Source:  https://github.com/vytdev/vytdev.github.io/tree/master
-
   Browse here:  https://vytdev.github.io/
+
+
+  Copyright (c) 2023-2025 Vincent Yanzee J. Tan
+
+  Code License:     MIT
+  Content License:  CC-BY-4.0
+
