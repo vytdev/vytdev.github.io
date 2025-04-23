@@ -57,16 +57,20 @@ EventHandler.prototype = {
   dispatchEvent: function(ev, ...args) {
     const len = this._listeners.length;
     for (let i = 0; i < len; i++) {
-      const listener = this._listeners[0];
-      if (listener.ev != ev)
+      const listener = this._listeners.shift();
+
+      if (listener.ev != ev) {
+        this._listeners.push(listener);
         continue;
-      this._listeners.shift();
+      }
+
       try {
         listener.func.apply(this, args);
       }
       catch {
         /* no-op */
       }
+
       if (!listener.once)
         this._listeners.push(listener);
     }
