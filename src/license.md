@@ -27,7 +27,7 @@ See the full license [here](http://creativecommons.org/licenses/by/4.0/).
 
 ## Source Code License
 
-The codebase &mdashh; including scripts and stylesheets &mdash; is licensed
+The codebase &mdash; including scripts and stylesheets &mdash; is licensed
 under the **MIT License**. You are free to use, modify, and share the code
 under its terms.
 Full details are available [here](https://opensource.org/licenses/MIT).
