@@ -141,9 +141,9 @@ EventHandler.prototype = {
  */
 const globalEvents = new EventHandler();
 /* Event after the DOM is loaded. */
-window.onload = function() {
+document.addEventListener('DOMContentLoaded', () => {
   globalEvents.emit('load');
-};
+});
 
 
 exports = module.exports = {
