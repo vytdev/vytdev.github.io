@@ -47,3 +47,16 @@ still got a lot to learn in data science. As for beliefs, I’m an
 
 So that's all about myself... in summary, I’m a teenager. But hopefully, an
 interesting one.
+
+## Support Me 🎉
+
+A little support goes a long way! If you’d like to help me keep creating,
+you can do so here:
+
+<a href='https://ko-fi.com/W7W51I5VSO' target='_blank'>
+  <img height='36' style='border:0px;height:36px;'
+       src='https://storage.ko-fi.com/cdn/kofi6.png?v=6'
+       border='0' alt='Buy Me a Coffee at ko-fi.com' />
+</a>
+
+Thanks!
