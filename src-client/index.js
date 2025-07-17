@@ -14,8 +14,8 @@ util.initTheme();
 require('uiHandlers.js');
 require('search/page.js');
 
-/* Announcement! */
 require('./events.js').globalEvents.once('load', () => {
+  /*
   util.changeAnnouncement(`
     We've updated our policies. Please take a moment to review them:
     <a href="${pageInfo.relRoot}cookie.html">Cookie Statement</a>,
@@ -24,4 +24,5 @@ require('./events.js').globalEvents.once('load', () => {
     <a href="${pageInfo.relRoot}privacy.html">Privacy Policy</a>,
     <a href="${pageInfo.relRoot}terms.html">Terms of Use</a>.
   `);
+  */
 });
