@@ -12,6 +12,7 @@ document.documentElement.classList.replace('no-js', 'with-js');
 util.initTheme();
 
 require('uiHandlers.js');
+require('pages/index.js');
 require('search/page.js');
 
 require('./events.js').globalEvents.once('load', () => {
