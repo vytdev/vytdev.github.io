@@ -6,8 +6,6 @@ const events = require('../events.js');
 const util = require('../util.js');
 
 
-const token = 'c2b59980d2030d5b5a7acaf6ef769fd56dc739b2ffcde64aefd715cc4d7dd130';
-
 const versions = [
   { ver: 'v1.16.0', mc: ['1.21.80', '1.21.81/82', '1.21.90',
                          '1.21.92', '1.21.93/94'] },
@@ -33,36 +31,6 @@ const versions = [
   { ver: 'v1.1.0',  mc: ['1.20.10', '1.20.12'] },
   { ver: 'v1.0.0',  mc: ['1.20.0', '1.20.1'] }
 ];
-
-
-/**
- * Check whether the user came from linkvertise.
- * @param hash The hash.
- * @returns A Promise which resolves in a boolean.
- */
-function checkValidity(hash) {
-  return new Promise((res, rej) => {
-    if (token.length != 64 || hash?.length != 64)
-      return res(false);
-
-    const xhr = new XMLHttpRequest();
-    let url = 'https://publisher.linkvertise.com/api/v1/anti_bypassing';
-    url += '?token=' + encodeURIComponent(token)
-         + '&hash=' + encodeURIComponent(hash);
-    xhr.open('POST', url, true);
-
-    xhr.onload = () => {
-      const text = xhr.responseText?.toLowerCase();
-      res(xhr.status === 200 && text.includes('true'));
-    };
-
-    xhr.onerror = (err) => {
-      rej(err);
-    };
-
-    xhr.send();
-  });
-}
 
 
 /**
@@ -106,20 +74,7 @@ function createTable(list) {
 events.globalEvents.once('load', () => {
   if (pageInfo.relRoot != './' || pageInfo.path != 'download-debug-stick.html')
     return;
+
   const cont = document.getElementById('version-list');
-
-  /* temp */
   cont.innerHTML = createTable(versions);
-
-  /* Check whether the user came from Linkvertise. */
-  checkValidity(util.query['hash'] ?? '')
-    .then(isValid => {
-      cont.innerHTML += '<p>Ignore this: ' + isValid + '</p>';
-      /*
-      if (isValid)
-        cont.innerHTML = createTable(versions);*/
-    })
-    .catch(err => {
-      cont.innerHTML += '<p>Error: could not access APIs</p>';
-    });
 });

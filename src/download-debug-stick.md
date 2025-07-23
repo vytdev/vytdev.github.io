@@ -16,8 +16,8 @@ Find your Minecraft version below. If you're on Windows, just download the
 
 <div id="version-list" class="noprint yescript">
 
-::: hl attention Sorry
-Sorry, you have to come from Linkvertise first.
+::: hl info Please wait...
+Please wait while we're loading the list.
 :::
 </div>
 
