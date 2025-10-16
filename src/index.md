@@ -14,11 +14,4 @@ Hey, welcome to VYT Hub &mdash; my personal knowledge hub! I'm
 [vytdev](https://github.com/vytdev), another comp sci guy you'd see around.
 Here I'll collect my notes, guides, docs, and tools.
 
-## Coming soon
-
-- Dev notes
-- Documentation
-- Project highlights
-- Tutorials?
-
-<!-- TODO: link to useful pages -->
+- [Editorial](./editorial/index.md)
