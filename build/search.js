@@ -63,7 +63,7 @@ function createSearchIndex() {
   let totalNumOfDocs = 0;
 
   /* Reference to hash. */
-  const ref2doc = Object.create(null);
+  const ref2doc = [];
   for (const k in stagedDocs)
     ref2doc[totalNumOfDocs++] = k;
 
@@ -82,7 +82,7 @@ function createSearchIndex() {
    * @returns The resulting field index.
    */
   function processBM25Index(fieldName) {
-    const docLengths = Object.create(null);
+    const docLengths = [];
     const termFreqs = Object.create(null);
     let totalDocLen = 0;
 

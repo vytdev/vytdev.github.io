@@ -8,10 +8,10 @@ type docRef = number;
 type docLen = number;
 type tokRef = number;
 type tokFreq = number;
-type docUid = string;   // from dataIndex
+type docUid = string;    // from dataIndex
 
 type bm25Index = {
-  docLengths: { [docRef]: docLen }
+  docLengths: docLen[],  // idx = docRef
   termFreqs: { [tokRef]: Array<[docRef, tokFreq]> }
   avgDocLen: number,
 };
@@ -29,7 +29,7 @@ type index = {
   tags:      tagsIndex,
   authors:   tagsIndex,
   term2ref:    { [string]: tokRef },
-  ref2doc:     { [docRef]: docUid },
+  ref2doc:     docUid[],   // idx = docRef
 };
 
 */
@@ -124,7 +124,7 @@ class Search {
    * @returns The new query value.
    */
   computeQueryBoost(qfreq) {
-    return (qfreq + (this.params.k2 + 1)) / (qfreq + this.params.k2);
+    return qfreq * (this.params.k2 + 1) / (qfreq + this.params.k2);
   }
 
 
