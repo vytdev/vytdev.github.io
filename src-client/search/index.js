@@ -53,7 +53,7 @@ function loadLinkIndex() {
 function query(text) {
   if (!exports.searchIndex || !exports.pageDataIndex)
     return null;
-  return Object.entries(finder.performSearch(text))
+  return Object.entries(new finder.Search(searchIndex).fastSearch(text))
     .map(([docRef, result]) => ({
       docUid: docRef,
       pageInfo: pageDataIndex[docRef],

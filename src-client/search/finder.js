@@ -2,188 +2,275 @@ const lang = require('./lang.js');
 const config = require('../config.js');
 
 
-/**
- * Default BM25 hyperparameter values.
- */
-const bm25Defs = {
-  k1: 1.5,
-  k2: 100,
-  b: 0.75,
-  delta: 0,
+/*
+
+type docRef = number;
+type docLen = number;
+type tokRef = number;
+type tokFreq = number;
+type docUid = string;   // from dataIndex
+
+type bm25Index = {
+  docLengths: { [docRef]: docLen }
+  termFreqs: { [tokRef]: Array<[docRef, tokFreq]> }
+  avgDocLen: number,
 };
 
+type tagsIndex = {
+  [tokRef]: docRef[],
+};
+
+type index = {
+  lastIndexed:    number, // Date.now()
+  totalNumOfDocs: number,
+  title:     bm25Index,
+  about:     bm25Index,
+  content:   bm25Index,
+  tags:      tagsIndex,
+  authors:   tagsIndex,
+  term2ref:    { [string]: tokRef },
+  ref2doc:     { [docRef]: docUid },
+};
+
+*/
+
 
 /**
- * Fill in default BM25 parameters.
- * @param params The initial param list.
- * @returns The params with defaults set.
+ * A custom fast client-based search engine.
  */
-function bm25FillDefaults(params) {
-  const newParams = Object.create(null);
-  for (const k in bm25Defs)
-    newParams[k] = typeof params[k] != 'number'
-      ? params[k]
-      : bm25Defs[k];
-  return newParams;
-}
+class Search {
+
+  /**
+   * Make a new Search instance for the given index.
+   */
+  constructor(index) {
+    this.index = index;
+
+    /* state dependent */
+    this.query = null;
+    this.result = null;
+    this._cachedPartials = null;
+
+    this.params = {
+      k1: 1.5,
+      k2: 100,
+      b: 0.75,
+      delta: 0,
+      partial: 0.005,
+    };
+  }
 
 
-/**
- * Perform a search for 'queries' on 'indx'.
- * @param queries An object containing query terms
- * and query boosts.
- * @param term2ref The term-to-ref mapping.
- * @param out Where to output the scores.
- * @param indx The BM25 search index.
- * @param fieldW Weight to give for the field.
- * @param [p] BM25 parameters.
- */
-function bm25QueryOnField(queries, term2ref, out, indx, fieldW, p = bm25Defs)
-{
-  /* Cached TF normalisation factors. */
-  const normFactors = Object.create(null);
+  /**
+   * Process the query text, compute for query boosts, etc.
+   * @param rawQuery The un-processed query text.
+   * @returns An object of stemmed query and query boost pairs.
+   */
+  processQuery(rawQuery) {
+    const toks = lang.split(rawQuery);
 
-  for (const [ tok, qBoost ] of Object.entries(queries)) {
-    if (!(tok in term2ref))
-      continue;
-
-    /* Compute the scores of the documents that contains this term. */
-    const query = term2ref[tok];
-    if (!(query in indx.termFreqs))
-      continue;
-
-    const docsContainingQuery = indx.termFreqs[query];
-
-    /* Compute for the term's idf. */
-    const idf = Math.log(
-      (searchIndex.totalNumOfDocs - docsContainingQuery.length + 0.5) /
-      (docsContainingQuery.length + 0.5) + 1);
-    const otherFactors = idf * qBoost * fieldW;
-
-    /* Process each document that contains the term. */
-    for (const [ docRef, freqInDoc ] of docsContainingQuery) {
-
-      /* Norm factor not yet computed. */
-      if (!(docRef in normFactors))
-        normFactors[docRef] = p.k1 * (1 - p.b + p.b *
-          (indx.docLengths[docRef] / indx.avgDocLen));
-
-      /* Compute for the normalized term freq component of the document. */
-      const normTF = freqInDoc / (freqInDoc +
-        normFactors[docRef]) * (p.k1 + 1);
-
-      /* BM25 score of the doc for term 'query'. */
-      const docResult = out[docRef] || (out[docRef] = {});
-      docResult.relevance = (docResult.relevance ?? 0) +
-        (normTF + p.delta) * otherFactors;
+    /* Count the query term frequencies first. */
+    const queryFreqs = Object.create(null);
+    for (const tok of toks) {
+      if (lang.isStopword(tok))
+        continue;
+      queryFreqs[tok] =
+        queryFreqs[lang.stemmer(tok)] =
+          (queryFreqs[tok] ?? 0) + 1;
     }
 
+    /* Compute the query boosts. */
+    const result = Object.create(null);
+    for (const tok in queryFreqs)
+      result[tok] = this.computeQueryBoost(queryFreqs[tok]);
+
+    return result;
   }
-}
 
 
-/**
- * Perform a tag index search on 'indx'.
- * @param queries An object containing query terms
- * and query boosts.
- * @param term2ref The term-to-ref mapping.
- * @param out Where to output the scores.
- * @param indx The tag search index.
- * @param fieldW Weight to give for the field.
- * @param [tagList] The key where to place the found tags.
- */
-function tagNdxQueryOnField(queries, term2ref, out, indx, fieldW,
-                            tagList = null)
-{
-  for (const [ tok, qBoost ] of Object.entries(queries)) {
-    if (!(tok in term2ref))
-      continue;
+  /**
+   * Reset the search with a new query.
+   * @param query The query string.
+   */
+  loadQuery(query) {
+    this.query = this.processQuery(query);
+    this.result = Object.create(null);
+    this._cachedPartials = Object.create(null);
+  }
 
-    const query = term2ref[tok];
-    if (!(query in indx))
-      continue;
 
-    /* Score to add per document. */
-    const score = fieldW * qBoost;
+  /**
+   * Returns all the possible partial match for the query term.
+   * @param term The term to get.
+   * @returns Array of partial matches.
+   */
+  getPartialMatches(qterm) {
+    if (qterm in this._cachedPartials)
+      return this._cachedPartials[qterm];
 
-    for (const docRef of indx[query]) {
-      const docResult = out[docRef] || (out[docRef] = {});
-      docResult.relevance = (docResult.relevance ?? 0) + score;
+    const arr = [];
+    for (const k in this.index.term2ref)
+      if (k != qterm && k.includes(qterm))
+        arr.push(k);
 
-      /* List the found tags. */
-      if (tagList) {
-        if (!docResult[tagList])
-          docResult[tagList] = [];
-        docResult[tagList].push(tok);
+    this._cachedPartials[qterm] = arr;
+    return arr;
+  }
+
+
+  /**
+   * Compute the query boost based on the frequency of the query term.
+   * @param qfreq The freq of the query term.
+   * @returns The new query value.
+   */
+  computeQueryBoost(qfreq) {
+    return (qfreq + (this.params.k2 + 1)) / (qfreq + this.params.k2);
+  }
+
+
+  /**
+   * Compute the inverse document frequency (or IDF) of a particular term.
+   * @param numOfDocs Number of docs containing the term in a field index.
+   * @returns The computed IDF.
+   */
+  computeIDF(numOfDocs) {
+    return Math.log(
+        (this.index.totalNumOfDocs - numOfDocs + 0.5) /
+        (numOfDocs + 0.5) + 1);
+  }
+
+
+  /**
+   * Compute the TF component of a term on a document.
+   * @param docLen The length of the document where the term is from.
+   * @param avgDocLen Average length of documents in the index.
+   * @returns The term-frequency component.
+   */
+  computeTF(freqInDoc, docLen, avgDocLen) {
+    const normFactor = this.params.k1 * (1 - this.params.b +
+        this.params.b * (docLen / avgDocLen));
+    return freqInDoc / (freqInDoc + normFactor) * (this.params.k1 + 1);
+  }
+
+
+  /**
+   * Perform an Okapi BM25 search on a supported index.
+   * @param field The BM25 search field index (title, about, content).
+   * @param weight Weight to give for the field.
+   */
+  queryFieldBM25(field, weight) {
+    const indx = this.index[field];
+    const self = this;
+
+    function searchTerm(tok, qBoost, isPartial) {
+      const query = self.index.term2ref[tok];
+      if (!(query in indx.termFreqs))
+        return;
+      const docsContainingQuery = indx.termFreqs[query];
+
+      /* Compute for some vals. */
+      const idf = self.computeIDF(docsContainingQuery.length);
+      const otherFactors = idf * qBoost * weight *
+          (isPartial ? self.params.partial : 1);
+
+      /* Process each document that contains the term. */
+      for (const [ docRef, freqInDoc ] of docsContainingQuery) {
+        const normTF = self.computeTF(
+            freqInDoc, indx.docLengths[docRef], indx.avgDocLen);
+        const docResult = self.result[docRef] || (self.result[docRef] = {});
+        docResult.relevance = (docResult.relevance ?? 0) +
+          (normTF + self.params.delta) * otherFactors;
       }
     }
-  }
-}
 
+    for (const [ tok, qBoost ] of Object.entries(this.query)) {
+      const partials = this.getPartialMatches(tok);
+      if (!(tok in this.index.term2ref) && partials.length == 0)
+        continue;
 
-/**
- * Process the query text, compute for query boosts, etc.
- * @param rawQuery The un-processed query text.
- * @param k2 The term frequency saturation parameter.
- * @returns An object of stemmed query and query boost pairs.
- */
-function processQuery(rawQuery, k2) {
-  const toks = lang.split(rawQuery);
+      /* exact match search */
+      if (tok in this.index.term2ref)
+        searchTerm(tok, qBoost, false);
 
-  /* Count the query term frequencies first. */
-  const queryFreqs = Object.create(null);
-  for (const tok of toks) {
-    if (lang.isStopword(tok))
-      continue;
-    queryFreqs[tok] =
-      queryFreqs[lang.stemmer(tok)] =
-        (queryFreqs[tok] ?? 0) + 1;
+      /* partial match search */
+      for (const p of partials)
+        searchTerm(p, qBoost, true);
+    }
   }
 
-  /* Compute the query boosts. */
-  const result = Object.create(null);
-  for (const tok in queryFreqs)
-    result[tok] = (queryFreqs[tok] * (k2 + 1)) / (queryFreqs[tok] + k2);
 
-  return result;
-}
+  /**
+   * Perform a tag search on a supported index. Tag indices are
+   * straightforward search indices.
+   * @param field The tag ndx search field index (tags, authors).
+   * @param weight Weight to be assigned for the field.
+   */
+  queryFieldTags(field, weight) {
+    const indx = this.index[field];
+    const self = this;
 
+    function searchTerm(tok, qBoost, isPartial) {
+      const query = self.index.term2ref[tok];
+      if (!(query in indx))
+        return;
 
-/**
- * Perform a raw search across all the field index.
- * @param query The (un-processed) query string.
- * @returns A {docId:score} mapped object.
- */
-function performSearch(query) {
-  const q = processQuery(query, bm25Defs.k2);
-  const out = Object.create(null);
+      /* Score to add per document. */
+      const score = weight * qBoost * (isPartial ? self.params.partial : 1);
 
-  /* Perform the search for different fields. */
-  bm25QueryOnField   (q, searchIndex.term2ref, out,
-                      searchIndex.title,   config.F_TITLE);
-  bm25QueryOnField   (q, searchIndex.term2ref, out,
-                      searchIndex.about,   config.F_ABOUT);
-  bm25QueryOnField   (q, searchIndex.term2ref, out,
-                      searchIndex.content, config.F_CONTENT);
-  tagNdxQueryOnField (q, searchIndex.term2ref, out,
-                      searchIndex.tags,    config.F_TAGS,    'tags');
-  tagNdxQueryOnField (q, searchIndex.term2ref, out,
-                      searchIndex.authors, config.F_AUTHORS, 'authors');
+      for (const docRef of indx[query]) {
+        const docResult = self.result[docRef] || (self.result[docRef] = {});
+        docResult.relevance = (docResult.relevance ?? 0) + score;
 
-  /* We need a doc uid, not an index reference. */
-  const remappedOut = Object.create(null);
-  for (const k in out)
-    remappedOut[searchIndex.ref2doc[k]] = out[k];
+        /* List the found tags. */
+        if (!docResult[field])
+          docResult[field] = [];
+        if (!docResult[field].includes(tok))
+          docResult[field].push(tok);
+      }
+    }
 
-  return remappedOut;
+    for (const [ tok, qBoost ] of Object.entries(this.query)) {
+      const partials = this.getPartialMatches(tok);
+      if (!(tok in this.index.term2ref) && partials.length == 0)
+        continue;
+
+      /* exact match search */
+      if (tok in this.index.term2ref)
+        searchTerm(tok, qBoost, false);
+
+      /* partial match search */
+      for (const p of partials)
+        searchTerm(p, qBoost, true);
+    }
+  }
+
+  /**
+   * Perform a search across all the field indices.
+   */
+  searchAllIndices() {
+    this.queryFieldBM25('title',     config.F_TITLE);
+    this.queryFieldBM25('about',     config.F_ABOUT);
+    this.queryFieldBM25('content',   config.F_CONTENT);
+    this.queryFieldTags('tags',      config.F_TAGS);
+    this.queryFieldTags('authors',   config.F_AUTHORS);
+  }
+
+  /**
+   * Do a search in a single call.
+   * @param query The (unprocessed) query string.
+   * @returns {docId:result} object.
+   */
+  fastSearch(query) {
+    this.loadQuery(query);
+    this.searchAllIndices();
+    const remappedOut = Object.create(null);
+    for (const k in this.result)
+      remappedOut[this.index.ref2doc[k]] = this.result[k];
+    return remappedOut;
+  }
 }
 
 
 exports = module.exports = {
-  bm25Defs,
-  bm25FillDefaults,
-  bm25QueryOnField,
-  tagNdxQueryOnField,
-  processQuery,
-  performSearch,
+  Search
 };
