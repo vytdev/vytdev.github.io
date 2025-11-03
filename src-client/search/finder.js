@@ -10,26 +10,26 @@ type tokRef = number;
 type tokFreq = number;
 type docUid = string;    // from dataIndex
 
-type bm25Index = {
-  docLengths: docLen[],  // idx = docRef
-  termFreqs: { [tokRef]: Array<[docRef, tokFreq]> }
-  avgDocLen: number,
-};
+type bm25Index = [
+  docLen,                                   // avg doc len
+  docLen[],                                 // doc lens; idx = docRef
+  { [tokRef]: Array<[docRef, tokFreq]> },   // term freqs
+];
 
 type tagsIndex = {
   [tokRef]: docRef[],
 };
 
 type index = {
-  lastIndexed:    number, // Date.now()
-  totalNumOfDocs: number,
+  lastIndexed:     number, // Date.now()
+  totalNumOfDocs:  number,
+  ref2doc:         docUid[],   // idx = docRef
+  term2ref:        { [string]: tokRef },
   title:     bm25Index,
   about:     bm25Index,
   content:   bm25Index,
   tags:      tagsIndex,
   authors:   tagsIndex,
-  term2ref:    { [string]: tokRef },
-  ref2doc:     docUid[],   // idx = docRef
 };
 
 */
@@ -159,14 +159,14 @@ class Search {
    * @param weight Weight to give for the field.
    */
   queryFieldBM25(field, weight) {
-    const indx = this.index[field];
+    const [ avgDocLen, docLens, termFreqs ] = this.index[field];
     const self = this;
 
     function searchTerm(tok, qBoost, isPartial) {
       const query = self.index.term2ref[tok];
-      if (!(query in indx.termFreqs))
+      if (!(query in termFreqs))
         return;
-      const docsContainingQuery = indx.termFreqs[query];
+      const docsContainingQuery = termFreqs[query];
 
       /* Compute for some vals. */
       const idf = self.computeIDF(docsContainingQuery.length);
@@ -176,7 +176,7 @@ class Search {
       /* Process each document that contains the term. */
       for (const [ docRef, freqInDoc ] of docsContainingQuery) {
         const normTF = self.computeTF(
-            freqInDoc, indx.docLengths[docRef], indx.avgDocLen);
+            freqInDoc, docLens[docRef], avgDocLen);
         const docResult = self.result[docRef] || (self.result[docRef] = {});
         docResult.relevance = (docResult.relevance ?? 0) +
           (normTF + self.params.delta) * otherFactors;

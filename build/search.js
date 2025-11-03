@@ -111,11 +111,11 @@ function createSearchIndex() {
       docLengths[i] = tokens.length;
     }
 
-    return {
+    return [
+      totalDocLen / totalNumOfDocs,  /* avg doc len */
       docLengths,
       termFreqs,
-      avgDocLen: totalDocLen / totalNumOfDocs,
-    };
+    ];
   }
 
   /**
@@ -147,13 +147,13 @@ function createSearchIndex() {
   return {
     lastIndexed: Date.now(),
     totalNumOfDocs,
+    ref2doc,
+    term2ref,
     title:    processBM25Index('title'),
     about:    processBM25Index('about'),
     content:  processBM25Index('content'),
     tags:     processTagsIndex('tags'),
     authors:  processTagsIndex('authors'),
-    term2ref,
-    ref2doc,
   };
 }
 
