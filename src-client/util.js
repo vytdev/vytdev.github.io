@@ -1,3 +1,5 @@
+const lang = require('./search/lang.js');
+
 /**
  * Parse URL queries.
  * @param url The URL string.
@@ -140,7 +142,7 @@ function hideAnnouncement() {
  * @param node The node.
  */
 function highlight(text, node) {
-  const words = text.normalize('NFD').toLowerCase().split(/\s+/g);
+  const words = lang.normalize(text).split(/\s+/g);
 
   /* A text node. */
   if (node.nodeType == document.TEXT_NODE) {
@@ -148,29 +150,43 @@ function highlight(text, node) {
     /* Already highlighted or is nohighlight? */
     if (node.parentNode.classList.contains('highlight') ||
       node.parentNode.classList.contains('nohighlight'))
-    { return; }
+      return;
 
-    const org = node.nodeValue,
-      lower = org.normalize('NFD').toLowerCase();
+    const org = node.nodeValue;
+    const norm = lang.normalize(org);
 
     /* Match and highlight words. */
-    for (let i = 0; i < words.length; i++) {
-      const term = words[i];
-      const idx = lower.indexOf(term);
-
-      if (idx < 0) { continue; }
+    for (const term of words) {
+      const idx = norm.indexOf(term);
       const len = term.length;
 
-      /* Setup a highlight container. */
+      if (idx < 0)
+        continue;
+
+      /* Fix: highlighting hangul was weird */
+      const map = [];
+      for (let i = 0; i < org.length; i++) {
+        const chLen = lang.normalize(org[i]).length;
+        for (let j = 0; j < chLen; j++)
+          map.push(i);
+      }
+
+      const start = map[idx];
+      const end = map[idx + len - 1] + 1;
+      const before = org.slice(0, start);
+      const match = org.slice(start, end);
+      const after = org.slice(end);
+
+      /* The node containing the highlight text. */
       const span = document.createElement('span');
       span.className = 'highlight';
-      span.appendChild(document.createTextNode(org.substring(idx, idx + len)));
+      span.appendChild(document.createTextNode(match));
 
-      /* Highlight. */
-      node.parentNode.insertBefore(span, node.parentNode.insertBefore(
-        document.createTextNode(org.substring(idx + len)),
-        node.nextSibling));
-      node.nodeValue = org.substring(0, idx);
+      /* <orig node> + <highlight> + <next nodes> */
+      const afterNode = document.createTextNode(after);
+      node.parentNode.insertBefore(span, node.nextSibling);
+      node.parentNode.insertBefore(afterNode, span.nextSibling);
+      node.nodeValue = before;
 
       highlight(text, node.parentNode);
       break;
@@ -182,12 +198,11 @@ function highlight(text, node) {
   /* Exclude button, select, textarea, and svg elements. */
   if (node.tagName == 'BUTTON' || node.tagName == 'SELECT' ||
       node.tagName == 'TEXTAREA' || node.tagName == 'SVG')
-  { return; }
+    return;
 
   /* iterate through child nodes. */
-  for (let i = 0; i < node.childNodes.length; i++) {
+  for (let i = 0; i < node.childNodes.length; i++)
     highlight(text, node.childNodes[i]);
-  }
 }
 
 
