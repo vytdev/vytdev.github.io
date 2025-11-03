@@ -15,3 +15,5 @@ Hey, welcome to VYT Hub &mdash; my personal knowledge hub! I'm
 Here I'll collect my notes, guides, docs, and tools.
 
 - [Editorial](./editorial/index.md)
+
+간주 점프는 안 돼요

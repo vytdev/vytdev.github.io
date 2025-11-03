@@ -36,9 +36,9 @@ const unquotedContractions = {
  * @returns The normalized string.
  */
 function normalize(str) {
-  return str.normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase();
+  return str.normalize('NFKD')          /* allow single jamo search */
+    .replace(/[\u0300-\u036f]/g, '')    /* remove the accents */
+    .toLowerCase();                     /* for case insensitive search */
 };
 
 
