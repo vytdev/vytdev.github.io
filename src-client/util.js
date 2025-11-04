@@ -1,4 +1,4 @@
-const lang = require('./search/lang.js');
+const nlp = require('./nlp.js');
 
 /**
  * Parse URL queries.
@@ -142,7 +142,7 @@ function hideAnnouncement() {
  * @param node The node.
  */
 function highlight(text, node) {
-  const words = lang.normalize(text).split(/\s+/g);
+  const words = nlp.normalize(text).split(/\s+/g);
 
   /* A text node. */
   if (node.nodeType == document.TEXT_NODE) {
@@ -153,7 +153,7 @@ function highlight(text, node) {
       return;
 
     const org = node.nodeValue;
-    const norm = lang.normalize(org);
+    const norm = nlp.normalize(org);
 
     /* Match and highlight words. */
     for (const term of words) {
@@ -166,7 +166,7 @@ function highlight(text, node) {
       /* Fix: highlighting hangul was weird */
       const map = [];
       for (let i = 0; i < org.length; i++) {
-        const chLen = lang.normalize(org[i]).length;
+        const chLen = nlp.normalize(org[i]).length;
         for (let j = 0; j < chLen; j++)
           map.push(i);
       }
@@ -368,6 +368,15 @@ function asyncSleep(n) {
 }
 
 
+/**
+ * Creates an empty object.
+ * @returns Object.create(null).
+ */
+function createEmptyObj() {
+  return Object.create(null);
+}
+
+
 exports = module.exports = {
   parseUrlQueries,
   query,
@@ -396,4 +405,5 @@ exports = module.exports = {
   parseFullHTML,
   escapeHTML,
   asyncSleep,
+  createEmptyObj,
 };

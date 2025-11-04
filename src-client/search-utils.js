@@ -1,7 +1,6 @@
-const lang = require('./lang.js');
-const finder = require('./finder.js');
-const config = require('../config.js');
-const util = require('../util.js');
+const Search = require('./search.js');
+const config = require('./config.js');
+const util = require('./util.js');
 
 
 /**
@@ -53,7 +52,7 @@ function loadLinkIndex() {
 function query(text) {
   if (!exports.searchIndex || !exports.pageDataIndex)
     return null;
-  return Object.entries(new finder.Search(searchIndex).fastSearch(text))
+  return Object.entries(new Search(searchIndex).fastSearch(text))
     .map(([docRef, result]) => ({
       docUid: docRef,
       pageInfo: pageDataIndex[docRef],

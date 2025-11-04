@@ -1,4 +1,4 @@
-const nlp = require('../src-client/search/lang.js');
+const nlp = require('../src-client/nlp.js');
 
 
 /**
@@ -35,9 +35,9 @@ function setRecord(id, doc, cont) {
   stagedDocs[id] = {
     pageInfo:  doc,
     /* For indexing. */
-    title:    nlp.processText(doc.title),
-    about:    nlp.processText(doc.about),
-    content:  nlp.processText(cont),
+    title:    nlp.preprocess(doc.title),
+    about:    nlp.preprocess(doc.about),
+    content:  nlp.preprocess(cont),
     authors:  doc.authors,
     tags:     doc.tags,
   };

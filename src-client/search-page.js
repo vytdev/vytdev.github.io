@@ -1,7 +1,7 @@
-const util = require('../util.js');
-const events = require('../events.js');
-const nlp = require('./lang.js');
-const search = require('./index.js');
+const util = require('./util.js');
+const events = require('./events.js');
+const nlp = require('./nlp.js');
+const srUtil = require('./search-utils.js');
 
 const queryText = util.query['q'];
 const queryTokens = queryText && nlp.split(queryText);
@@ -154,15 +154,14 @@ async function doSearch(query) {
 
   /* Load the index. */
   setStateText('Fetching index...');
-  await search.loadSearchIndex();
-  await search.loadPageDataIndex();
+  await srUtil.loadSearchIndex();
+  await srUtil.loadPageDataIndex();
 
   /* Query the index. */
   setStateText('Searching...');
   const startTime = Date.now();
 
-  searchResults = search.query(query);
-  exports.searchResults = searchResults;
+  searchResults = srUtil.query(query);  /* perf heavy task */
 
   const elapsed = (Date.now() - startTime) / 1000;
   const numOfMatches = searchResults.length;
@@ -174,7 +173,7 @@ async function doSearch(query) {
     setStateText(`Found ${numOfMatches} matches. (${elapsed}s)`);
 
   /* Sort and render the results. */
-  sortResults(search.sortFuncs.relevance, false);
+  sortResults(srUtil.sortFuncs.relevance, false);
   displayResults();
 }
 
@@ -201,17 +200,3 @@ events.globalEvents.once('load', () => {
   /* Do the search. */
   doSearch(queryText);
 });
-
-
-exports = module.exports = {
-  queryText,
-  queryTokens,
-  searchResults,
-  setStateText,
-  clearResultsDisplay,
-  sortResults,
-  makeTextExcerpt,
-  renderResultItem,
-  displayResults,
-  doSearch,
-};

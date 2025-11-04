@@ -1,5 +1,6 @@
-const lang = require('./lang.js');
-const config = require('../config.js');
+const nlp = require('./nlp.js');
+const config = require('./config.js');
+const util = require('./util.js');
 
 
 /*
@@ -67,20 +68,20 @@ class Search {
    * @returns An object of stemmed query and query boost pairs.
    */
   processQuery(rawQuery) {
-    const toks = lang.split(rawQuery);
+    const toks = nlp.split(rawQuery);
 
     /* Count the query term frequencies first. */
-    const queryFreqs = Object.create(null);
+    const queryFreqs = util.createEmptyObj();
     for (const tok of toks) {
-      if (lang.isStopword(tok))
+      if (nlp.isStopword(tok))
         continue;
-      queryFreqs[tok] =
-        queryFreqs[lang.stemmer(tok)] =
-          (queryFreqs[tok] ?? 0) + 1;
+      const stem = nlp.stemmer(tok);
+      queryFreqs[tok]  = (queryFreqs[tok]  ?? 0) + 1; /* preserve the og */
+      queryFreqs[stem] = (queryFreqs[stem] ?? 0) + 1;
     }
 
     /* Compute the query boosts. */
-    const result = Object.create(null);
+    const result = util.createEmptyObj();
     for (const tok in queryFreqs)
       result[tok] = this.computeQueryBoost(queryFreqs[tok]);
 
@@ -94,8 +95,8 @@ class Search {
    */
   loadQuery(query) {
     this.query = this.processQuery(query);
-    this.result = Object.create(null);
-    this._cachedPartials = Object.create(null);
+    this.result = util.createEmptyObj();
+    this._cachedPartials = util.createEmptyObj();
   }
 
 
@@ -263,7 +264,7 @@ class Search {
   fastSearch(query) {
     this.loadQuery(query);
     this.searchAllIndices();
-    const remappedOut = Object.create(null);
+    const remappedOut = util.createEmptyObj();
     for (const k in this.result)
       remappedOut[this.index.ref2doc[k]] = this.result[k];
     return remappedOut;
@@ -271,6 +272,4 @@ class Search {
 }
 
 
-exports = module.exports = {
-  Search
-};
+exports = module.exports = Search;
