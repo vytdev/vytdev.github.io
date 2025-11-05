@@ -19,9 +19,7 @@ md.use(require('markdown-it-sub'));
 md.use(require('markdown-it-sup'));
 md.use(require('markdown-it-mark'));
 md.use(require('markdown-it-footnote'));
-md.use(require('markdown-it-deflist'));
 md.use(require('markdown-it-task-lists'));
-md.use(require('markdown-it-abbr'));
 
 /* Emojis. */
 md.use(require('markdown-it-emoji').full);
