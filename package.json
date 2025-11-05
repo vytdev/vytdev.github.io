@@ -1,47 +1,29 @@
 {
   "name": "vytdev.github.io",
-  "version": "1.0.0",
-  "description": "A personal website.",
-  "main": "scripts/index.js",
+  "type": "module",
   "scripts": {
     "build": "node ./build/index.js --clean --build",
     "test": "echo \"No test\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vytdev/vytdev.github.io.git"
-  },
-  "keywords": [
-    "website",
-    "personal",
-    "static"
-  ],
-  "author": "Vincent Yanzee J. Tan",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/vytdev/vytdev.github.io/issues"
-  },
-  "homepage": "https://github.com/vytdev/vytdev.github.io#readme",
-  "dependencies": {
+  "devDependencies": {
     "chokidar": "^3.6.0",
+    "esbuild": "^0.25.12",
     "express": "^5.1.0",
+    "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
-    "js-yaml": "^4.1.0",
     "jszip": "^3.10.1",
-    "katex": "^0.16.21",
+    "katex": "^0.16.25",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",
     "markdown-it-container": "^4.0.0",
     "markdown-it-emoji": "^3.0.0",
     "markdown-it-footnote": "^4.0.0",
-    "markdown-it-front-matter": "^0.2.4",
     "markdown-it-mark": "^4.0.0",
     "markdown-it-sub": "^2.0.0",
     "markdown-it-sup": "^2.0.0",
     "markdown-it-task-lists": "^2.1.1",
     "markdown-it-texmath": "^1.0.0",
-    "mri": "^1.2.0",
     "nunjucks": "^3.2.4",
-    "terser": "^5.39.0"
+    "yaml": "^2.8.1"
   }
 }
