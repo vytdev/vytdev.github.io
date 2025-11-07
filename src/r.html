@@ -6,16 +6,16 @@
     <title>Redirecting...</title>
 
     <!-- load hash index -->
-    <script type="text/javascript" src="assets/linkIndex.js"></script>
+    <script type="text/javascript" src="assets/infoIndex.js"></script>
 
     <!-- the redirect script -->
     <script type="text/javascript">
       !function() {
         // r.html?<id>[#...]
         var id = decodeURIComponent(window.location.search.substring(1));
-        if (!linkIndex[id]) { window.location.href = "/" + id; return; }
+        if (!infoIndex[id]) { window.location.href = "/" + id; return; }
         // do redirect
-        window.location.href = "/" + linkIndex[id] +
+        window.location.href = "/" + infoIndex[id].path +
           decodeURIComponent(window.location.hash.substring(1) || "");
       }();
     </script>

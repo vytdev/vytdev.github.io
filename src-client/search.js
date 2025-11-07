@@ -1,4 +1,4 @@
-import * as nlp from './nlp.js';
+import * as nlp from '../build/nlp.js';
 import * as util from './util.js';
 import config from './config.js';
 

@@ -14,12 +14,12 @@ export const env = nunjucks.configure(config.SRC, {
 
 
 /**
- * Render HTML using a template.
+ * Render something using a template.
  * @param templ The template file.
  * @param data Info to pass to the template.
- * @returns HTML string.
+ * @returns The output.
  */
-export function renderHTML(templ, data) {
+export function renderText(templ, data) {
   if (!templ.endsWith(config.TMPL_SUFFIX))
     return null;
   return env.render(templ, data);

@@ -12,8 +12,7 @@ export default {
 
   /* Indices. */
   INDEX_SEARCH:    'assets/searchIndex.js',
-  INDEX_LINKS:     'assets/linkIndex.js',
-  INDEX_PAGEDATA:  'assets/pageDataIndex.js',
+  INDEX_INFO:      'assets/infoIndex.js',
 
   /* Miscellaneous. */
   SCROLL_MARGIN_TOP:   40,

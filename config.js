@@ -18,6 +18,9 @@ export default {
   CLIENT_ENTRY:       path.join(base, 'src-client', 'index.js'),
   CLIENT_OUTPUT:      path.join('assets', 'main.js'),
 
+  INFO_INDEX:         'assets/infoIndex.js',
+  SEARCH_INDEX:       'assets/searchIndex.js',
+
   TMPL_SUFFIX:        '.njk',
   SITEMAP_FILE:       'sitemap.xml',
   NOT_FOUND_PAGE:     '404.html',

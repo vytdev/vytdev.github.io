@@ -3,7 +3,9 @@ import path from 'path';
 import config from '../config.js';
 import { processDocFromFS } from './page.js';
 import { bundleOnce as jsBundleOnce } from './js-bundler.js';
+import { makeSearchIndex, makeInfoIndex, getRecord } from './search.js';
 import * as util from './util.js';
+import { renderText } from './templating.js';
 
 
 /**
@@ -46,12 +48,63 @@ export async function emitFromSrc(relPath, stat) {
  * Build everything from src folder.
  */
 export async function buildSource() {
-  const tasks = [];
+  let tasks = [];
   for await (const [fpath, stat] of util.listRecursively(config.SRC))
     tasks.push(emitFromSrc(path.relative(config.SRC, fpath), stat));
+  await Promise.all(tasks);
+
+  tasks = [];
   tasks.push(jsBundleOnce());
-  return Promise.all(tasks);
+  tasks.push(genInfoIndex());
+  tasks.push(genSearchIndex());
+  tasks.push(genSiteMap());
+  await Promise.all(tasks);
 }
 
 
-// TODO: sitemap and indices
+/**
+ * Write text to output directory.
+ * @param loc Path relative to the serving root.
+ * @param cont What to write.
+ */
+export async function writeToOut(loc, cont) {
+  await fs.writeFile(path.join(config.OUT, loc), cont, 'utf8');
+}
+
+
+/**
+ * Build info index.
+ */
+export async function genInfoIndex() {
+  await writeToOut(config.INFO_INDEX,
+      'var infoIndex = ' + util.serializeJSObject(makeInfoIndex()));
+  util.log('Created info index:', config.INFO_INDEX);
+}
+
+
+/**
+ * Build search index.
+ */
+export async function genSearchIndex() {
+  await writeToOut(config.SEARCH_INDEX, 
+      'var searchIndex = ' + util.serializeJSObject(makeSearchIndex()));
+  util.log('Created search index:', config.SEARCH_INDEX);
+}
+
+
+/**
+ * Generate sitemap.
+ */
+export async function genSiteMap() {
+  const data = {
+    pages: Object.values(getRecord()).map(v => ({
+      lastUpdated: v.pageInfo.updated,
+      urlLocation: v.pageInfo.canonical,
+    }))
+  };
+
+  const result = renderText(
+      path.join(config.SRC, config.SITEMAP_FILE + config.TMPL_SUFFIX), data);
+  await writeToOut(config.SITEMAP_FILE, result);
+  util.log('Created sitemap:', config.SITEMAP_FILE);
+}

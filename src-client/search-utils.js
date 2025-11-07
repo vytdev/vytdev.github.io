@@ -8,30 +8,16 @@ import * as util from './util.js';
  * @returns A Promise which's resolved once the index is loaded.
  */
 export async function loadSearchIndex() {
-  return util.loadScript(pageInfo.relRoot + config.INDEX_SEARCH)
-    .then(() => {
-      searchIndex.ref2term = Object.create(null);
-      for (const term of Object.keys(searchIndex.term2ref))
-        searchIndex.ref2term[searchIndex.term2ref[term]] = term;
-    });
+  return util.loadScript(pageInfo.relRoot + config.INDEX_SEARCH);
 }
 
 
 /**
- * Loads the page data index.
+ * Loads the info index.
  * @returns A Promise.
  */
-export async function loadPageDataIndex() {
-  return util.loadScript(config.INDEX_PAGEDATA);
-}
-
-
-/**
- * Loads the link index.
- * @returns A Promise.
- */
-export async function loadLinkIndex() {
-  return util.loadScript(config.INDEX_LINKS);
+export async function loadInfoIndex() {
+  return util.loadScript(pageInfo.relRoot + config.INDEX_INFO);
 }
 
 
@@ -44,29 +30,9 @@ export function query(text) {
   return Object.entries(new Search(searchIndex).fastSearch(text))
     .map(([docRef, result]) => ({
       docUid: docRef,
-      pageInfo: pageDataIndex[docRef],
+      pageInfo: infoIndex[docRef],
       ...result,
     }));
-}
-
-
-/**
- * Get authors list.
- * @returns An array of author username strings
- */
-export function getAuthorsList() {
-  return Object.keys(searchIndex.authors)
-    .map(v => searchIndex.ref2term[v]);
-}
-
-
-/**
- * Get tags list.
- * @returns An array of tags.
- */
-export function getTagsList() {
-  return Object.entries(searchIndex.tags)
-    .map(v => searchIndex.ref2term[v]);
 }
 
 

@@ -2,10 +2,11 @@ import fs from 'fs/promises';
 import path from 'path';
 import config from '../config.js';
 import * as util from './util.js';
-import { renderHTML, locateTemplateForDoc } from './templating.js';
+import { removeDoc, updateDoc } from './search.js';
+import { renderText, locateTemplateForDoc } from './templating.js';
 import { renderMarkdown } from './markdown.js';
-import * as mdUtils from 'markdown-it/lib/common/utils.mjs';
 import { genTocHTML } from './markdown-plugins/gen-toc.js';
+import * as mdUtils from 'markdown-it/lib/common/utils.mjs';
 
 /**
  * Finalize document options (options from the front-matter).
@@ -244,8 +245,14 @@ export function renderDocument(mdPath, mdContent) {
     genTrail:       () => genTrail(mdPath, pageInfo.isIndex),
   };
 
+  /* Indexing. */
+  if (!pageInfo.dontIndex)
+    updateDoc(pageInfo.ident, pageInfo, mdEnv.rawContent);
+  else
+    removeDoc(pageInfo.ident);
+
   /* Put into a template. */
-  return renderHTML(locateTemplateForDoc(mdPath, opts.layout), renderCtx);
+  return renderText(locateTemplateForDoc(mdPath, opts.layout), renderCtx);
 }
 
 

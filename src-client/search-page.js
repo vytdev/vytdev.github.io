@@ -1,6 +1,6 @@
 import * as util from './util.js';
 import * as events from './events.js';
-import * as nlp from './nlp.js';
+import * as nlp from '../build/nlp.js';
 import * as srUtil from './search-utils.js';
 
 const queryText = util.query['q'];
@@ -155,7 +155,7 @@ async function doSearch(query) {
   /* Load the index. */
   setStateText('Fetching index...');
   await srUtil.loadSearchIndex();
-  await srUtil.loadPageDataIndex();
+  await srUtil.loadInfoIndex();
 
   /* Query the index. */
   setStateText('Searching...');
