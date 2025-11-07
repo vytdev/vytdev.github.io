@@ -5,6 +5,7 @@ import * as util from './util.js';
 import { buildSource } from './builder.js';
 import { startWatching, stopWatching } from './watcher.js';
 import { bundleStop, bundleWatch } from './js-bundler.js';
+import { zipOut } from './packer.js';
 
 
 /* Clean-up callbacks after the user presses CTRL+C. */
@@ -79,7 +80,9 @@ await util.waitForSigInt(sigintTriggers);
 /**
  * Create an archive of the generated output dir.
  */
-// TODO
+if (has('--pack', '-p')) {
+  await zipOut();
+}
 
 
 /**
