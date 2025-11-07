@@ -3,6 +3,8 @@ import config from '../config.js';
 import * as lsrv from './local-server.js';
 import * as util from './util.js';
 import { buildSource } from './builder.js';
+import { startWatching, stopWatching } from './watcher.js';
+import { bundleStop, bundleWatch } from './js-bundler.js';
 
 
 /* Clean-up callbacks after the user presses CTRL+C. */
@@ -60,7 +62,12 @@ if (has('--serve', '-s')) {
 /**
  * Build while editing.
  */
-// TODO
+if (has('--watch', '-w')) {
+  await startWatching();
+  await bundleWatch();
+  sigintTriggers.push(() => stopWatching());
+  sigintTriggers.push(() => bundleStop());
+}
 
 
 /**
