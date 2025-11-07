@@ -5,7 +5,7 @@ import * as util from './util.js';
 import { renderHTML, locateTemplateForDoc } from './templating.js';
 import { renderMarkdown } from './markdown.js';
 import * as mdUtils from 'markdown-it/lib/common/utils.mjs';
-import { genTocHTML } from './mdit-gen-toc.js';
+import { genTocHTML } from './markdown-plugins/gen-toc.js';
 
 /**
  * Finalize document options (options from the front-matter).
