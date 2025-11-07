@@ -2,22 +2,20 @@
 /**
  * EventHandler class.
  */
-function EventHandler() {
-  if (!(this instanceof EventHandler))
-    throw new TypeError('Cannot instantiate event class without "new"');
-  this._listeners = [];
-  this._idCounter = 0;
-}
+export class EventHandler {
 
-/* Class prototype. */
-EventHandler.prototype = {
+  constructor() {
+    this._listeners = [];
+    this._idCounter = 0;
+  }
+
   /**
    * @private
    * Get a listener id.
    */
-  _getId: function() {
+  _getId() {
     return this._idCounter++;
-  },
+  }
 
   /**
    * Listens for an event.
@@ -27,34 +25,34 @@ EventHandler.prototype = {
    * @param prep Put this listener in priority.
    * @returns Listener id which can be used for removeEventListener().
    */
-  addEventListener: function(ev, func, once, prep) {
+  addEventListener(ev, func, once, prep) {
     const data = { ev, func, once, id: this._getId() };
     if (prep)
       this._listeners.unshift(data);
     else
       this._listeners.push(data);
     return data.id;
-  },
+  }
 
   /**
    * Removes an event listener.
    * @param id The id of the event listener.
    * @returns True if the listener is removed successfuly.
    */
-  removeEventListener: function(id) {
+  removeEventListener(id) {
     const idx = this._listeners.findIndex(v => v.id == id);
     if (idx == -1)
       return false;
-    const listener = this._listeners.splice(idx, 1);
+    this._listeners.splice(idx, 1);
     return true;
-  },
+  }
 
   /**
    * Triggers an event.
    * @param ev The event name to trigger.
    * @param ...args The args to pass to the listeners.
    */
-  dispatchEvent: function(ev, ...args) {
+  dispatchEvent(ev, ...args) {
     const len = this._listeners.length;
     for (let i = 0; i < len; i++) {
       const listener = this._listeners.shift();
@@ -74,16 +72,16 @@ EventHandler.prototype = {
       if (!listener.once)
         this._listeners.push(listener);
     }
-  },
+  }
 
   /**
    * An alias of dispatchEvent.
    * @param ev
    * @param ...args
    */
-  emit: function(ev, ...args) {
+  emit(ev, ...args) {
     this.dispatchEvent(ev, ...args);
-  },
+  }
 
   /**
    * Listens for an event.
@@ -91,9 +89,9 @@ EventHandler.prototype = {
    * @param func The listener.
    * @returns Listener id.
    */
-  on: function(ev, func) {
+  on(ev, func) {
     this.addEventListener(ev, func, false, false);
-  },
+  }
 
   /**
    * Listens for an event, once.
@@ -101,9 +99,9 @@ EventHandler.prototype = {
    * @param func The listener.
    * @returns Listener id.
    */
-  once: function(ev, func) {
+  once(ev, func) {
     this.addEventListener(ev, func, true, false);
-  },
+  }
 
   /**
    * Listens for an event, with priority.
@@ -111,9 +109,9 @@ EventHandler.prototype = {
    * @param func The listener.
    * @returns Listener id.
    */
-  prioritze: function(ev, func) {
+  prioritze(ev, func) {
     this.addEventListener(ev, func, false, true);
-  },
+  }
 
   /**
    * Listens for an event once, with priority.
@@ -121,32 +119,26 @@ EventHandler.prototype = {
    * @param func The listener.
    * @returns Listener id.
    */
-  prioritzeOnce: function(ev, func) {
+  prioritzeOnce(ev, func) {
     this.addEventListener(ev, func, true, true);
-  },
+  }
 
   /**
    * Removes an evenr listener.
    * @param id
    * @returns Boolean.
    */
-  off: function(id) {
+  off(id) {
     return this.removeEventListener(id);
-  },
-};
+  }
+}
 
 
 /**
  * A global event handler.
  */
-const globalEvents = new EventHandler();
+export const globalEvents = new EventHandler();
 /* Event after the DOM is loaded. */
 document.addEventListener('DOMContentLoaded', () => {
   globalEvents.emit('load');
 });
-
-
-exports = module.exports = {
-  EventHandler,
-  globalEvents,
-};

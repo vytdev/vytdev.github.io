@@ -1,11 +1,11 @@
-const nlp = require('./nlp.js');
+import * as nlp  from './nlp.js';
 
 /**
  * Parse URL queries.
  * @param url The URL string.
  * @returns The parse result.
  */
-function parseUrlQueries(url) {
+export function parseUrlQueries(url) {
   const qIdx = url.indexOf('?');
   const hIdx = url.indexOf('#');
 
@@ -29,11 +29,11 @@ function parseUrlQueries(url) {
 
 
 /* Parse the current URL queries. */
-const query = parseUrlQueries(window.location.search);
+export const query = parseUrlQueries(window.location.search);
 
 
 /* Themes (and their media query). */
-const THEMES = {
+export const THEMES = {
   auto: 'auto',
   light: 'light',
   dark: 'dark',
@@ -44,7 +44,7 @@ const THEMES = {
  * Change the theme.
  * @param theme The theme to use.
  */
-function changeTheme(theme) {
+export function changeTheme(theme) {
   localStorage.setItem('theme', theme);
   const classList = document.documentElement.classList;
 
@@ -69,7 +69,7 @@ function changeTheme(theme) {
  * Get the current theme.
  * @returns The current theme.
  */
-function getCurrTheme() {
+export function getCurrTheme() {
   return localStorage.getItem('theme') || THEMES.auto;
 }
 
@@ -77,12 +77,12 @@ function getCurrTheme() {
 /**
  * Initialize the theme.
  */
-function initTheme() {
+export function initTheme() {
   changeTheme(getCurrTheme());
 
   /* Auto theme updates. */
   window.matchMedia('(prefers-color-scheme: dark)')
-    .addEventListener('change', ev => {
+    .addEventListener('change', () => {
       if (getCurrTheme() == THEMES.auto)
         changeTheme(THEMES.auto);
     });
@@ -92,7 +92,7 @@ function initTheme() {
 /**
  * Possible cookie consent states.
  */
-const COOKIE_CONSENTS = {
+export const COOKIE_CONSENTS = {
   accepted: 'accepted',
   rejected: 'rejected',
   none: 'none',
@@ -103,7 +103,7 @@ const COOKIE_CONSENTS = {
  * Get the current cookie consent state.
  * @returns The consent state.
  */
-function getCookieConsent() {
+export function getCookieConsent() {
   return localStorage.getItem('cookie-decision') ?? 'none';
 }
 
@@ -112,7 +112,7 @@ function getCookieConsent() {
  * Set the current cookie state.
  * @param val The cookie state to set.
  */
-function setCookieConsent(val) {
+export function setCookieConsent(val) {
   localStorage.setItem('cookie-decision', val);
 }
 
@@ -121,7 +121,7 @@ function setCookieConsent(val) {
  * Change the announcement.
  * @param infoHtml The announcement text in HTML.
  */
-function changeAnnouncement(infoHtml) {
+export function changeAnnouncement(infoHtml) {
   const block = document.querySelector('.announcement-block');
   block.innerHTML = infoHtml;
   block.style.display = 'block';
@@ -131,7 +131,7 @@ function changeAnnouncement(infoHtml) {
 /**
  * Hie the announcement.
  */
-function hideAnnouncement() {
+export function hideAnnouncement() {
   document.querySelector('.announcement-block').style.display = 'none';
 }
 
@@ -141,7 +141,7 @@ function hideAnnouncement() {
  * @param text The terms.
  * @param node The node.
  */
-function highlight(text, node) {
+export function highlight(text, node) {
   const words = nlp.normalize(text).split(/\s+/g);
 
   /* A text node. */
@@ -210,7 +210,7 @@ function highlight(text, node) {
  * Remove highlights from a node.
  * @param node The node where to remove all 'span.highlight'.
  */
-function unHighlight(node) {
+export function unHighlight(node) {
   if (node.tagName == 'SPAN' && node.classList.contains('highlight')) {
     const prev = node.previousSibling;
     const next = node.nextSibling;
@@ -264,7 +264,7 @@ function unHighlight(node) {
  * @param url The url where to fetch the string.
  * @returns A Promise which you can extend.
  */
-function fetchText(url) {
+export function fetchText(url) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
@@ -294,7 +294,7 @@ function fetchText(url) {
  * @param [extras] Other extra options.
  * @returns A Promise.
  */
-function loadScript(url, extras = {}) {
+export function loadScript(url, extras = {}) {
   return new Promise((res, rej) => {
     const sc   = document.createElement('script');
     sc.type    = 'text/javascript';
@@ -326,7 +326,7 @@ function loadScript(url, extras = {}) {
  * @param htmlText The HTML text.
  * @returns The instance of the first root child.
  */
-function parsePartHTML(htmlText) {
+export function parsePartHTML(htmlText) {
   const tmp = document.createElement('div');
   tmp.innerHTML = htmlText;
   return tmp.firstChild;
@@ -338,7 +338,7 @@ function parsePartHTML(htmlText) {
  * @param htmlText The full HTML.
  * @returns HTMLDocument object.
  */
-function parseFullHTML(htmlText) {
+export function parseFullHTML(htmlText) {
   return new DOMParser().parseFromString(htmlText, 'text/html');
 }
 
@@ -348,7 +348,7 @@ function parseFullHTML(htmlText) {
  * @param text The text.
  * @returns The escaped HTML.
  */
-function escapeHTML(text) {
+export function escapeHTML(text) {
   return text
     .replaceAll('&', '&amp;')
     .replaceAll('<', '&lt;')
@@ -363,7 +363,7 @@ function escapeHTML(text) {
  * @param n The sleep time.
  * @returns A Promise resolved after the timeout.
  */
-function asyncSleep(n) {
+export function asyncSleep(n) {
   return new Promise(res => setTimeout(res, n));
 }
 
@@ -372,38 +372,6 @@ function asyncSleep(n) {
  * Creates an empty object.
  * @returns Object.create(null).
  */
-function createEmptyObj() {
+export function createEmptyObj() {
   return Object.create(null);
 }
-
-
-exports = module.exports = {
-  parseUrlQueries,
-  query,
-
-  /* Themes. */
-  THEMES,
-  changeTheme,
-  getCurrTheme,
-  initTheme,
-
-  /* Cookie consents. */
-  COOKIE_CONSENTS,
-  getCookieConsent,
-  setCookieConsent,
-
-  /* Announcements. */
-  changeAnnouncement,
-  hideAnnouncement,
-
-  /* Extra utils. */
-  highlight,
-  unHighlight,
-  fetchText,
-  loadScript,
-  parsePartHTML,
-  parseFullHTML,
-  escapeHTML,
-  asyncSleep,
-  createEmptyObj,
-};

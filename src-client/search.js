@@ -1,6 +1,6 @@
-const nlp = require('./nlp.js');
-const config = require('./config.js');
-const util = require('./util.js');
+import * as nlp from './nlp.js';
+import * as util from './util.js';
+import config from './config.js';
 
 
 /*
@@ -39,7 +39,7 @@ type index = {
 /**
  * A custom fast client-based search engine.
  */
-class Search {
+export default class Search {
 
   /**
    * Make a new Search instance for the given index.
@@ -270,6 +270,3 @@ class Search {
     return remappedOut;
   }
 }
-
-
-exports = module.exports = Search;

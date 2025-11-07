@@ -1,7 +1,7 @@
-const util = require('./util.js');
-const events = require('./events.js');
-const nlp = require('./nlp.js');
-const srUtil = require('./search-utils.js');
+import * as util from './util.js';
+import * as events from './events.js';
+import * as nlp from './nlp.js';
+import * as srUtil from './search-utils.js';
 
 const queryText = util.query['q'];
 const queryTokens = queryText && nlp.split(queryText);

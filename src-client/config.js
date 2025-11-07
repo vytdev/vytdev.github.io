@@ -1,4 +1,4 @@
-exports = module.exports = {
+export default {
 
   /* Exposes 'clientJSRequire' for the sake of debugging. */
   EXPOSE_INTERNAL_REQUIRE: false,

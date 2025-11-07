@@ -1,21 +1,18 @@
-const Search = require('./search.js');
-const config = require('./config.js');
-const util = require('./util.js');
+import Search from './search.js';
+import config from './config.js';
+import * as util from './util.js';
 
 
 /**
  * Load the search index.
  * @returns A Promise which's resolved once the index is loaded.
  */
-function loadSearchIndex() {
+export async function loadSearchIndex() {
   return util.loadScript(pageInfo.relRoot + config.INDEX_SEARCH)
     .then(() => {
       searchIndex.ref2term = Object.create(null);
       for (const term of Object.keys(searchIndex.term2ref))
         searchIndex.ref2term[searchIndex.term2ref[term]] = term;
-    })
-    .then(() => {
-      exports.searchIndex = searchIndex;
     });
 }
 
@@ -24,11 +21,8 @@ function loadSearchIndex() {
  * Loads the page data index.
  * @returns A Promise.
  */
-function loadPageDataIndex() {
-  return util.loadScript(config.INDEX_PAGEDATA)
-    .then(() => {
-      exports.pageDataIndex = pageDataIndex;
-    });
+export async function loadPageDataIndex() {
+  return util.loadScript(config.INDEX_PAGEDATA);
 }
 
 
@@ -36,11 +30,8 @@ function loadPageDataIndex() {
  * Loads the link index.
  * @returns A Promise.
  */
-function loadLinkIndex() {
-  return util.loadScript(config.INDEX_LINKS)
-    .then(() => {
-      exports.linkIndex = linkIndex;
-    })
+export async function loadLinkIndex() {
+  return util.loadScript(config.INDEX_LINKS);
 }
 
 
@@ -49,9 +40,7 @@ function loadLinkIndex() {
  * @param text The query string.
  * @returns An array of documents, or null.
  */
-function query(text) {
-  if (!exports.searchIndex || !exports.pageDataIndex)
-    return null;
+export function query(text) {
   return Object.entries(new Search(searchIndex).fastSearch(text))
     .map(([docRef, result]) => ({
       docUid: docRef,
@@ -65,9 +54,7 @@ function query(text) {
  * Get authors list.
  * @returns An array of author username strings
  */
-function getAuthorsList() {
-  if (!exports.searchIndex)
-    return null;
+export function getAuthorsList() {
   return Object.keys(searchIndex.authors)
     .map(v => searchIndex.ref2term[v]);
 }
@@ -77,9 +64,7 @@ function getAuthorsList() {
  * Get tags list.
  * @returns An array of tags.
  */
-function getTagsList() {
-  if (!exports.searchIndex)
-    return null;
+export function getTagsList() {
   return Object.entries(searchIndex.tags)
     .map(v => searchIndex.ref2term[v]);
 }
@@ -88,7 +73,7 @@ function getTagsList() {
 /**
  * Sorting functions
  */
-const sortFuncs = {};
+export const sortFuncs = {};
 
 
 /**
@@ -96,7 +81,7 @@ const sortFuncs = {};
  * @param name The name of the func.
  * @param fn The sorting function ((a, b) => ...).
  */
-function registerSortingFunc(name, fn) {
+export function registerSortingFunc(name, fn) {
   sortFuncs[name] = function(arr, rev = false) {
     const revVal = rev ? -1 : 1;
     return arr.sort((a, b) => fn(a, b) * revVal);
@@ -113,18 +98,3 @@ registerSortingFunc('published',
   (a, b) => a.pageInfo.published < b.pageInfo.published ? -1 : 1);
 registerSortingFunc('updated',
   (a, b) => a.pageInfo.updated < b.pageInfo.updated ? -1 : 1);
-
-
-exports = module.exports = {
-  searchIndex:    null,
-  pageDataIndex:  null,
-  linkIndex:      null,
-  loadSearchIndex,
-  loadPageDataIndex,
-  loadLinkIndex,
-  query,
-  getAuthorsList,
-  getTagsList,
-  sortFuncs,
-  registerSortingFunc,
-};

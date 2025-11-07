@@ -1,11 +1,11 @@
-const stemmer = require('./nlp-stemmer.js');
+import stemmer from './nlp-stemmer.js';
 
 
 /* Split separators. */
-const punctuation = /[\s~`’‘“”|^°{}[\]()<>\\%@#$&\-+=*/"':;!?.,]+/u;
+export const punctuation = /[\s~`’‘“”|^°{}[\]()<>\\%@#$&\-+=*/"':;!?.,]+/u;
 
 /* Basic search-safe stopwords. */
-const stopwords = new Set([
+export const stopwords = new Set([
     'a', 'an', 'the', 'and', 'or', 'but', 'if', 'in', 'on', 'at', 'by',
     'for', 'with', 'of', 'to', 'from', 'up', 'down', 'over', 'under',
     'between', 'so', 'very', 'as', 'than',
@@ -19,7 +19,7 @@ const stopwords = new Set([
  * @param replacement The string to substitute.
  * @returns A function that takes a raw text and returns a string.
  */
-function makeContr(match, replacement) {
+export function makeContr(match, replacement) {
   if (!match.startsWith('-')) {
     match = '(?<p1>' + punctuation.source + '|^)' + match;
     replacement = '$<p1>' + replacement;
@@ -36,7 +36,7 @@ function makeContr(match, replacement) {
 
 
 /* Define contractions. Applied before splitting. */
-const contractions = [
+export const contractions = [
     makeContr(`can't`,    'can not'),
     makeContr(`-n't`,     ' not'),
     makeContr(`-'ll`,     ' will'),
@@ -56,7 +56,7 @@ const contractions = [
  * @param str The string to normalize.
  * @returns The normalized string.
  */
-function normalize(str) {
+export function normalize(str) {
   return str.normalize('NFKD')          /* allow single jamo search */
     .replace(/[\u0300-\u036f]/g, '')    /* remove the accents */
     .toLowerCase();                     /* for case insensitive search */
@@ -68,7 +68,7 @@ function normalize(str) {
  * @param text The text that contains contractions.
  * @returns A new string with no contractions.
  */
-function expandContractions(text) {
+export function expandContractions(text) {
   contractions.forEach(v => text = v(text));
   return text;
 }
@@ -79,7 +79,7 @@ function expandContractions(text) {
  * @param text The string to split.
  * @returns An array of strings (tokens).
  */
-function tokenize(text) {
+export function tokenize(text) {
   return text.split(punctuation).filter(v => v.length > 0);
 }
 
@@ -89,7 +89,7 @@ function tokenize(text) {
  * @param token The token string to check.
  * @returns True if it is a stopword, false otherwise.
  */
-function isStopword(token) {
+export function isStopword(token) {
   return stopwords.has(token);
 }
 
@@ -100,7 +100,7 @@ function isStopword(token) {
  * @param str The raw text.
  * @returns An array of unstemmed tokens, with stopwords.
  */
-function split(str) {
+export function split(str) {
   str = normalize(str);
   str = expandContractions(str);
   return tokenize(str);
@@ -113,23 +113,11 @@ function split(str) {
  * @param str The raw text.
  * @returns An array of stemmed tokens, without stopwords.
  */
-function preprocess(str) {
+export function preprocess(str) {
   return split(str)
       .filter(v => !isStopword(v))
       .map(stemmer);
 }
 
 
-exports = module.exports = {
-  stemmer,
-  punctuation,
-  stopwords,
-  makeContr,
-  contractions,
-  normalize,
-  expandContractions,
-  tokenize,
-  isStopword,
-  split,
-  preprocess,
-};
+export { stemmer };

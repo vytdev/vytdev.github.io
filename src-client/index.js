@@ -1,5 +1,6 @@
-const util = require('./util.js');
-const config = require('./config.js');
+import * as util from './util.js';
+import config from './config.js';
+import * as events from './events.js';
 
 /* Make 'require' accessible. */
 if (config.EXPOSE_INTERNAL_REQUIRE)
@@ -11,10 +12,10 @@ document.documentElement.classList.replace('no-js', 'with-js');
 /* Load the theme. */
 util.initTheme();
 
-require('ui.js');
-require('search-page.js');
+import './ui.js';
+import './search-page.js';
 
-require('./events.js').globalEvents.once('load', () => {
+events.globalEvents.once('load', () => {
   /*
   util.changeAnnouncement(`
     We've updated our policies. Please take a moment to review them:

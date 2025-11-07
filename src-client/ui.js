@@ -1,6 +1,6 @@
-const events = require('./events.js');
-const config = require('./config.js');
-const util = require('./util.js');
+import * as events from './events.js';
+import * as util from './util.js';
+import config from './config.js';
 const query = util.query;
 
 
@@ -150,7 +150,7 @@ events.globalEvents.once('load', () => {
   cookieNotice.style.display = 'block';
 
   cookieNotice.querySelector('.understood')
-    .addEventListener('click', ev => {
+    .addEventListener('click', () => {
       util.setCookieConsent(util.COOKIE_CONSENTS.accepted);
       cookieNotice.style.display = 'none';
       events.globalEvents.emit('cookie-consented');
