@@ -259,5 +259,5 @@ export async function processDocFromFS(mdPath) {
 
   const mdContent = await fs.readFile(srcPath, 'utf8');
   const finalHTML = renderDocument(mdPath, mdContent);
-  await fs.write(destPath, finalHTML, 'utf8');
+  await fs.writeFile(destPath, finalHTML, 'utf8');
 }

@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import config from '../config.js';
 import * as lsrv from './local-server.js';
 import * as util from './util.js';
+import { buildSource } from './builder.js';
 
 
 /* Clean-up callbacks after the user presses CTRL+C. */
@@ -39,7 +40,10 @@ if (has('--clean', '-c')) {
 /**
  * Do a complete build.
  */
-// TODO
+if (has('--build', '-b')) {
+  await buildSource();
+  util.log('Site has been built');
+}
 
 
 /**
