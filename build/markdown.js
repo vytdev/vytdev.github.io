@@ -13,13 +13,13 @@ import md_sub             from 'markdown-it-sub';
 import md_sup             from 'markdown-it-sup';
 import md_tasklist        from 'markdown-it-task-lists';
 import md_texmath         from 'markdown-it-texmath';
-import md_code_highlight  from './markdown-it-code-highlight.js';
-import md_fix_links       from './markdown-it-fix-links.js';
-import md_gen_toc         from './markdown-it-gen-toc.js';
-import md_sections        from './markdown-it-sections.js';
-import md_spoilers        from './markdown-it-spoilers.js';
-import md_style_footnotes from './markdown-it-style-footnotes.js';
-import md_wrap_tables     from './markdown-it-wrap-tables.js';
+import md_code_highlight  from './mdit-code-highlight.js';
+import md_fix_links       from './mdit-fix-links.js';
+import md_gen_toc         from './mdit-gen-toc.js';
+import md_sections        from './mdit-sections.js';
+import md_spoilers        from './mdit-spoilers.js';
+import md_style_footnotes from './mdit-style-footnotes.js';
+import md_wrap_tables     from './mdit-wrap-tables.js';
 
 
 export const md = new MarkdownIt({
