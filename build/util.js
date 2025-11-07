@@ -1,4 +1,6 @@
 import { existsSync, statSync } from 'fs';
+import fs from 'fs/promises';
+import path from 'path';
 
 /**
  * Let the user know what have just happened, and what is currently happening.
@@ -123,4 +125,32 @@ export async function waitForSigInt(callbacks) {
  */
 export function isNormFile(path) {
   return existsSync(path) && statSync(path).isFile();
+}
+
+
+/**
+ * Recursively iterate through all files and dirs inside a directory.
+ * @param dir Path to the root directory.
+ * @param [dirStat] To prevent redundant calls to fs.stat() if you already
+ * have it.
+ * @yields A tuple of [path, stat].
+ */
+export async function* listRecursively(dir, dirStat) {
+  if (!dirStat)
+    dirStat = await fs.stat(dir);
+  if (!dirStat.isDirectory())
+    return;
+
+  yield [dir, dirStat];
+
+  /* Iterate through each file. */
+  for (const file of await fs.readdir(dir)) {
+    const fullPath = path.join(dir, file);
+    const stat = await fs.stat(fullPath);
+
+    if (stat.isDirectory())
+      yield* listRecursively(fullPath, stat);
+    else
+      yield [ fullPath, stat ];
+  }
 }
