@@ -21,7 +21,8 @@
 
   {# Page info. -#}
   <script type="text/javascript">
-  var pageInfo = {{ pageInfo | json_stringify | safe }}
+  var pageInfo = {{ pageInfo | json_stringify | safe }};
+  var uiOpts = {{ uiOpts | json_stringify | safe }};
   </script>
 
   {# Load as early as possible, so we can do some updates
@@ -49,9 +50,9 @@
     {%- include '_layout/navbar.njk' %}
 
     <div class="view-wrapper">
-      <div class="main-view{{ ' no-sidebar' if doc.navHidden else '' }}">
+      <div class="main-view{{ ' no-sidebar' if uiOpts.noSidebar else '' }}">
 
-        {% if not doc.navHidden %}
+        {% if not uiOpts.noSidebar %}
         {%- include '_layout/sidebar.njk' %}
         {% endif %}
 

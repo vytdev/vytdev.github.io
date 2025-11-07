@@ -17,7 +17,7 @@ events.globalEvents.once('load', () => {
  * Behaviour for the sidebar toggle btn.
  */
 events.globalEvents.once('load', () => {
-  if (pageInfo.navHidden)
+  if (uiOpts.noSidebar)
     return;
   const mainView = document.querySelector('.main-view');
   const toggle = document.getElementById('sidebar-toggle');
@@ -80,7 +80,7 @@ events.globalEvents.once('load', () => {
  * Behaviour for the theme chooser.
  */
 events.globalEvents.once('load', () => {
-  if (pageInfo.navHidden)
+  if (uiOpts.noSidebar)
     return;
   let currTheme = util.getCurrTheme();
 
@@ -101,7 +101,7 @@ events.globalEvents.once('load', () => {
  * ScrollSpy for TOC.
  */
 events.globalEvents.once('load', () => {
-  if (pageInfo.navHidden)
+  if (uiOpts.noSidebar)
     return;
   const anchors = document.querySelectorAll('.toc a');
 
