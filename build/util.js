@@ -71,3 +71,24 @@ export function encodeNumber(num, base = 62) {
   }
   return res;
 }
+
+
+/**
+ * Runs a set of async function when user presses CTRL+C.
+ * @param callbacks The funcs.
+ * @returns A Promise.
+ * @throws When one of the callbacks fails.
+ */
+export async function waitForSigInt(callbacks) {
+  if (callbacks.length == 0)
+    return;
+
+  return new Promise((res, rej) => {
+    process.on('SIGINT', () => {
+      Promise.all(callbacks.map(cb => cb()))
+        .then(res)
+        .catch(rej);
+      log('User interrupted');
+    })
+  });
+}

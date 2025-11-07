@@ -1,6 +1,10 @@
 import fs from 'fs/promises';
 import config from '../config.js';
+import { createStaticApp, startServer, stopServer } from './local-server.js';
 import * as util from './util.js';
+
+/* Clean-up callbacks after the user presses CTRL+C. */
+const sigintTriggers = [];
 
 
 /**
@@ -20,15 +24,49 @@ if (has('--help', '-h')) {
 
 
 /**
- * Clean flag.
+ * Delete the out dir.
  */
 if (has('--clean', '-c')) {
   await fs.rm(config.OUT, {
     recursive: true,
     force: true,
-  })
-  util.log('Cleaned up everything')
+  });
+  util.log('Cleaned up everything');
 }
+
+
+/**
+ * Do a complete build.
+ */
+// TODO
+
+
+/**
+ * Starts a local test server.
+ */
+if (has('--serve', '-s')) {
+  const app = createStaticApp(config.OUT);
+  const srv = await startServer(app, config.TEST_ADDRESS, config.TEST_PORT);
+  sigintTriggers.push(() => stopServer(srv));
+}
+
+
+/**
+ * Build while editing.
+ */
+// TODO
+
+
+/**
+ * Ensure everything is done before continuing.
+ */
+await util.waitForSigInt(sigintTriggers);
+
+
+/**
+ * Create an archive of the generated output dir.
+ */
+// TODO
 
 
 /**

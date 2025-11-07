@@ -14,6 +14,8 @@ const bundlerCfg = {
   target: ['es2018'],
 };
 
+let watchCtx;
+
 
 /**
  * Build the bundle once.
@@ -27,12 +29,24 @@ export async function bundleOnce() {
 
 /**
  * Watch changes in the client source dir and build.
- * @returns A Promise which resolves after build. Use '.dispose()' to stop
- * the watcher.
+ * Use 'bundleStop()' to stop.
  */
-export async function watchAndBundle() {
-  const ctx = await context(bundlerCfg);
-  ctx.watch();
+export async function bundleWatch() {
+  if (watchCtx)
+    throw new Error('There is a currently active watcher');
+  watchCtx = await context(bundlerCfg);
+  watchCtx.watch();
   util.log('Started long-running JS bundler using esbuild', esbVer);
-  return ctx;
+}
+
+
+/**
+ * Stop bundler from watching source changes.
+ */
+export async function bundleStop() {
+  if (!watchCtx)
+    return;
+  await watchCtx.dispose();
+  watchCtx = null;
+  util.log('Stopped long-running JS bundler');
 }
