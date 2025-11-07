@@ -84,11 +84,12 @@ export async function waitForSigInt(callbacks) {
     return;
 
   return new Promise((res, rej) => {
-    process.on('SIGINT', () => {
-      Promise.all(callbacks.map(cb => cb()))
-        .then(res)
-        .catch(rej);
+    const handler = () => {
+      Promise.all(callbacks.map(cb => cb())).catch(rej);
       log('User interrupted');
-    })
+      process.off('SIGINT', handler);
+      res();
+    };
+    process.on('SIGINT', handler);
   });
 }

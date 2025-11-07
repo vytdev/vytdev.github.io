@@ -25,10 +25,10 @@ export function createStaticApp(siteDir) {
   /* Serve index.html page for directories. */
   app.use(async (req, res, next) => {
     const reqPath = path.join(siteDir, req.path);
-
-    if (await fs.exists(reqPath) && (await fs.stat(reqPath)).isDirectory())
-      return res.redirect(path.join(req.path, 'index.html'));
-
+    try {
+      if ((await fs.stat(reqPath)).isDirectory())
+        return res.redirect(path.join(req.path, 'index.html'));
+    } catch {}
     next();
   });
 
@@ -36,10 +36,10 @@ export function createStaticApp(siteDir) {
   app.use(async (req, res) => {
     res.status(404);
     const notFoundPg = path.join(siteDir, config.NOT_FOUND_PAGE);
-
-    if (await fs.exists(notFoundPg) && (await fs.stat(notFoundPg)).isFile())
-      return res.sendFile(notFoundPg);
-
+    try {
+      if ((await fs.stat(notFoundPg)).isFile())
+        return res.sendFile(notFoundPg);
+    } catch {}
     res.send(
       '404 - Page Not Found. path=' + req.path + '\n' +
       'Sorry, this is not the page you\'re looking for.');

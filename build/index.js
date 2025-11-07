@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import config from '../config.js';
-import { createStaticApp, startServer, stopServer } from './local-server.js';
+import * as lsrv from './local-server.js';
 import * as util from './util.js';
 
 /* Clean-up callbacks after the user presses CTRL+C. */
@@ -45,9 +45,10 @@ if (has('--clean', '-c')) {
  * Starts a local test server.
  */
 if (has('--serve', '-s')) {
-  const app = createStaticApp(config.OUT);
-  const srv = await startServer(app, config.TEST_ADDRESS, config.TEST_PORT);
-  sigintTriggers.push(() => stopServer(srv));
+  const app = lsrv.createStaticApp(config.OUT);
+  const srv = await lsrv.startServer(
+       app, config.TEST_ADDRESS, config.TEST_PORT);
+  sigintTriggers.push(() => lsrv.stopServer(srv));
 }
 
 
@@ -68,6 +69,11 @@ await util.waitForSigInt(sigintTriggers);
  */
 // TODO
 
+
+/**
+ * Ensure we have already exited at this point.
+ */
+process.exit(0);
 
 /**
  * Check whether at least one of the given flags is passed.
