@@ -1,3 +1,5 @@
+import { existsSync, statSync } from 'fs';
+
 /**
  * Let the user know what have just happened, and what is currently happening.
  * @param msg Your log.
@@ -92,4 +94,14 @@ export async function waitForSigInt(callbacks) {
     };
     process.on('SIGINT', handler);
   });
+}
+
+
+/**
+ * Checks whether a path points to a normal file.
+ * @param path The path to check.
+ * @returns True if it is a file. False if not.
+ */
+export function isNormFile(path) {
+  return existsSync(path) && statSync(path).isFile();
 }
