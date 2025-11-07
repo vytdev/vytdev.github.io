@@ -1,5 +1,0 @@
-# hello
-
-```js
-const tmp = [];
-```
