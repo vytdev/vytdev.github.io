@@ -32,11 +32,10 @@ under the **MIT License**. You are free to use, modify, and share the code
 under its terms.
 Full details are available [here](https://opensource.org/licenses/MIT).
 
-::: hl important
-Unless otherwise noted, any code snippets on this website are licensed under
-the MIT License. If a snippet uses a different license, it will be clearly
-marked.
-:::
+> [!IMPORTANT]
+> Unless otherwise noted, any code snippets on this website are licensed under
+> the MIT License. If a snippet uses a different license, it will be clearly
+> marked.
 
 ## Acceptance of The Licenses
 

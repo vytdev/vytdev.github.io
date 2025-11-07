@@ -24,10 +24,9 @@ beyond the immediate function it serves &mdash; and we do not do that. We may
 store certain preferences (like your theme choice), but these stay entirely
 on your device and are not transmitted anywhere.
 
-::: hl note
-Our [contact page](./contact.md) may ask for your email address. This is only
-used to respond directly to your inquiries or concerns &mdash; nothing more.
-:::
+> [!NOTE]
+> Our [contact page](./contact.md) may ask for your email address. This is only
+> used to respond directly to your inquiries or concerns &mdash; nothing more.
 
 ## How Do We Use This Data?
 

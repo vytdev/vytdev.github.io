@@ -420,13 +420,13 @@ dd {
 
 
 
-/* --- Admonitions
+/* --- Callouts
  * ------------------------------------------------------------------------- */
 
-div.admonition {
+div.callout {
   border-left: 3px solid;
-  background-color: var(--admonition-default-bg);
-  border-left-color: var(--admonition-default-border);
+  background-color: var(--callout-bg);
+  border-left-color: var(--callout-border);
   padding: 8px;
   width: 95%;
   border-radius: 1px;
@@ -436,55 +436,60 @@ div.admonition {
   font-size: 90%;
 }
 
-p.admonition-title {
+p.callout-title {
   font-size: 110% !important;
   font-weight: bold;
   margin: 2px;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  color: var(--callout-border);
+  fill: var(--callout-border);
 }
 
-div.admonition.tip {
-  background-color: var(--admonition-tip-bg);
-  border-left-color: var(--admonition-tip-border);
+div.callout.callout-tip {
+  --callout-bg: var(--callout-tip-bg);
+  --callout-border: var(--callout-tip-border);
 }
 
-div.admonition.attention {
-  background-color: var(--admonition-attention-bg);
-  border-left-color: var(--admonition-attention-border);
+div.callout.callout-attention {
+  --callout-bg: var(--callout-attention-bg);
+  --callout-border: var(--callout-attention-border);
 }
 
-div.admonition.danger {
-  background-color: var(--admonition-danger-bg);
-  border-left-color: var(--admonition-danger-border);
+div.callout.callout-danger {
+  --callout-bg: var(--callout-danger-bg);
+  --callout-border: var(--callout-danger-border);
 
 }
-div.admonition.error {
-  background-color: var(--admonition-error-bg);
-  border-left-color: var(--admonition-error-border);
+div.callout.callout-error {
+  --callout-bg: var(--callout-error-bg);
+  --callout-border: var(--callout-error-border);
 }
 
-div.admonition.hint {
-  background-color: var(--admonition-hint-bg);
-  border-left-color: var(--admonition-hint-border);
+div.callout.callout-hint {
+  --callout-bg: var(--callout-hint-bg);
+  --callout-border: var(--callout-hint-border);
 }
 
-div.admonition.important {
-  background-color: var(--admonition-important-bg);
-  border-left-color: var(--admonition-important-border);
+div.callout.callout-important {
+  --callout-bg: var(--callout-important-bg);
+  --callout-border: var(--callout-important-border);
 }
 
-div.admonition.note {
-  background-color: var(--admonition-note-bg);
-  border-left-color: var(--admonition-note-border);
+div.callout.callout-note {
+  --callout-bg: var(--callout-note-bg);
+  --callout-border: var(--callout-note-border);
 }
 
-div.admonition.warning {
-  background-color: var(--admonition-warning-bg);
-  border-left-color: var(--admonition-warning-border);
+div.callout.callout-warning {
+  --callout-bg: var(--callout-warning-bg);
+  --callout-border: var(--callout-warning-border);
 }
 
-div.admonition.caution {
-  background-color: var(--admonition-caution-bg);
-  border-left-color: var(--admonition-caution-border);
+div.callout.callout-caution {
+  --callout-bg: var(--callout-caution-bg);
+  --callout-border: var(--callout-caution-border);
 }
 
 

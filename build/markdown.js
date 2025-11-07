@@ -25,6 +25,7 @@ import md_wrap_tables     from './markdown-plugins/wrap-tables.js';
 export const md = new MarkdownIt({
   linkify: true,
   typographer: true,
+  html: true,
 });
 
 
@@ -46,7 +47,6 @@ export function renderMarkdown(txt, env = {}) {
 
 md.use(md_emoji.full);
 md.use(md_footnote);
-md.use(md_github_alerts);
 md.use(md_mark);
 md.use(md_sub);
 md.use(md_sup);
@@ -67,6 +67,11 @@ md.use(md_texmath, {
     output: 'html',
   }),
   delimiters: 'dollars',
+});
+
+md.use(md_github_alerts, {
+  classPrefix: 'callout',
+  markers: '*',
 });
 
 /* dedicated plugins */
