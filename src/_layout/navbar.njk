@@ -1,7 +1,7 @@
 <div class="navbar noprint" role="navigation" aria-label="Main navigation">
 
   {# Sidebar toggle #}
-  {% if not doc.navHidden -%}
+  {% if not uiOpts.noSidebar -%}
   <input type="checkbox" id="sidebar-toggle" aria-expanded="false"
       aria-label="Toggle sidebar" />
   <label class="yescript" for="sidebar-toggle">
@@ -10,14 +10,14 @@
   {%- endif %}
 
   {# Logo #}
-  <a href="https://{{ config.SITE_ADDRESS }}">
+  <a href="https://{{ config.SITE }}">
     <img alt="logo" type="image/svg+xml" width="25" height="25"
          src="{{ 'assets/logo.svg' | url }}" />
   </a>
   <p>VYT Hub</p>
 
   {# Search bar #}
-  {% if not doc.noSearchBar -%}
+  {% if not uiOpts.noSearch -%}
   {% include '_layout/searchbar.njk' %}
   {%- endif %}
 

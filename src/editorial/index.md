@@ -5,7 +5,7 @@ authors: [ vytdev ]
 tags: [ editorial ]
 published: '2025-10-16'
 updated: '2025-10-16'
-hide_nav: true
+no_sidebar: true
 ---
 
 # Editorials

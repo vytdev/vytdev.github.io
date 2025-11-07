@@ -16,17 +16,17 @@
 
     <div class="utility-links">
       <h3>Utility</h3>
-      {% if doc.prevPage -%}
-      <a href="{{ doc.prevPage | url }}">Previous page</a><br/>
+      {% if pageIngo.prevPage -%}
+      <a href="{{ pageInfo.prevPage | url }}">Previous page</a><br/>
       {%- endif %}
-      {% if doc.nextPage -%}
-      <a href="{{ doc.nextPage | url }}">Next page</a><br/>
+      {% if pageInfo.nextPage -%}
+      <a href="{{ pageInfo.nextPage | url }}">Next page</a><br/>
       {%- endif %}
       <a href="https://github.com/vytdev/vytdev.github.io/edit/master/src/{{
-         doc.srcPath }}" target="_blank">Edit this page</a><br/>
+         pageInfo.srcPath }}" target="_blank">Edit this page</a><br/>
       <a href="https://github.com/vytdev/vytdev.github.io/blob/master/src/{{
-         doc.srcPath }}" target="_blank">View source</a><br/>
-      {% if not doc.notPrintable -%}
+         pageInfo.srcPath }}" target="_blank">View source</a><br/>
+      {% if not uiOpts.noPrint -%}
       <a href="#" onclick="event.preventDefault(); window.print()"
          class="yescript" aria-label="Print this document">Print</a><br/>
       {%- endif %}

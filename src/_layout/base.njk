@@ -21,7 +21,7 @@
 
   {# Page info. -#}
   <script type="text/javascript">
-  var pageInfo = {{ doc | json_stringify | safe }}
+  var pageInfo = {{ pageInfo | json_stringify | safe }}
   </script>
 
   {# Load as early as possible, so we can do some updates

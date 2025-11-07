@@ -4,7 +4,7 @@ about: A personal knowledge hub!
 authors: [ vytdev ]
 published: '2025-03-29'
 updated: '2025-04-22'
-hide_nav: true
+no_sidebar: true
 no_trail: true
 ---
 

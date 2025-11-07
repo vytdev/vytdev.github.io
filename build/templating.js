@@ -1,6 +1,8 @@
 import path from 'path';
 import nunjucks from 'nunjucks';
 import config from '../config.js';
+import * as util from './util.js';
+
 
 /**
  * A nunjucks environment.
@@ -62,9 +64,9 @@ export function locateTemplateForDoc(docPath, prefer) {
  * templates.
  */
 env.addFilter('url', function(pathName) {
-  if (this.ctx.doc.isPathIndep)
+  if (this.ctx.pageInfo.absPaths)
     return '/' + path.normalize(pathName);
-  return './' + path.relative(path.dirname(this.ctx.sourceName), pathName);
+  return './' + path.relative(path.dirname(this.ctx.srcName), pathName);
 });
 
 

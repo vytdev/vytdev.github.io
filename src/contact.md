@@ -4,7 +4,7 @@ about: Contact me
 authors: [ vytdev ]
 published: '2023-11-05'
 updated: '2023-11-05'
-hide_nav: true
+no_sidebar: true
 no_trail: true
 no_print: true
 ---

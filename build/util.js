@@ -74,6 +74,25 @@ export function encodeNumber(num, base = 62) {
   return res;
 }
 
+/**
+ * Check whether a string followa the format YYYY-MM-DD.
+ * @param str The string to check.
+ * @returns Either true or false.
+ */
+export function isValidDateFmt(str) {
+  return /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[0-1])$/.test(str);
+}
+
+
+/**
+ * Remove duplicates from a array.
+ * @param arr The array with duplicaes.
+ * @returns Array without duplicates.
+ */
+export function removeDuplicatesFromArr(arr) {
+  return [...new Set(arr)];
+}
+
 
 /**
  * Runs a set of async function when user presses CTRL+C.

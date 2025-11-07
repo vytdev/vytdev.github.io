@@ -1,9 +1,9 @@
 ---
 title: VYT Hub Search
 about: Search VYT Hub.
-hide_nav: true
+no_sidebar: true
 no_trail: true
-no_sbar: true
+no_search: true
 no_print: true
 dont_index: true
 ---

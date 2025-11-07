@@ -1,3 +1,5 @@
+import * as mdUtils from 'markdown-it/lib/common/utils.mjs';
+
 /**
  * Generate a table-of-contents and store it into env. Requires
  * markdown-it-anchor to be enabled.
@@ -50,7 +52,7 @@ export function genTocHTML(toc, maxLvl = 2) {
 
     while (curr && curr.level >= lvl) {
       outStr += '<div class="toc-item"><a href="#';
-      outStr += md.utils.escapeHtml(curr.id);
+      outStr += mdUtils.escapeHtml(curr.id);
       outStr += '">';
       outStr += curr.content;
       outStr += '</a>';

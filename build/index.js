@@ -3,6 +3,16 @@ import config from '../config.js';
 import * as lsrv from './local-server.js';
 import * as util from './util.js';
 
+
+
+import { renderDocument } from './page.js';
+const mdPath = process.argv[2];
+console.log(renderDocument(mdPath, await fs.readFile(mdPath, 'utf8')));
+process.exit(0);
+
+
+
+
 /* Clean-up callbacks after the user presses CTRL+C. */
 const sigintTriggers = [];
 

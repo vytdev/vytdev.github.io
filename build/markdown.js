@@ -22,7 +22,7 @@ import md_style_footnotes from './markdown-it-style-footnotes.js';
 import md_wrap_tables     from './markdown-it-wrap-tables.js';
 
 
-const md = new MarkdownIt({
+export const md = new MarkdownIt({
   linkify: true,
   typographer: true,
 });

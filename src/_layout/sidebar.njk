@@ -1,4 +1,4 @@
-{% if not doc.navHidden %}
+{% if not uiOpts.noSidebar %}
 <div class="sidebar noprint" role="complementary" aria-label="Sidebar content"
      aria-hidden="true">
 
@@ -12,32 +12,32 @@
 </div>
 
 
-<p><b>{{ doc.title }}</b>.
-  {{ doc.about }}</p>
+<p><b>{{ pageInfo.title }}</b>.
+  {{ pageInfo.about }}</p>
 
 
 <p class="article-dates">
-   Published {{ doc.published }} &bull;
-   Updated {{ doc.updated }}
+   Published {{ pageInfo.published }} &bull;
+   Updated {{ pageInfo.updated }}
 </p>
 
 
 <p>
-{% for tag in doc.tags %}
+{% for tag in pageInfo.tags %}
 <span class="key-tag">{{ tag }}</span>
 {% endfor %}
 </p>
 
 
-{% if not doc.noToc %}
+{% if not uiOpts.noToc %}
 <h2>In this page</h2>
-{{ htmlToc | safe }}
+{{ genToc() | safe }}
 {% endif %}
 
 
 <h2>Contributors</h2>
 
-  {% for name in doc.authors %}
+  {% for name in pageInfo.authors %}
   <a class="author-name" href="https://github.com/{{ name }}"
        target="_blank" aria-label="Author {{ name }}">
   <img width="30px" height="30px" alt="avatar"
