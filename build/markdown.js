@@ -53,7 +53,7 @@ md.use(md_sup);
 md.use(md_tasklist);
 
 md.use(md_anchor, {
-  slugify: slugify,
+  slugify: (str) => slugify(str, { lower: true }),
   tabIndex: false,
   permalink: md_anchor.permalink.linkInsideHeader({
     symbol: '&para;',
