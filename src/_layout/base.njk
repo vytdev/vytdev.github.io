@@ -48,22 +48,20 @@
   {%- include '_layout/announcement.njk' %}
 
   <div class="main-frame{{ ' no-sidebar' if uiOpts.noSidebar else '' }}">
-    {% if not uiOpts.noSidebar %}
-    {%- include '_layout/sidebar.njk' %}
-    {% endif %}
 
     <div class="content">
-
       {%- include '_layout/breadcrumbs.njk' %}
-
       <div id="main-content" role="main">
         {% block content -%}
         {{ htmlContent | safe }}
         {%- endblock %}
       </div>
-
-
     </div>
+
+    {% if not uiOpts.noSidebar %}
+    {%- include '_layout/sidebar.njk' %}
+    {% endif %}
+
   </div>
 
   {%- include '_layout/footer.njk' %}

@@ -2,41 +2,57 @@
 <div class="sidebar noprint" role="complementary" aria-label="Sidebar content"
      aria-hidden="true">
 
-<div class="theme-chooser">
-  <label for="theme">Theme</label>
-  <select id="theme" name="theme" aria-label="Choose theme">
-    <option value="auto">Auto</option>
-    <option value="light">Light</option>
-    <option value="dark">Dark</option>
-  </select>
-</div>
+  <div class="theme-chooser">
+    <label for="theme">Theme</label>
+    <select id="theme" name="theme" aria-label="Choose theme">
+      <option value="auto">Auto</option>
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+  </div>
 
 
-<p><b>{{ pageInfo.title }}</b>.
-  {{ pageInfo.about }}</p>
+  <p><b>{{ pageInfo.title }}</b>.
+    {{ pageInfo.about }}</p>
 
 
-<p class="article-dates">
-   Published {{ pageInfo.published }} &bull;
-   Updated {{ pageInfo.updated }}
-</p>
+  <p class="article-dates">
+     Published {{ pageInfo.published }} &bull;
+     Updated {{ pageInfo.updated }}
+  </p>
 
 
-<p>
-{% for tag in pageInfo.tags %}
-<span class="key-tag">{{ tag }}</span>
-{% endfor %}
-</p>
+  <p>
+  {% for tag in pageInfo.tags %}
+  <span class="key-tag">{{ tag }}</span>
+  {% endfor %}
+  </p>
 
 
-{% if not uiOpts.noToc %}
-<h2>In this page</h2>
-{{ genToc() | safe }}
-{% endif %}
+  {% if not uiOpts.noToc %}
+  <h4>In this page</h4>
+  {{ genToc() | safe }}
+  {% endif %}
 
 
-<h2>Contributors</h2>
+  <h4>Navigation</h4>
+  {% if pageIngo.prevPage -%}
+  <a href="{{ pageInfo.prevPage | url }}">Previous page</a>
+  {%- endif %}
+  {% if pageInfo.nextPage -%}
+  <a href="{{ pageInfo.nextPage | url }}">Next page</a>
+  {%- endif %}
+  <a href="https://github.com/vytdev/vytdev.github.io/edit/master/src/{{
+     pageInfo.srcPath }}" target="_blank">Edit this page</a>
+  <a href="https://github.com/vytdev/vytdev.github.io/blob/master/src/{{
+     pageInfo.srcPath }}" target="_blank">View source</a>
+  {% if not uiOpts.noPrint -%}
+  <a href="#" onclick="event.preventDefault(); window.print()"
+     class="yescript" aria-label="Print this document">Print</a>
+  {%- endif %}
 
+
+  <h4>Contributors</h4>
   {% for name in pageInfo.authors %}
   <a class="author-name" href="https://github.com/{{ name }}"
        target="_blank" aria-label="Author {{ name }}">
@@ -45,6 +61,9 @@
   {{ name }}
   </a>
   {% endfor %}
+
+  <p class="note">A personal knowledge hub. Created using
+    <a href="{{ 'about.html'|url }}">VYT Hub</a>'s bespoke site generator.</p>
 
 </div>
 {% endif %}

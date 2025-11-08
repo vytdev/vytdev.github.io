@@ -1,81 +1,15 @@
-<div class="footer page-break">
-  <div class="links noprint" role="navigation" aria-label="Footer links">
+<div class="footer noprint">
 
-    <div class="navigation-links">
-      <h3>Navigation</h3>
-      <a href="{{ 'index.html' | url }}">Home</a><br/>
-      <a href="{{ 'about.html' | url }}">About</a><br/>
-      {#
-      <a href="{{ 'faqs.html' | url }}">FAQs</a><br/>
-      <a href="{{ 'wiki/index.html' | url }}">Wikis</a><br/>
-      <a href="{{ 'blogs/index.html' | url }}">Blogs</a><br/>
-      <a href="{{ 'notes/index.html' | url }}">Notes</a><br/>
-      #}
-      <a href="{{ 'search.html' | url }}">Search</a><br/>
-    </div>
+  <h3>Legal</h3>
 
-    <div class="utility-links">
-      <h3>Utility</h3>
-      {% if pageIngo.prevPage -%}
-      <a href="{{ pageInfo.prevPage | url }}">Previous page</a><br/>
-      {%- endif %}
-      {% if pageInfo.nextPage -%}
-      <a href="{{ pageInfo.nextPage | url }}">Next page</a><br/>
-      {%- endif %}
-      <a href="https://github.com/vytdev/vytdev.github.io/edit/master/src/{{
-         pageInfo.srcPath }}" target="_blank">Edit this page</a><br/>
-      <a href="https://github.com/vytdev/vytdev.github.io/blob/master/src/{{
-         pageInfo.srcPath }}" target="_blank">View source</a><br/>
-      {% if not uiOpts.noPrint -%}
-      <a href="#" onclick="event.preventDefault(); window.print()"
-         class="yescript" aria-label="Print this document">Print</a><br/>
-      {%- endif %}
-    </div>
+  <p class="footer-links" role="navigation" aria-label="Footer Links">
+    &copy; 2023-2025 Vincent Yanzee J. Tan.
+    <a href="{{ 'license.html' | url }}">License</a>
+    <a href="{{ 'disclaimer.html' | url }}">Disclaimer</a>
+    <a href="{{ 'privacy.html' | url }}">Privacy</a>
+    <a href="{{ 'terms.html' | url }}">Terms</a>
+    <a href="{{ 'cookie.html' | url }}">Cookies</a>
+    <a target="_blank" href="{{ 'contact.html' | url }}">Contact</a>
+  </p>
 
-    <div class="contact-links">
-      <h3>Contact</h3>
-      <a target="_blank" href="https://github.com/vytdev">GitHub</a><br/>
-      <a target="_blank" href="https://www.facebook.com/vytdev">
-         Facebook</a><br/>
-      <a target="_blank" href="{{ 'contact.html' | url }}">E-mail</a><br/>
-    </div>
-
-    <div class="legal-links">
-      <h3>Legal</h3>
-      <a href="{{ 'license.html' | url }}">License</a><br/>
-      <a href="{{ 'disclaimer.html' | url }}">Disclaimer</a><br/>
-      <a href="{{ 'privacy.html' | url }}">Privacy Policy</a><br/>
-      <a href="{{ 'terms.html' | url }}">Terms of Use</a><br/>
-      <a href="{{ 'cookie.html' | url }}">Cookie Statement</a><br/>
-    </div>
-
-  </div>
-  <div class="description-grid">
-    <div class="brand-div">
-      <img alt="logo" type="text/svg+xml" width="96px" height="96px"
-           src="{{ 'assets/logo.svg' | url }}" />
-      <h1>VYT Hub</h1>
-      <p><em>A personal knowledge hub.</em></p>
-    </div>
-    <div class="license-notice" role="contentinfo">
-
-  <!-- license notice -->
-  <p>&copy; 2023-2025 <a href="https://github.com/vytdev">Vincent Yanzee
-  J. Tan</a>.</p>
-
-  <p>The articles, images, media files, and other creative works on this
-  website are licensed under the
-  <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
-  Creative Commons Attribution 4.0 International License</a>.</p>
-
-  <p>The source code of this website &mdash; including scripts, stylesheets,
-  the custom site generator, and other code assets &mdash; is licensed
-  separately under the
-  <a href="https://opensource.org/licenses/MIT" target="_blank">
-  MIT License</a>.</p>
-
-  <p>Created using VYT Hub's bespoke site generator.</p>
-
-    </div>
-  </div>
 </div>
