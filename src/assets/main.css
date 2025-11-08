@@ -25,6 +25,11 @@
   -webkit-text-size-adjust: 100%; /* For consistent font sizes. */
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   color: var(--generic-color);
   background-color: var(--generic-bg);
@@ -32,8 +37,6 @@ body {
   font-family: NotoSans;
   line-height: 1.6;
   letter-spacing: 0.2px;
-  margin: 0;
-  padding: 0;
 }
 
 blockquote {
@@ -504,139 +507,6 @@ div.callout.callout-caution {
 }
 
 
-
-/* --- Content layout
- * ------------------------------------------------------------------------- */
-
-.navbar {
-  position: -webkit-sticky;
-  position: sticky;
-  z-index: 100;
-  top: 0;
-  width: 100%;
-  height: 40px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-  padding-left: 4px;
-  padding-right: 4px;
-  background-color: var(--generic-bg);
-  border-bottom: 1px solid var(--generic-border);
-}
-
-.navbar > p {
-  font-weight: bolder;
-}
-
-.navbar > a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.view-wrapper {
-  width: 100vw;
-  /* Last resort... Prevents the .main-view
-     from overflowing */
-  contain: layout paint;
-}
-
-.main-view {
-  width: 100%;
-  max-width: 100vw; /* 100% fluid */
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.main-view:not(.no-sidebar) {
-  display: flex;
-  position: relative;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  left: -90%;
-  transition: left 120ms ease;
-}
-
-.main-view:not(.no-sidebar) > * {
-  flex-shrink: 0;
-}
-
-.sidebar {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 40px;
-  width: 90%;
-  max-height: calc(100vh - 40px);
-  background-color: var(--generic-bg);
-  border-right: 1px solid var(--generic-border);
-  overflow: auto;
-  overflow-x: hidden;
-  padding: 8px;
-  padding-top: 16px;
-  padding-bottom: 16px;
-}
-
-.content {
-  width: 100%;
-  padding: 8px;
-  min-height: calc(100vh - 40px);
-}
-
-.content * {
-  scroll-margin-top: 50px;
-}
-
-.footer {
-  background-color: var(--footer-bg);
-  font-size: 90%;
-  padding: 8px;
-}
-
-.footer > .links {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.footer > .links > div {
-  margin-bottom: 1em;
-  flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: 100%;  /* Make it responsive. */
-  text-align: center;
-}
-
-.footer > .description-grid {
-  display: flex;
-  flex-direction: column;
-}
-
-.footer > .description-grid > .brand-div > * {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-
-.footer > .description-grid > * {
-  padding: 8px;
-}
-
-.footer > .description-grid > .license-notice {
-  flex: 1;
-}
-
-.footer > .description-grid > .brand-div > img {
-  display: block;
-}
-
-.footer a {
-  text-decoration: underline;
-  color: var(--generic-color);
-}
-
-
-
 /* --- Back to top btn
  * ------------------------------------------------------------------------- */
 
@@ -822,6 +692,104 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 }
 
 
+/* --- Navbar layout
+ * ------------------------------------------------------------------------- */
+
+.navbar {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 40px;
+  background-color: var(--generic-bg);
+  border-bottom: 1px solid var(--generic-border);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.navbar-static-padding {
+  width: 100vw;
+  height: 40px;
+}
+
+.main-frame {
+  min-height: calc(100vh - 40px);
+}
+
+.sidebar {
+  padding: 8px;
+  overflow-y: auto;
+}
+
+
+/* --- Content layout
+ * ------------------------------------------------------------------------- */
+
+.content {
+  padding: 8px;
+}
+
+.content * {
+  scroll-margin-top: 50px;
+}
+
+
+/* --- Footer layout
+ * ------------------------------------------------------------------------- */
+
+.footer {
+  background-color: var(--footer-bg);
+  font-size: 90%;
+  padding: 8px;
+}
+
+.footer > .links {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.footer > .links > div {
+  margin-bottom: 1em;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 100%;  /* Make it responsive. */
+  text-align: center;
+}
+
+.footer > .description-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer > .description-grid > .brand-div > * {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.footer > .description-grid > * {
+  padding: 8px;
+}
+
+.footer > .description-grid > .license-notice {
+  flex: 1;
+}
+
+.footer > .description-grid > .brand-div > img {
+  display: block;
+}
+
+.footer a {
+  text-decoration: underline;
+  color: var(--generic-color);
+}
+
+
 
 /* --- For responsiveness
  * ------------------------------------------------------------------------- */
@@ -848,26 +816,47 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   }
 }
 
+@media (max-width: 767px) {
+  .sidebar {
+    position: fixed;
+    z-index: 999;
+    top: 40px;
+    left: -85vw;
+    width: 85vw;
+    height: calc(100vh - 40px);
+    background-color: var(--generic-bg);
+    border-right: 1px solid var(--generic-border);
+    transition: transform 120ms ease;
+  }
+
+  .sidebar-open {
+    transform: translateX(85vw);
+  }
+}
+
 /* Medium. */
 @media (min-width: 768px) {
-  .main-view {
+  .main-frame {
+    display: flex;
+    gap: 2em;
+    margin: 0 auto;
     max-width: 720px; /* <93.75% */
   }
 
-  input#sidebar-toggle, label[for=sidebar-toggle] {
+  label[for=sidebar-toggle] {
     display: none;
   }
 
-  .main-view:not(.no-sidebar) {
-    left: 0 !important; /* Prevent js from overriding. */
-  }
-
-  .main-view:not(.no-sidebar) > .sidebar {
+  .sidebar {
+    position: sticky;
+    top: 40px;
     width: 30%;
-    border-right: none;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
   }
 
-  .main-view:not(.no-sidebar) > .content {
+  .content {
+    flex: 1;
     width: 70%;
   }
 
@@ -878,21 +867,21 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 
 /* Large. */
 @media (min-width: 992px) {
-  .main-view {
+  .main-frame {
     max-width: 930px; /* <93.75% */
   }
 }
 
 /* Extra large. */
 @media (min-width: 1280px) {
-  .main-view {
+  .main-frame {
     max-width: 1152px; /* <90% */
   }
 }
 
 /* Double extra large. */
 @media (min-width: 1440px) {
-  .main-view {
+  .main-frame {
     max-width: 1260px; /* <87.5% */
   }
 }

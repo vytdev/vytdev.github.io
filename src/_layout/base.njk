@@ -42,37 +42,30 @@
   {%- include '_layout/back-to-top.njk' %}
   {%- include '_layout/cookie-notice.njk' %}
 
-  <div class="page-frame">
+  {%- include '_layout/navbar.njk' %}
 
-    {# Notices and navbar. -#}
-    {%- include '_layout/noscript.njk' %}
-    {%- include '_layout/announcement.njk' %}
-    {%- include '_layout/navbar.njk' %}
+  {%- include '_layout/noscript.njk' %}
+  {%- include '_layout/announcement.njk' %}
 
-    <div class="view-wrapper">
-      <div class="main-view{{ ' no-sidebar' if uiOpts.noSidebar else '' }}">
+  <div class="main-frame{{ ' no-sidebar' if uiOpts.noSidebar else '' }}">
+    {% if not uiOpts.noSidebar %}
+    {%- include '_layout/sidebar.njk' %}
+    {% endif %}
 
-        {% if not uiOpts.noSidebar %}
-        {%- include '_layout/sidebar.njk' %}
-        {% endif %}
+    <div class="content">
 
-        <div class="content">
-          {%- include '_layout/breadcrumbs.njk' %}
+      {%- include '_layout/breadcrumbs.njk' %}
 
-          <div id="main-content" role="main">
-            {% block content -%}
-            {{ htmlContent | safe }}
-            {%- endblock %}
-          </div>
-        </div>
-
+      <div id="main-content" role="main">
+        {% block content -%}
+        {{ htmlContent | safe }}
+        {%- endblock %}
       </div>
-    </div>
 
+
+    </div>
   </div>
 
-  {# The footer must be outside the .page-frame. This is
-     for the footer-pushing-navbar effect. -#}
   {%- include '_layout/footer.njk' %}
 
 </body></html>

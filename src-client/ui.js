@@ -19,14 +19,11 @@ events.globalEvents.once('load', () => {
 events.globalEvents.once('load', () => {
   if (uiOpts.noSidebar)
     return;
-  const mainView = document.querySelector('.main-view');
   const toggle = document.getElementById('sidebar-toggle');
   const sidebar = document.querySelector('.sidebar');
 
-  /* Simply update the main-view x-offset. */
   toggle.addEventListener('change', () => {
-    mainView.style.left = toggle.checked
-      ? '0' : '-90%';
+    sidebar.classList.toggle('sidebar-open', toggle.checked);
     toggle.setAttribute('aria-expanded', `${toggle.checked}`);
     sidebar.setAttribute('aria-hidden', `${!toggle.checked}`);
   });
