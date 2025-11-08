@@ -264,26 +264,28 @@ button.primary:hover {
  * ------------------------------------------------------------------------- */
 
 div.table-container {
-  overflow: hidden;
   overflow-x: auto;
 }
 
 table {
-  table-layout: auto;
-}
-
-table, th, td, tr, thead, tbody {
-  border: 1px solid var(--color-border-muted);
   border-collapse: collapse;
+  table-layout: auto;
+  min-width: 100%;
+}
+
+table, thead, tbody, tr, th, td {
+  border: 1px solid var(--color-border-muted);
+}
+
+th {
   padding: 8px;
-}
-
-th, thead {
+  text-align: center;
   font-size: 110%;
+  font-weight: bold;
 }
 
-tbody {
-  font-size: 100%;
+td {
+  padding: 8px;
 }
 
 
