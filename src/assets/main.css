@@ -31,8 +31,8 @@ html, body {
 }
 
 body {
-  color: var(--generic-color);
-  background-color: var(--generic-bg);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
   font-size: 12px;
   font-family: NotoSans;
   line-height: 1.6;
@@ -44,14 +44,15 @@ blockquote {
   margin: 8px;
   margin-left: 1.5em;
   font-size: 90%;
-  color: var(--blockquote-color);
-  border-left: 4px solid var(--blockquote-color);
+  color: var(--color-text-secondary);
+  border-left: 4px solid var(--color-bg-secondary);
 }
 
 details {
   margin-top: 1em;
   margin-bottom: 1em;
-  border: 1px solid var(--generic-border);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-muted);
   padding: 2px;
 }
 
@@ -60,19 +61,20 @@ summary {
 }
 
 details[open] summary {
-  border-bottom: 1px solid var(--generic-border);
+  border-bottom: 1px solid var(--color-border-muted);
 }
 
 a {
-  color: var(--anchor-color);
+  color: var(--color-link);
   text-decoration: none;
 }
 
 a:visited {
-  color: var(--anchor-visited-color);
+  color: var(--color-link-visited);
 }
 
 a:hover {
+  color: var(--color-link-hover);
   text-decoration: underline;
 }
 
@@ -88,8 +90,8 @@ sub, a.footnote-backref {
   font-size: 85%;
 }
 
-.highlight:not(.nohighlight), mark {
-  background-color: var(--highlight-bg);
+:not(.nohighlight) .highlight:not(.nohighlight), mark {
+  background-color: var(--color-highlight);
 }
 
 
@@ -144,8 +146,9 @@ h6 {
 code {
   font-family: SourceCodePro;
   font-size: 90%;
-  color: var(--accent-color);
-  border: 1px solid var(--accent-color);
+  color: var(--color-code-text);
+  background-color: var(--color-code-bg);
+  border: 1px solid var(--color-code-border);
   border-radius: 2px;
 }
 
@@ -154,7 +157,7 @@ code {
   max-width: 100%;
   overflow: hidden;
   overflow-x: scroll;
-  border: 1px solid var(--generic-border);
+  border: 1px solid var(--color-border-muted);
   border-radius: 2px;
   padding: 4px;
   white-space: pre;
@@ -170,7 +173,7 @@ code {
 }
 
 .katex {
-  color: var(--math-text-color);
+  color: var(--color-text-primary);
 }
 
 
@@ -190,13 +193,9 @@ code {
   vertical-align: middle;
 }
 
-.task-list-item-checkbox:checked {
-  background-color: var(--accent-color);
-}
 
 
-
-/* --- Input types
+/* --- Modals
  * ------------------------------------------------------------------------- */
 
 input[type=checkbox] {
@@ -206,13 +205,13 @@ input[type=checkbox] {
   -webkit-appearance: none;
   width: 15px;
   height: 15px;
-  border: 1px solid var(--generic-border);
   border-radius: 1px;
-  background-color: var(--fade-color);
+  border: 1px solid var(--color-border-muted);
+  background-color: var(--color-bg-secondary);
 }
 
 input[type=checkbox]:checked {
-  background-color: var(--accent-color);
+  background-color: var(--color-accent);
 }
 
 input[type=checkbox]:checked::after {
@@ -220,13 +219,43 @@ input[type=checkbox]:checked::after {
   top: 0;
   left: 3px;
   content: '✔';
-  color: #fff;
+  color: var(--color-text-inverse);
   font-size: 10px;
 }
 
 select {
-  color: var(--generic-color);
-  background-color: var(--fade-color);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  padding: 2px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+}
+
+button {
+  display: block;
+  cursor: pointer;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 4px;
+  width: 100%;
+  height: 2em;
+  border-radius: 2em;
+  border: 1px solid var(--color-border-muted);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+button:hover {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+}
+
+button.primary {
+  background-color: var(--color-accent);
+}
+
+button.primary:hover {
+  background-color: var(--color-accent-hover);
 }
 
 
@@ -244,7 +273,7 @@ table {
 }
 
 table, th, td, tr, thead, tbody {
-  border: 1px solid var(--generic-border);
+  border: 1px solid var(--color-border-muted);
   border-collapse: collapse;
   padding: 8px;
 }
@@ -298,7 +327,7 @@ dd {
   font-size: 18px;
   font-weight: 1200;
   padding: 4px;
-  border-bottom: 1px solid var(--generic-border);
+  border-bottom: 1px solid var(--color-border-muted);
 }
 
 
@@ -307,7 +336,7 @@ dd {
  * ------------------------------------------------------------------------- */
 
 .sidebar a {
-  color: var(--generic-color);
+  color: inherit;
 }
 
 .sidebar .theme-chooser {
@@ -323,14 +352,14 @@ dd {
 
 .key-tag {
   display: inline-block;
-  height: 20px;
+  height: 2em;
   text-align: center;
-  font-size: 10px;
+  font-size: 1em;
   padding: 3px;
   margin: 1px;
-  color: var(--accent-color);
-  border: 1px solid var(--accent-color);
-  border-radius: 20px;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-muted);
+  border-radius: 10px;
 }
 
 .toc-item {
@@ -339,7 +368,7 @@ dd {
 }
 
 .toc-item > a {
-  color: var(--generic-color);
+  color: inherit;
   padding: 5px;
   padding-left: 10px;
   display: block;
@@ -348,8 +377,8 @@ dd {
 
 .toc-item > a.current {
   padding-left: 8px;
-  border-left: 2px solid var(--anchor-color);
-  color: var(--anchor-color);
+  border-left: 2px solid var(--color-link-hover);
+  color: var(--color-link-hover);
 }
 
 .sidebar .article-dates {
@@ -379,8 +408,9 @@ dd {
 .cookie-notice {
   display: none;
   position: fixed;
-  background-color: var(--generic-bg);
-  border: 1px solid var(--generic-border);
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-muted);
   z-index: 9999;
   bottom: 0;
   left: 0;
@@ -391,45 +421,31 @@ dd {
   text-align: center;
 }
 
-.cookie-notice button {
-  display: block;
-  cursor: pointer;
-  background-color: var(--fade-color);
-  color: var(--generic-color);
-  margin-top: 4px;
-  margin-bottom: 4px;
-  padding: 4px;
-  width: 100%;
-  height: 2em;
-  border-radius: 2em;
-  border: 0 solid;
-}
-
 
 
 /* --- Before-the-nav notices
  * ------------------------------------------------------------------------- */
 
 .no-js-warning-block {
-  background-color: var(--no-js-warning-bg);
-  border-bottom: 1px solid var(--no-js-warning-border);
+  background-color: var(--color-warning-bg);
+  border-bottom: 1px solid var(--color-warning-border);
   width: 100%;
   font-size: 85%;
   padding: 8px;
-}
-
-.no-js-warning-block a {
-  color: var(--generic-color);
-  text-decoration: underline;
 }
 
 .announcement-block {
   display: none;
-  background-color: var(--announcement-bg);
-  border-bottom: 1px solid var(--announcement-border);
+  background-color: var(--color-important);
+  border-bottom: 1px solid var(--color-important-border);
   width: 100%;
   font-size: 85%;
   padding: 8px;
+}
+
+.no-js-warning-block a, .announcement-block a {
+  color: inherit;
+  text-decoration: underline;
 }
 
 
@@ -439,8 +455,7 @@ dd {
 
 div.callout {
   border-left: 3px solid;
-  background-color: var(--callout-bg);
-  border-left-color: var(--callout-border);
+  border-left-color: var(--callout-border, var(--color-alert-border));
   padding: 8px;
   width: 95%;
   border-radius: 1px;
@@ -462,48 +477,39 @@ p.callout-title {
 }
 
 div.callout.callout-tip {
-  --callout-bg: var(--callout-tip-bg);
-  --callout-border: var(--callout-tip-border);
+  --callout-border: var(--color-tip-border);
 }
 
 div.callout.callout-attention {
-  --callout-bg: var(--callout-attention-bg);
-  --callout-border: var(--callout-attention-border);
+  --callout-border: var(--color-attention-border);
 }
 
 div.callout.callout-danger {
-  --callout-bg: var(--callout-danger-bg);
-  --callout-border: var(--callout-danger-border);
+  --callout-border: var(--color-danger-border);
 
 }
 div.callout.callout-error {
-  --callout-bg: var(--callout-error-bg);
-  --callout-border: var(--callout-error-border);
+  --callout-border: var(--color-error-border);
 }
 
 div.callout.callout-hint {
-  --callout-bg: var(--callout-hint-bg);
-  --callout-border: var(--callout-hint-border);
+  --callout-border: var(--color-hint-border);
 }
 
 div.callout.callout-important {
-  --callout-bg: var(--callout-important-bg);
-  --callout-border: var(--callout-important-border);
+  --callout-border: var(--color-important-border);
 }
 
 div.callout.callout-note {
-  --callout-bg: var(--callout-note-bg);
-  --callout-border: var(--callout-note-border);
+  --callout-border: var(--color-note-border);
 }
 
 div.callout.callout-warning {
-  --callout-bg: var(--callout-warning-bg);
-  --callout-border: var(--callout-warning-border);
+  --callout-border: var(--color-warning-border);
 }
 
 div.callout.callout-caution {
-  --callout-bg: var(--callout-caution-bg);
-  --callout-border: var(--callout-caution-border);
+  --callout-border: var(--color-caution-border);
 }
 
 
@@ -514,9 +520,9 @@ div.callout.callout-caution {
   position: fixed;
   width: 30px;
   height: 30px;
-  border: 1px solid var(--back-to-top-color);
+  border: 1px solid var(--color-border-muted);
   border-radius: 100%;
-  background-color: var(--fade-color);
+  background-color: var(--color-bg-secondary);
   z-index: 100;
   bottom: 1em;
   right: -5em;
@@ -528,7 +534,7 @@ div.callout.callout-caution {
 }
 
 #back-to-top > svg {
-  fill: var(--back-to-top-color);
+  fill: var(--color-text-secondary);
 }
 
 
@@ -554,7 +560,7 @@ label[for=sidebar-toggle] {
 }
 
 label[for=sidebar-toggle]:hover {
-  background-color: var(--fade-color);
+  background-color: var(--color-bg-secondary);
 }
 
 label[for=sidebar-toggle] > span {
@@ -572,7 +578,7 @@ label[for=sidebar-toggle] > span::before,
 label[for=sidebar-toggle] > span::after {
   content: "";
   display: block;
-  background-color: var(--menu-hamburger-color);
+  background-color: var(--color-border);
   border-radius: 4px;
   height: 3px;
   width: 20px;
@@ -611,7 +617,7 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   display: flex;
   align-items: center;
   margin-left: auto;
-  border: 1px solid var(--generic-border);
+  border: 1px solid var(--color-border-muted);
   transition: flex 150ms ease;
 }
 
@@ -624,8 +630,8 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   flex: 1;
   box-sizing: border-box;
   transition: width 0.3s ease;
-  color: var(--generic-color);
-  background: var(--generic-bg);
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
 }
 
 .search label {
@@ -645,7 +651,7 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 }
 
 #search-state {
-  color: #888;
+  color: var(--color-text-secondary);
 }
 
 .search-item {
@@ -655,8 +661,8 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   padding: 8px;
   margin: 0;
   margin-top: 3px;
-  background-color: var(--fade-color);
-  color: var(--generic-color) !important;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary) !important;
 }
 
 .search-item:hover {
@@ -702,8 +708,8 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   left: 0;
   width: 100vw;
   height: 40px;
-  background-color: var(--generic-bg);
-  border-bottom: 1px solid var(--generic-border);
+  background-color: var(--color-bg-primary);
+  border-bottom: 1px solid var(--color-border-muted);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -742,7 +748,7 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
  * ------------------------------------------------------------------------- */
 
 .footer {
-  background-color: var(--footer-bg);
+  background-color: var(--color-bg-secondary);
   font-size: 90%;
   padding: 8px;
 }
@@ -786,7 +792,7 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 
 .footer a {
   text-decoration: underline;
-  color: var(--generic-color);
+  color: inherit;
 }
 
 
@@ -824,8 +830,8 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
     left: -85vw;
     width: 85vw;
     height: calc(100vh - 40px);
-    background-color: var(--generic-bg);
-    border-right: 1px solid var(--generic-border);
+    background-color: var(--color-bg-secondary);
+    border-right: 1px solid var(--color-border-muted);
     transition: transform 120ms ease;
   }
 

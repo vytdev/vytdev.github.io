@@ -46,13 +46,7 @@ export const THEMES = {
  */
 export function changeTheme(theme) {
   localStorage.setItem('theme', theme);
-  const classList = document.documentElement.classList;
-
-  /* Remove the existing .theme-* classes. */ 
-  Array.from(classList).forEach(v => {
-    if (v.startsWith('theme-'))
-      classList.remove(v);
-  });
+  const data = document.documentElement.dataset;
 
   /* Auto theme. */
   if (theme == THEMES.auto) {
@@ -61,7 +55,7 @@ export function changeTheme(theme) {
   }
 
   /* Update the page theme. */
-  classList.add(`theme-${theme}`);
+  data.theme = theme;
 }
 
 
