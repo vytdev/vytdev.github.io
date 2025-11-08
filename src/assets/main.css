@@ -1,6 +1,17 @@
 @charset 'utf-8';
-@import 'fonts.css';
 @import 'themes.css';
+
+@font-face {
+  src: url(NotoSans-Regular.ttf);
+  font-family: NotoSans;
+}
+
+@font-face {
+  src: url(SourceCodePro-Regular.ttf);
+  font-family: SourceCodePro;
+}
+
+/* start */
 
 .with-js .noscript, .no-js .yescript {
   display: none !important;
