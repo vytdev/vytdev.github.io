@@ -37,6 +37,24 @@ Full details are available [here](https://opensource.org/licenses/MIT).
 > the MIT License. If a snippet uses a different license, it will be clearly
 > marked.
 
+## Third-Party Assets
+
+This project may include or reference third-party assets such as icons, fonts,
+stylesheets, or scripts that are distributed under their own licenses. These
+include, but are not limited to:
+
+- **Octicons** by GitHub, licensed under the
+  [MIT License](https://github.com/primer/octicons/blob/main/LICENSE).
+- **KaTeX** CSS and fonts, licensed under the
+  [MIT License](https://github.com/KaTeX/KaTeX/blob/main/LICENSE).
+- **highlight.js** themes, licensed under the
+  [BSD 3-Clause License](https://github.com/highlightjs/highlight.js/blob/main/LICENSE).
+- Any **web fonts** (e.g., Google Fonts) are subject to their respective
+  licenses.
+
+All third-party assets retain their original licenses and copyrights. Please
+review those licenses before redistributing or modifying related files.
+
 ## Acceptance of The Licenses
 
 By accessing and using the content or source code from this project, you agree

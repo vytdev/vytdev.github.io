@@ -2,12 +2,12 @@
 @import 'themes.css';
 
 @font-face {
-  src: url(NotoSans-Regular.ttf);
+  src: url(fonts/NotoSans-Regular.ttf);
   font-family: NotoSans;
 }
 
 @font-face {
-  src: url(SourceCodePro-Regular.ttf);
+  src: url(fonts/SourceCodePro-Regular.ttf);
   font-family: SourceCodePro;
 }
 
