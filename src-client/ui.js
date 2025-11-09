@@ -50,11 +50,7 @@ events.globalEvents.once('load', () => {
     const scrollY = document.documentElement?.scrollTop
         ?? document.body?.scrollTop
         ?? window.scrollY ?? 0;
-
-    if (scrollY > 40)
-      backToTop.style.right = "1em";
-    else
-      backToTop.style.right = "-5em";
+    backToTop.classList.toggle('show', scrollY > 40);
   });
 
   /* Scroll back to top when the btn is clicked. */
