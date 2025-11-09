@@ -2,13 +2,15 @@
 @import 'themes.css';
 
 @font-face {
-  src: url(fonts/NotoSans-Regular.ttf);
   font-family: NotoSans;
+  src: url(fonts/NotoSans-Regular.ttf);
+  font-display: swap;
 }
 
 @font-face {
-  src: url(fonts/SourceCodePro-Regular.ttf);
   font-family: SourceCodePro;
+  src: url(fonts/SourceCodePro-Regular.ttf);
+  font-display: swap;
 }
 
 /* start */
@@ -30,9 +32,9 @@ html, body {
   padding: 0;
   color: var(--color-text-primary);
   background-color: var(--color-bg-primary);
-  font-size: 14px;
+  font-size: 16px;
   font-family: NotoSans;
-  line-height: 1.6;
+  line-height: 1.8;
   letter-spacing: 0.2px;
 }
 
@@ -109,6 +111,15 @@ em, i {
   /*font-style: normal !important;
   transform: skew(-15deg);
   display: inline-block;*/
+}
+
+ol, ul {
+  line-height: 130%;
+}
+
+li {
+  margin-bottom: 5px;
+  padding: 0;
 }
 
 
@@ -799,7 +810,7 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 }
 
 .footer .legal-links a {
-  margin-left: 0.6em;
+  margin-left: 1em;
   text-decoration: underline;
 }
 
