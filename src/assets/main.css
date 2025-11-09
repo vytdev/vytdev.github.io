@@ -30,7 +30,7 @@ html, body {
   padding: 0;
   color: var(--color-text-primary);
   background-color: var(--color-bg-primary);
-  font-size: 12px;
+  font-size: 14px;
   font-family: NotoSans;
   line-height: 1.6;
   letter-spacing: 0.2px;
