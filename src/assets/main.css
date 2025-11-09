@@ -772,6 +772,10 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   font-weight: bold;
 }
 
+.navbar > .search {
+  max-width: 600px;
+}
+
 .navbar-static-padding {
   width: 100vw;
   height: 40px;

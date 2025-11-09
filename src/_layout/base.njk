@@ -13,21 +13,7 @@
      content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
   <meta name="theme-color" content="#ffffff" />
 
-  {# Enable eruda in dev mode. -#}
-  {% if config.DEVMODE  -%}
-  <script type="text/javascript" src="{{ 'assets/eruda.min.js' | url }}"
-          onload="eruda.init()"></script>
-  {%- endif %}
-
-  {# Page info. -#}
-  <script type="text/javascript">
-  var pageInfo = {{ pageInfo | json_stringify | safe }};
-  var uiOpts = {{ uiOpts | json_stringify | safe }};
-  </script>
-
-  {# Load as early as possible, so we can do some updates
-     before rendering. -#}
-  <script type="text/javascript" src="{{ 'assets/main.js' | url }}"></script>
+  {%- include '_layout/inline-js.njk' %}
 
   {%- include '_layout/metadata.njk' %}
 

@@ -1,0 +1,15 @@
+{# Necessary setup before fcp. #}
+
+<script type="text/javascript">
+
+  /* Immediately hide '.noscript's. */
+  document.documentElement.classList.replace('no-js', 'with-js');
+
+  /* Prevents flash of the wrong theme. */
+  document.documentElement.dataset.theme =
+      localStorage.getItem('theme') || 'light';
+
+  var pageInfo = {{ pageInfo | json_stringify | safe }};
+  var uiOpts = {{ uiOpts | json_stringify | safe }};
+
+</script>

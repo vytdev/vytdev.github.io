@@ -1,16 +1,12 @@
 
-<!-- preload -->
+<!-- preload what's necessary -->
 <link rel="preload" as="font" href="{{ 'assets/fonts/NotoSans-Regular.ttf' | url }}" />
 <link rel="preload" as="font" href="{{ 'assets/fonts/SourceCodePro-Regular.ttf' | url }}" />
 
-<link rel="preload" as="style" type="text/css" href="{{ 'assets/main.css' | url }}" />
-<link rel="preload" as="style" type="text/css" href="{{ 'assets/katex.min.css' | url }}" />
-<link rel="preload" as="style" type="text/css" href="{{ 'assets/themes.css' | url }}" />
-
 <link rel="preload" as="style" type="text/css" href="{{ 'assets/atom-one-light.css' | url }}" />
 <link rel="preload" as="style" type="text/css" href="{{ 'assets/atom-one-dark.css' | url }}" />
+<link rel="preload" as="style" type="text/css" href="{{ 'assets/themes.css' | url }}" />
 
-<link rel="preload" as="image" type="image/x-icon" href="{{ 'favicon.ico' | url }}" />
 
 <!-- resources -->
 <link rel="manifest" href="{{ 'manifest.json' | url }}" />
@@ -19,4 +15,11 @@
 
 <link rel="stylesheet" type="text/css" href="{{ 'assets/main.css' | url }}" />
 <link rel="stylesheet" type="text/css" href="{{ 'assets/katex.min.css' | url }}" />
-<link rel="stylesheet" type="text/css" href="{{ 'assets/themes.css' | url }}" />
+
+<script type="text/javascript" src="{{ 'assets/main.js' | url }}" defer></script>
+
+{# Enable eruda in dev mode. -#}
+{% if config.DEVMODE  -%}
+<script type="text/javascript" src="{{ 'assets/eruda.min.js' | url }}"
+        onload="eruda.init()"></script>
+{%- endif %}

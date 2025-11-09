@@ -6,9 +6,6 @@ import * as events from './events.js';
 if (config.EXPOSE_INTERNAL_REQUIRE)
   global.clientJSRequire = require.bind(null);
 
-/* Hides '.noscript's immediately */
-document.documentElement.classList.replace('no-js', 'with-js');
-
 /* Load the theme. */
 util.initTheme();
 
