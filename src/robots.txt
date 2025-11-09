@@ -1,6 +1,6 @@
 # www.robotstxt.org
 
 # Allow crawling of all content
-User-agent: *
-Disallow: /assets
-Sitemap: /sitemap.xml
+user-agent: *
+disallow: /assets
+sitemap: https://vytdev.gitbub.io/sitemap.xml
