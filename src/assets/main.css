@@ -6,8 +6,8 @@
 html {
   -webkit-text-size-adjust: 100%; /* For consistent font sizes. */
   text-size-adjust: 100%;
-  scroll-behavior: smooth;
   font-size: 16px;
+  /*scroll-behavior: smooth;*/
 }
 
 *, ::before, ::after {
@@ -570,29 +570,29 @@ button.primary:hover {
 /* --- Back to top btn
  * ------------------------------------------------------------------------- */
 
-#back-to-top {
+.back-to-top {
   position: fixed;
+  z-index: 100;
+  bottom: 24px;
+  right: 24px;
   width: 36px;
   height: 36px;
+  cursor: pointer;
+  /* style */
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border-muted);
   border-radius: 100%;
-  z-index: 100;
-  bottom: 1em;
-  right: -5em;
-  transition: right 150ms ease;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: none;
 }
 
-#back-to-top > svg {
+.back-to-top > svg {
   fill: var(--color-fg-secondary);
 }
 
-#back-to-top.show {
-  right: 1em;
+.back-to-top.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 

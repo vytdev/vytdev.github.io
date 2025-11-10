@@ -43,7 +43,7 @@ events.globalEvents.once('load', () => {
  * Back to top btn.
  */
 events.globalEvents.once('load', () => {
-  const backToTop = document.getElementById('back-to-top');
+  const backToTop = document.querySelector('.back-to-top');
 
   /* Show/hide behaviour of the btn. */
   document.addEventListener('scroll', () => {
