@@ -133,7 +133,7 @@ export function genTrail(filePath, isIndex) {
 
     /* We need a separator. */
     if (i != 0)
-      html += '<span class="breadcrumbs-sep"> &gt; </span>\n';
+      html += '<span class="breadcrumbs-sep"> / </span>\n';
 
     /* Add the html. */
     html += '<a class="breadcrumbs-path"'
