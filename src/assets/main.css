@@ -1,41 +1,42 @@
 @charset 'utf-8';
 @import 'themes.css';
 
-@font-face {
-  font-family: NotoSans;
-  src: url(fonts/NotoSans-Regular.ttf);
-  font-display: swap;
-}
-
-@font-face {
-  font-family: SourceCodePro;
-  src: url(fonts/SourceCodePro-Regular.ttf);
-  font-display: swap;
-}
-
 /* start */
 
-.with-js .noscript, .no-js .yescript {
+html {
+  -webkit-text-size-adjust: 100%; /* For consistent font sizes. */
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+*, ::before, ::after {
+  outline: none;
+  box-sizing: border-box;
+}
+
+.with-js .noscript, .with-js noscript, .no-js .yescript {
   display: none !important;
 }
 
-*, ::before, ::after, html {
-  outline: none;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-  text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%; /* For consistent font sizes. */
-}
-
-html, body {
+body {
+  /* remove the default spaces */
   margin: 0;
   padding: 0;
+
+  /* base theme colours */
   color: var(--color-text-primary);
   background-color: var(--color-bg-primary);
-  font-size: 16px;
-  font-family: NotoSans;
-  line-height: 1.8;
-  letter-spacing: 0.2px;
+
+  /* fonts */
+  line-height: 1.6;
+  letter-spacing: 0.012em;
+  font-family: var(--font-base);
+
+  /* font rendering options */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 
@@ -103,7 +104,6 @@ sub, a.footnote-backref {
 
 strong, b {
   font-weight: 700;
-  -webkit-font-smoothing: antialiased;
 }
 
 em, i {
@@ -120,6 +120,14 @@ ol, ul {
 li {
   margin-bottom: 5px;
   padding: 0;
+}
+
+.breadcrumbs {
+  font-size: .9em;
+}
+
+.breadcrumbs-sep {
+  font-color: var(--color-text-secondary);
 }
 
 
@@ -160,7 +168,7 @@ h3, h4, h5, h6 {
  * ------------------------------------------------------------------------- */
 
 code {
-  font-family: SourceCodePro;
+  font-family: var(--font-mono);
   font-size: .9em;
   color: var(--color-code-text);
   background-color: var(--color-code-bg);
@@ -169,7 +177,7 @@ code {
 }
 
 .snippet {
-  font-family: SourceCodePro;
+  font-family: var(--font-mono);
   font-size: .95rem;
   max-width: 100%;
   overflow: hidden;
@@ -488,7 +496,7 @@ button.primary:hover {
 .sidebar .author-name {
   display: flex;
   align-items: center;
-  font-family: SourceCodePro;
+  font-family: var(--font-mono);
   margin-left: 1.5em;
   padding: .3em;
   padding-left: .8em;
@@ -832,6 +840,10 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 }*/
 
 @media (max-width: 767px) {
+  html {
+    font-size: 14px;
+  }
+
   .sidebar {
     position: fixed;
     z-index: 999;
