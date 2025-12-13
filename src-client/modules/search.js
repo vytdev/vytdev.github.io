@@ -1,6 +1,6 @@
-import * as nlp from '../build/nlp.js';
-import * as util from './util.js';
-import config from './config.js';
+import * as nlp from '../../build/nlp.js';
+import * as util from '../util.js';
+import config from '../config.js';
 
 
 /*
@@ -39,7 +39,7 @@ type index = {
 /**
  * A custom fast client-based search engine.
  */
-export default class Search {
+export class Search {
 
   /**
    * Make a new Search instance for the given index.
@@ -245,6 +245,7 @@ export default class Search {
     }
   }
 
+
   /**
    * Perform a search across all the field indices.
    */
@@ -255,6 +256,7 @@ export default class Search {
     this.queryFieldTags('tags',      config.F_TAGS);
     this.queryFieldTags('authors',   config.F_AUTHORS);
   }
+
 
   /**
    * Do a search in a single call.

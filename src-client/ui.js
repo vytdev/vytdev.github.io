@@ -1,5 +1,8 @@
-import * as events from './events.js';
 import * as util from './util.js';
+import * as events from './modules/events.js';
+import * as highlight from './modules/highlight.js';
+import * as cookie from './modules/cookie-consent.js';
+import * as themes from './modules/themes.js';
 import config from './config.js';
 const query = util.query;
 
@@ -9,7 +12,7 @@ const query = util.query;
  */
 events.globalEvents.once('load', () => {
   if (query['h'])
-    util.highlight(query['h'], document.getElementById('main-content'));
+    highlight.highlight(query['h'], document.getElementById('main-content'));
 });
 
 
@@ -75,7 +78,7 @@ events.globalEvents.once('load', () => {
 events.globalEvents.once('load', () => {
   if (uiOpts.noSidebar)
     return;
-  let currTheme = util.getCurrTheme();
+  let currTheme = themes.getCurrTheme();
 
   /* Theme chooser mechanics. */
   const themeChooser = document.getElementById('theme');
@@ -85,7 +88,7 @@ events.globalEvents.once('load', () => {
   /* Theme updates. */
   themeChooser.addEventListener('change', () => {
     currTheme = themeChooser.value;
-    util.changeTheme(currTheme);
+    themes.changeTheme(currTheme);
   })
 });
 
@@ -131,11 +134,11 @@ events.globalEvents.once('load', () => {
  * Cookie banner.
  */
 events.globalEvents.once('load', () => {
-  if (util.getCookieConsent() == util.COOKIE_CONSENTS.accepted)
+  if (cookie.getCookieConsent() == cookie.COOKIE_ACCEPTED)
     events.globalEvents.emit('cookie-consented');
 
   /* Ask the user for consent if we haven't already. */
-  if (util.getCookieConsent() != util.COOKIE_CONSENTS.none)
+  if (cookie.getCookieConsent() != cookie.COOKIE_UNSET)
     return;
 
   /* Display the cookie notice. */
@@ -144,7 +147,7 @@ events.globalEvents.once('load', () => {
 
   cookieNotice.querySelector('.understood')
     .addEventListener('click', () => {
-      util.setCookieConsent(util.COOKIE_CONSENTS.accepted);
+      cookie.setCookieConsent(cookie.COOKIE_ACCEPTED);
       cookieNotice.style.display = 'none';
       events.globalEvents.emit('cookie-consented');
     });

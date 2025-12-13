@@ -2,7 +2,7 @@
   "name": "vytdev.github.io",
   "type": "module",
   "scripts": {
-    "build": "node ./build/index.js --clean --build",
+    "build": "node ./build/main.js --clean --build",
     "test": "echo \"No test\" && exit 1"
   },
   "devDependencies": {

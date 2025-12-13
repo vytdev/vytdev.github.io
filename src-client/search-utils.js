@@ -1,4 +1,4 @@
-import Search from './search.js';
+import * as search from './modules/search.js';
 import config from './config.js';
 import * as util from './util.js';
 
@@ -27,7 +27,7 @@ export async function loadInfoIndex() {
  * @returns An array of documents, or null.
  */
 export function query(text) {
-  return Object.entries(new Search(searchIndex).fastSearch(text))
+  return Object.entries(new search.Search(searchIndex).fastSearch(text))
     .map(([docRef, result]) => ({
       docUid: docRef,
       pageInfo: infoIndex[docRef],

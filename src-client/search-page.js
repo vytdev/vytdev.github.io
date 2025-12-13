@@ -1,5 +1,6 @@
 import * as util from './util.js';
-import * as events from './events.js';
+import * as highlight from './modules/highlight.js';
+import * as events from './modules/events.js';
 import * as nlp from '../build/nlp.js';
 import * as srUtil from './search-utils.js';
 
@@ -104,7 +105,7 @@ function renderResultItem(item) {
 
   /* Highlight the result. */
   const elem = util.parsePartHTML(res);
-  util.highlight(queryText, elem.querySelector('.search-item-about'));
+  highlight.highlight(queryText, elem.querySelector('.search-item-about'));
 
   /* Try to fetch the html page, asynchronously. */
   util.fetchText(pageInfo.relRoot + item.pageInfo.path)
@@ -118,7 +119,7 @@ function renderResultItem(item) {
       if (contentText) {
         const about = elem.querySelector('.search-item-about');
         about.innerText = contentText;
-        util.highlight(queryText, about);
+        highlight.highlight(queryText, about);
       }
     })
       .catch(() => null);
