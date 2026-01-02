@@ -9,7 +9,7 @@
   Browse here:  https://vytdev.github.io/
 
 
-  Copyright (c) 2023-2025 Vincent Yanzee J. Tan
+  Copyright (c) 2023-2026 Vincent Yanzee J. Tan
 
   Code License:     MIT
   Content License:  CC-BY-4.0
