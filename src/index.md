@@ -10,8 +10,16 @@ no_trail: true
 
 # VYT Hub
 
-Hey, welcome to VYT Hub &mdash; my personal knowledge hub! I'm
-[vytdev](https://github.com/vytdev), another comp sci guy you'd see around.
+Hey, welcome to VYT Hub! I'm [vytdev](https://github.com/vytdev).
 Here I'll collect my notes, guides, docs, and tools.
 
 - [Editorial](./editorial/index.md)
+
+Thanks for coming by!
+
+I won't be continuing to use `vytdev` as my primary internet identity. Once
+Mojang decided to implement a built-in debug stick to Minecraft Bedrock, this
+GitHub account might go completely inactive.
+
+Thanks for the people who supported and used the add-on. That's the last thing
+I'm maintaining in here. It's great to see how well it did.
