@@ -1,6 +1,3 @@
-> [!NOTE]
-> My old static website. Imma keep it here.
-
 <div align="center">
 
 # VYT Hub

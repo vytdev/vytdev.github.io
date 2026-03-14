@@ -3,7 +3,7 @@ title: About Me
 about: More about me!
 authors: [ vytdev ]
 published: '2025-04-18'
-updated: '2025-04-18'
+updated: '2026-03-15'
 ---
 
 # About Me
@@ -13,9 +13,6 @@ Hi, I'm Vinecent Yanzee J. Tan.
 I made this site (both the build sys and frontend) because I want my own design
 for what I thought a technical reference book. It came great. The search engine
 is my favourite part.
-
-I wanna say my handle `vytdev` will no longer be active someday Mojang decided
-to implement a built-in debug stick to Bedrock.
 
 ## Support Me 🎉
 
