@@ -13,7 +13,6 @@ no_print: true
 
 Feel free to get in touch with me using the following methods:
 
-- [Facebook](https://www.facebook.com/vytdev)
 - [GitHub](https://github.com/vytdev)
 
 Or, you can use the form below to send me a message:

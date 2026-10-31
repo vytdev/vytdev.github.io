@@ -8,4 +8,4 @@ no_print: true
 dont_index: true
 ---
 
-# Search
+<!-- check out search.md.njk -->
