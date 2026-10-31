@@ -6,7 +6,6 @@ import { removeDoc, updateDoc } from './search.js';
 import { renderText, locateTemplateForDoc } from './templating.js';
 import { renderMarkdown } from './markdown.js';
 import { genTocHTML } from './markdown-plugins/gen-toc.js';
-import * as mdUtils from 'markdown-it/lib/common/utils.mjs';
 
 /**
  * Finalize document options (options from the front-matter).
@@ -137,8 +136,8 @@ export function genTrail(filePath, isIndex) {
 
     /* Add the html. */
     html += '<a class="breadcrumbs-path"'
-         +  ' href="' + mdUtils.escapeHtml(thisPath) + '">'
-         +  mdUtils.escapeHtml(displayName) + '</a>\n';
+         +  ' href="' + util.escapeHTML(thisPath) + '">'
+         +  util.escapeHTML(displayName) + '</a>\n';
   }
 
   return html + '</div>\n';

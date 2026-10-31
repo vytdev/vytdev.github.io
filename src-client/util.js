@@ -125,7 +125,7 @@ export function escapeHTML(text) {
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
-    .replaceAll('\'', '&apos;');
+    .replaceAll('\'', '&#039;');
 }
 
 

@@ -76,6 +76,22 @@ export function encodeNumber(num, base = 62) {
   return res;
 }
 
+
+/**
+ * Escapes HTML from a string.
+ * @param text The string.
+ * @returns Sanitized string.
+ */
+export function escapeHTML(text) {
+  return text
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll('\'', '&#039;');
+}
+
+
 /**
  * Check whether a string followa the format YYYY-MM-DD.
  * @param str The string to check.
