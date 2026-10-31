@@ -76,18 +76,24 @@ events.globalEvents.once('load', () => {
  * Behaviour for the theme chooser.
  */
 events.globalEvents.once('load', () => {
-  if (uiOpts.noSidebar)
-    return;
   let currTheme = themes.getCurrTheme();
 
   /* Theme chooser mechanics. */
-  const themeChooser = document.getElementById('theme');
-  themeChooser.querySelector(`option[value=${currTheme}]`)
-    .selected = true;
+  const themeChooser = document.querySelector('.theme-chooser');
+  function updateThemeIcon(theme) {
+    themes.OPTIONS.forEach(v => {
+      const icon = themeChooser.querySelector('.theme-' + v);
+      icon.style.display = (theme == v) ? 'block' : 'none';
+    })
+  }
+
+  updateThemeIcon(currTheme);
 
   /* Theme updates. */
-  themeChooser.addEventListener('change', () => {
-    currTheme = themeChooser.value;
+  themeChooser.addEventListener('click', () => {
+    currTheme = themes.OPTIONS[(themes.OPTIONS.indexOf(currTheme) + 1)
+        % themes.OPTIONS.length];
+    updateThemeIcon(currTheme);
     themes.changeTheme(currTheme);
   })
 });

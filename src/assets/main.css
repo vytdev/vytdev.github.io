@@ -443,17 +443,6 @@ button.primary:hover {
   color: inherit;
 }
 
-.sidebar .theme-chooser {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 1em;
-}
-
-.sidebar .theme-chooser > select {
-  display: block;
-  flex: 1;
-}
-
 .key-tag {
   display: inline-block;
   height: 2em;
@@ -799,6 +788,29 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 }
 
 
+
+/* --- Theme chooser
+ * ------------------------------------------------------------------------- */
+
+.theme-chooser {
+  padding: 4px;
+  padding-top: 8px;
+  cursor: pointer;
+}
+
+.theme-chooser > .theme-dark,
+.theme-chooser > .theme-light {
+  display: none;
+}
+
+.theme-chooser > .theme-auto > svg,
+.theme-chooser > .theme-light > svg,
+.theme-chooser > .theme-dark > svg {
+  fill: var(--color-fg-primary);
+}
+
+
+
 /* --- Content layout
  * ------------------------------------------------------------------------- */
 
@@ -809,6 +821,7 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 .content * {
   scroll-margin-top: 50px;  /* reserve additional 10px from the navbar */
 }
+
 
 
 /* --- Footer layout

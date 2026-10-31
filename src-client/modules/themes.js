@@ -15,6 +15,16 @@ export const THEME_DARK = 'dark';
 
 
 /**
+ * Options list.
+ */
+export const OPTIONS = [
+  THEME_AUTO,
+  THEME_LIGHT,
+  THEME_DARK,
+];
+
+
+/**
  * Change the theme.
  * @param theme The theme to use.
  */
