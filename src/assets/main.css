@@ -542,7 +542,7 @@ button.primary:hover {
 
 .announcement-block {
   display: none;
-  background-color: var(--color-important);
+  background-color: var(--color-important-bg);
   border-bottom: 1px solid var(--color-important-border);
   width: 100%;
   font-size: .85rem;
@@ -763,9 +763,17 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   border-bottom: 1px solid var(--color-border-muted);
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   padding-left: 4px;
   padding-right: 4px;
+}
+
+.navbar > .logo {
+  width: 30px;
+  height: 40px;
+  padding: 8px;
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
 .navbar > p {
