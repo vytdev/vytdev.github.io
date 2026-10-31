@@ -8,11 +8,13 @@ updated: '2026-03-15'
 
 # About Me
 
-Hi, I'm Vinecent Yanzee J. Tan.
+Hi, I'm Vincent Yanzee J. Tan.
 
 I made this site (both the build sys and frontend) because I want my own design
 for what I thought a technical reference book. It came great. The search engine
 is my favourite part.
+
+<!--
 
 ## Support Me 🎉
 
@@ -26,3 +28,5 @@ you can do so here:
 </a>
 
 Thanks!
+
+-->
