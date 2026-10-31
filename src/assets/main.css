@@ -793,8 +793,11 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
  * ------------------------------------------------------------------------- */
 
 .theme-chooser {
-  padding: 4px;
-  padding-top: 8px;
+  height: 40px;
+  width: 30px;
+  padding: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
   cursor: pointer;
 }
 
@@ -803,9 +806,9 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   display: none;
 }
 
-.theme-chooser > .theme-auto > svg,
-.theme-chooser > .theme-light > svg,
-.theme-chooser > .theme-dark > svg {
+.theme-chooser > * > svg {
+  width: 20px;
+  height: 20px;
   fill: var(--color-fg-primary);
 }
 
