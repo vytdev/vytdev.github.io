@@ -15,7 +15,11 @@
 
   <p>
   {% for tag in pageInfo.tags %}
-  <span class="key-tag">{{ tag }}</span>
+  <span class="key-tag">
+    <a href="{{ 'search.html' | url }}?q=%23{{ tag }}">
+      {{ tag }}
+    </a>
+  </span>
   {% endfor %}
   </p>
 
