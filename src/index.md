@@ -51,7 +51,7 @@ is a nice checklist of what might appear in here next:
 - [ ] Feature page of debug-stick-ui.
 - [ ] Feature page of world-porter.
 - [ ] rvm, e652, my dotfiles
-- [ ] *a page demonstrating the features of this site*
+- [ ] [*a page demonstrating the features of this site*](./testing.md)
 - [ ] *...etc.*
 
 btw my real name is Vincent Yanzee J. Tan. I openly share my name

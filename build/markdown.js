@@ -5,6 +5,7 @@ import slugify from 'slugify';
 
 /* external markdown plugins */
 import md_anchor          from 'markdown-it-anchor';
+import md_deflist         from 'markdown-it-deflist';
 import * as md_emoji      from 'markdown-it-emoji';
 import md_footnote        from 'markdown-it-footnote';
 import md_github_alerts   from 'markdown-it-github-alerts';
@@ -51,6 +52,7 @@ md.use(md_mark);
 md.use(md_sub);
 md.use(md_sup);
 md.use(md_tasklist);
+md.use(md_deflist);
 
 md.use(md_anchor, {
   slugify: (str) => slugify(str, { lower: true }),

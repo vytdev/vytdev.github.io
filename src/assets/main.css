@@ -56,25 +56,22 @@ blockquote {
 
 details {
   margin-top: 1em;
-  margin-bottom: 1em;
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border-muted);
-  border-radius: 2px;
-  padding: .5em;
+  border-radius: 3px;
 }
 
-details > summary {
-  padding: .25em;
+details > summary, details > .contents {
+  padding: 10px;
 }
 
 details[open] > summary {
   border-bottom: 1px solid var(--color-border-muted);
-  padding-bottom: .75em;
 }
 
 a {
   color: var(--color-link);
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 a:visited {
@@ -86,19 +83,29 @@ a:hover {
   text-decoration: underline;
 }
 
-sup, a.footnote-ref {
+li > a {
+  text-decoration: none; /* it looks messy with underline,
+                          is this wrong? */
+}
+
+sup, .footnote-ref {
   position: relative;
   top: -0.1em;
   font-size: .9em;
 }
 
-sub, a.footnote-backref {
+sub, .footnote-backref {
   position: relative;
   bottom: -0.1em;
   font-size: .9em;
 }
 
+.footnote-ref > a, a.footnote-backref {
+  text-decoration: none !important;
+}
+
 :not(.nohighlight) .highlight:not(.nohighlight), mark {
+  color: inherit;
   background-color: var(--color-highlight);
 }
 
@@ -122,8 +129,16 @@ li {
   padding: 0;
 }
 
+hr {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border: none;
+  height: 1px;
+  background-color: var(--color-border-muted);
+}
+
 .breadcrumbs {
-  font-size: .9em;
+  font-size: .9rem;
 }
 
 .breadcrumbs > * {
@@ -173,10 +188,9 @@ h3, h4, h5, h6 {
 
 code {
   font-family: var(--font-mono);
-  font-size: 1em;
 }
 
-:not(a) > code {
+code:not(a code):not(dt code) {
   background-color: var(--color-code-bg);
   border: 1px solid var(--color-code-border);
   border-radius: 2px;
@@ -238,7 +252,8 @@ code {
  * ------------------------------------------------------------------------- */
 
 div.table-container {
-  overflow-x: auto;
+  margin-top: 1em;
+  overflow-x: auto
 }
 
 table {
@@ -269,11 +284,13 @@ td {
  * ------------------------------------------------------------------------- */
 
 dt {
-  font-size: 1.1rem;
+  font-size: 1.4rem; /* just under h2, and above h3 */
+  margin-top: 1em;
 }
 
 dd {
   font-size: 1rem;
+  margin-top: 1em;
   margin-left: 3em;
 }
 
@@ -290,6 +307,10 @@ dd {
   display: none;
 }
 
+.section > .section-title:first-child::before {
+  font-size: 1rem;
+}
+
 .with-js .section > .section-title:first-child::before {
   content: '▶';
 }
@@ -302,10 +323,14 @@ dd {
 
 .section > .section-title:first-child {
   margin-top: 1em;
-  font-size: 1.6rem;
-  font-weight: 1200;
+  font-size: 1.6rem; /* h2 size */
+  font-weight: bold;
   padding: .3em;
   border-bottom: 1px solid var(--color-border-muted);
+}
+
+.section > .section-content {
+  margin-top: 1em;
 }
 
 
@@ -320,7 +345,7 @@ div.callout {
   width: 95%;
   border-radius: 1px;
   margin: 0 auto;
-  margin-top: .25em;
+  margin-top: 1em;
   font-size: .95rem;
 }
 
@@ -452,10 +477,14 @@ button.primary:hover {
   text-align: center;
   padding: .3em;
   margin: .4em;
-  font-size: .9em;
+  font-size: .9rem;
   color: var(--color-text-secondary);
   border: 1px solid var(--color-border-muted);
   border-radius: 10px;
+}
+
+.key-tag > a {
+  text-decoration: none;
 }
 
 .toc-item {
@@ -478,7 +507,7 @@ button.primary:hover {
 }
 
 .sidebar .article-dates {
-  font-size: .85em;
+  font-size: .85rem;
 }
 
 .sidebar > a {
@@ -500,13 +529,9 @@ button.primary:hover {
 }
 
 .sidebar > .note {
-  font-size: .9em;
+  font-size: .9rem;
   font-style: italic;
   color: var(--color-text-secondary);
-}
-
-.sidebar > .note > a {
-  text-decoration: underline;
 }
 
 
@@ -554,7 +579,6 @@ button.primary:hover {
 
 .no-js-warning-block a, .announcement-block a {
   color: inherit;
-  text-decoration: underline;
 }
 
 
@@ -715,6 +739,7 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   margin-top: .2em;
   background-color: var(--color-bg-secondary);
   color: var(--color-text-primary) !important;
+  text-decoration: none;
 }
 
 .search-item:hover {
@@ -730,20 +755,20 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
 }
 
 .search-item > .search-item-title {
-  font-size: 1.5em;
+  font-size: 1.5rem;
   font-weight: bolder;
 }
 
 .search-item > .search-item-path {
   margin-top: .5em;
-  font-size: .85em;
+  font-size: .85rem;
   text-decoration: underline;
   color: var(--color-text-secondary);
 }
 
 .search-item > .search-item-about {
   margin-top: 2em;
-  font-size: .85em;
+  font-size: .85rem;
   color: var(--color-text-secondary);
 }
 

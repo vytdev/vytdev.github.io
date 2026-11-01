@@ -31,9 +31,10 @@ export default function markdownItSpoilers(md) {
         const title = md.renderInline(data);
 
         return `<details${isOpen ? ' open' : ''}>\n` +
-          `<summary>${title}</summary>\n`;
+          `<summary>${title}</summary>\n` +
+          '<div class="contents">';
       }
-      return `</details>\n`;
+      return `</div></details>\n`;
     },
   });
 
