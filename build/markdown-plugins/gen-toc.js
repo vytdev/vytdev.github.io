@@ -26,10 +26,11 @@ export default function markdownItGenTOC(md) {
       /* for custom sections */
       else if (token.type === 'container_section_open') {
         level = 2;
-        content = md.renderInline(token.info
-            .trim().slice('section'.length).trimStart());
+        const rawTitle = token.info.trim()
+            .slice('section'.length).trimStart();
+        content = md.renderInline(rawTitle);
         /* ./section.js also adds an ID */
-        id = util.slugify(content);
+        id = util.slugify(rawTitle);
       }
 
       else {

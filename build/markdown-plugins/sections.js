@@ -13,9 +13,10 @@ export default function markdownItSections(md) {
 
       if (tok.nesting === 1) {
         /* ::: section Title here */
-        const title = md.renderInline(tok.info
-            .trim().slice('section'.length).trimStart());
-        const id = util.slugify(title);
+        const rawTitle = tok.info.trim()
+            .slice('section'.length).trimStart();
+        const title = md.renderInline(rawTitle);
+        const id = util.slugify(rawTitle);
 
         return `<div class="section" id="${id}"><div class="section-title"\n` +
           '  onclick="this.parentElement.toggleAttribute(\'data-open\')">\n' +

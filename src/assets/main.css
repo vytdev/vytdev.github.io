@@ -300,29 +300,30 @@ dd {
  * ------------------------------------------------------------------------- */
 
 .with-js .section:not([data-open]):not(:has(:target)):not(:target) >
-  :not(.section-title:first-child)
+  :not(.section-title)
 {
   /* We don't know the display type of some elems.
      Let's use :not([data-open]) */
   display: none;
 }
 
-.section > .section-title:first-child::before {
+.section > .section-title::before {
   font-size: 1rem;
 }
 
-.with-js .section > .section-title:first-child::before {
+.with-js .section > .section-title::before {
   content: '▶';
 }
 
-.no-js .section > .section-title:first-child::before,
-.section[data-open] > .section-title:first-child::before,
-.section:has(:target) > .section-title:first-child::before,
-.section:target > .section-title:first-child::before {
+.no-js .section       > .section-title::before,
+.section[data-open]   > .section-title::before,
+.section:has(:target) > .section-title::before,
+.section:target       > .section-title::before {
   content: '▼';
 }
 
-.section > .section-title:first-child {
+.section > .section-title {
+  cursor: pointer;
   margin-top: 1em;
   font-size: 1.6rem; /* h2 size */
   font-weight: bold;

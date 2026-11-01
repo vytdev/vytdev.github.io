@@ -221,21 +221,22 @@ Another reference to footnote 1 [^1].
 
 :::: section Block Extras
 
-::: spoiler Initially closed spoiler!
+::: spoiler Initially *closed* spoiler!
 this is a spoiler!
 > [!TIP]
-> wow
+> Inlines work in spoiler and section titles
 :::
 
-::: spoiler-opened Initially open spoiler!
+::: spoiler-opened Initially *open* spoiler!
 Content here.
 :::
 
 > [!IMPORTANT]
 > This is a callout.
 
-> [!ATTENTION] Other title here
+> [!ATTENTION] Other *title* here
 > I can also change the title.
+> Inline don't work on callout titles.
 
 The following is a block math.
 
@@ -275,7 +276,7 @@ Term C ~ a
 
 
 
-::: section Callout types
+::: section Callouts
 > [!TIP]
 > Content text
 

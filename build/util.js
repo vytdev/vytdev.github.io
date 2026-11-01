@@ -84,7 +84,10 @@ export function encodeNumber(num, base = 62) {
  * @returns Slugified text.
  */
 export function slugify(text) {
-  return externalSlugify(text, { lower: true });
+  return externalSlugify(text, {
+    remove: /[*+~.()'"!:@]/g,
+    lower: true,
+  });
 }
 
 
