@@ -302,6 +302,9 @@ Term C ~ a
 
 > [!CAUTION]
 > Content text
+
+> [!OTHER]
+> Unknown type
 :::
 
 

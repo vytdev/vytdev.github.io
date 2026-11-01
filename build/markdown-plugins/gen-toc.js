@@ -13,16 +13,30 @@ export default function markdownItGenTOC(md) {
 
     for (let i = 0; i < tokens.length; i++) {
       const token = tokens[i];
+      let level, content, id;
+
+      /* h[1-6] heading */
       if (token.type === 'heading_open') {
-        const level = parseInt(token.tag.slice(1)); /* h1 -> 1 */
-        const content = md.renderInline(tokens[i + 1].content);
-
+        level = parseInt(token.tag.slice(1)); /* h1 -> 1 */
+        content = md.renderInline(tokens[i + 1].content);
         /* markdown-it-anchor adds an ID to the token attrs. */
-        const idAttr = token.attrs?.find(attr => attr[0] === 'id');
-        const id = idAttr ? idAttr[1] : undefined;
-
-        toc.push({ level, content, id });
+        id = token.attrGet('id');
       }
+
+      /* for custom sections */
+      else if (token.type === 'container_section_open') {
+        level = 2;
+        content = md.renderInline(token.info
+            .trim().slice('section'.length).trimStart());
+        /* ./section.js also adds an ID */
+        id = util.slugify(content);
+      }
+
+      else {
+        continue;
+      }
+
+      toc.push({ level, content, id });
     }
 
     state.env.toc = toc;

@@ -47,11 +47,11 @@ You can [try playing here](./tictactoe) if you want to.
 I might add more stuff in here. Idk but I like documenting stuff. Here
 is a nice checklist of what might appear in here next:
 
+- [x] [*a page demonstrating the features of this site*](./testing.md)
 - [ ] Feature page of debug-stick.
 - [ ] Feature page of debug-stick-ui.
 - [ ] Feature page of world-porter.
 - [ ] rvm, e652, my dotfiles
-- [ ] [*a page demonstrating the features of this site*](./testing.md)
 - [ ] *...etc.*
 
 btw my real name is Vincent Yanzee J. Tan. I openly share my name

@@ -1,7 +1,7 @@
 import MarkdownIt from 'markdown-it';
 import katex from 'katex';
 import matter from 'gray-matter';
-import slugify from 'slugify';
+import * as util from './util.js';
 
 /* external markdown plugins */
 import md_anchor          from 'markdown-it-anchor';
@@ -55,7 +55,7 @@ md.use(md_tasklist);
 md.use(md_deflist);
 
 md.use(md_anchor, {
-  slugify: (str) => slugify(str, { lower: true }),
+  slugify: util.slugify,
   tabIndex: false,
   permalink: md_anchor.permalink.linkInsideHeader({
     symbol: '&para;',

@@ -1,6 +1,7 @@
 import { existsSync, statSync } from 'fs';
 import fs from 'fs/promises';
 import path from 'path';
+import externalSlugify from 'slugify';
 
 /**
  * Let the user know what have just happened, and what is currently happening.
@@ -74,6 +75,16 @@ export function encodeNumber(num, base = 62) {
     res += charset[rem];
   }
   return res;
+}
+
+
+/**
+ * Slugifies text for identifiers.
+ * @param text The text to slugify.
+ * @returns Slugified text.
+ */
+export function slugify(text) {
+  return externalSlugify(text, { lower: true });
 }
 
 

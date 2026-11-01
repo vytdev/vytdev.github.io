@@ -1,4 +1,5 @@
 import md_container from 'markdown-it-container';
+import * as util from '../util.js';
 
 /**
  * Support custom sections. Uses markdown-it-container under the hood.
@@ -14,8 +15,9 @@ export default function markdownItSections(md) {
         /* ::: section Title here */
         const title = md.renderInline(tok.info
             .trim().slice('section'.length).trimStart());
+        const id = util.slugify(title);
 
-        return '<div class="section"><div class="section-title"\n' +
+        return `<div class="section" id="${id}"><div class="section-title"\n` +
           '  onclick="this.parentElement.toggleAttribute(\'data-open\')">\n' +
           `${title}\n</div><div class="section-content">\n`;
       }

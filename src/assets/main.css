@@ -299,7 +299,7 @@ dd {
 /* --- Collapsible sections (not spoilers)
  * ------------------------------------------------------------------------- */
 
-.with-js .section:not([data-open]):not(:has(:target)) >
+.with-js .section:not([data-open]):not(:has(:target)):not(:target) >
   :not(.section-title:first-child)
 {
   /* We don't know the display type of some elems.
@@ -316,8 +316,9 @@ dd {
 }
 
 .no-js .section > .section-title:first-child::before,
-.with-js .section[data-open] > .section-title:first-child::before,
-.section:has(:target) > .section-title:first-child::before {
+.section[data-open] > .section-title:first-child::before,
+.section:has(:target) > .section-title:first-child::before,
+.section:target > .section-title:first-child::before {
   content: '▼';
 }
 
@@ -933,14 +934,13 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   .sidebar {
     position: sticky;
     top: 40px;
-    width: 30%;
     max-height: calc(100vh - 40px);
     overflow-y: auto;
   }
 
   .content {
     flex: 1;
-    width: 70%;
+    min-width: 65%;
   }
 }
 
