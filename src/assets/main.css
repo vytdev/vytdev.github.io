@@ -65,6 +65,10 @@ details > summary, details > .contents {
   padding: 10px;
 }
 
+details > summary {
+  cursor: pointer;
+}
+
 details[open] > summary {
   border-bottom: 1px solid var(--color-border-muted);
 }
