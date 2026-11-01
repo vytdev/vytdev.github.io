@@ -880,13 +880,17 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   margin: 2em;
 }
 
+.footer a {
+  color: inherit;
+  text-decoration: underline;
+}
+
 .footer .title {
   margin-bottom: 0;
 }
 
 .footer .legal-links a {
   margin-left: 1em;
-  text-decoration: underline;
 }
 
 
