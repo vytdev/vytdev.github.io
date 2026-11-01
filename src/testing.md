@@ -22,6 +22,14 @@ There will also be a toggleable sidebar button on the top left. The sidebar
 would appear automatically on bigger screens. The table-of-contents there
 is dynamic.
 
+Future directions:
+
+- [ ] Improve footnotes flexibility
+- [ ] Reimplement the search engine (and refactor overall client JS)
+- [ ] More flexible sidebars (and overall templating)
+- [ ] Unify all configs
+- [ ] Be easily reusable (i.e., remove hardcoded links like vytdev.github.io)
+
 
 
 ::: section Common
@@ -43,6 +51,8 @@ Nested _italic __but with bold__ inside_.
 
 Nested **bold *but with italic* inside**.
 
+*Links*
+
 [This is a link, it should not open another tab](./search.md).
 
 [This is a link that should open another tab](https://github.com).
@@ -58,7 +68,21 @@ Nested **bold *but with italic* inside**.
 
 [alias-here]: ./about.md
 
+*Blockquotes*
+
 > This is a blockquote.
+
+*Images*
+
+Proper image:
+![You should not usually see this alt text](./assets/img/icon-24x24.png)
+
+Missing image:
+![You should see this alt text](./nonexistent/image.png)
+
+With anchor:
+[![icon](./assets/img/icon-32x32.png)](./index.md)
+pointing to homepage.
 :::
 
 
@@ -76,7 +100,7 @@ And an [*`italic inline code`* within a link](#).
 This is a block code, with lang=text.
 ```
 
-Nested tilde blocks:
+*Nested code fences*
 
 ````markdown
 Nested demonstrating markdown.
@@ -94,7 +118,7 @@ int main (void)
 # Heading
 ````
 
-Highlighted C code:
+*Highlighted C code*
 
 ```c
 #include <stdio.h>
@@ -116,7 +140,7 @@ int main (void)
 
 ::: section Lists
 
-Starting from 3:
+*Ordered list (starting from 3)*
 
 3. this
 4. is
@@ -124,7 +148,7 @@ Starting from 3:
 6. numbered
 7. list
 
-This is an unordered list:
+*Unordered list*
 
 - item A (`-`)
 - item B
@@ -138,7 +162,7 @@ This is an unordered list:
 * item H
 * item I
 
-Deeply nested list:
+*Deeply nested list*
 
 1. Part 1
     - Part 2
@@ -203,13 +227,17 @@ A ^superscript\ text^ and a ~subscript\ text~. (note: escape spaces with `\`)
 
 This is a ~~strikethrough~~.
 
-These are the emojis.
+*Emojis*
 
 - :rocket: &mdash; `:rocket:`
 - :heart: &mdash; `:heart:`
 - :smile: &mdash; `:smile:`
 
-This is $x^2$ inline math. There is also block math.
+*Inline maths*
+
+This, $x^2$, is inline math. There is also block math.
+
+*Footnotes*
 
 This is a footnote[^1], and another [^2]. Text labeled [^text].
 
@@ -221,6 +249,8 @@ Another reference to footnote 1 [^1].
 
 :::: section Block Extras
 
+*Spoilers*
+
 ::: spoiler Initially *closed* spoiler!
 this is a spoiler!
 > [!TIP]
@@ -231,17 +261,21 @@ this is a spoiler!
 Content here.
 :::
 
+*Callouts*
+
 > [!IMPORTANT]
 > This is a callout.
 
 > [!ATTENTION] Other *title* here
 > I can also change the title.
-> Inline don't work on callout titles.
+> Inlines don't work on callout titles.
+
+*LaTeX Maths*
 
 The following is a block math.
 
 $$
-\int^\infty_1 \frac{1}{x} \, dx = 1
+\int^\infty_1 \frac{1}{x} \, dx = \infty
 $$
 
 $$
@@ -252,7 +286,7 @@ $$
 \lim_{x \to \infty} \left( 1 + \frac{1}{x} \right)^x = e
 $$
 
-Definition lists:
+*Definition lists:*
 
 Info
 : Definition
