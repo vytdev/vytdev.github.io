@@ -1,3 +1,7 @@
+import '../lib/testing.js'; /* NOTE: transition to new arch */
+
+
+
 import config from './config.js';
 import * as events from './modules/events.js';
 
