@@ -98,8 +98,8 @@ export async function genSearchIndex() {
 export async function genSiteMap() {
   const data = {
     pages: Object.values(getRecord()).map(v => ({
-      lastUpdated: v.pageInfo.updated,
-      urlLocation: v.pageInfo.canonical,
+      lastUpdated: v.updated,
+      urlLocation: v.canonical,
     }))
   };
 

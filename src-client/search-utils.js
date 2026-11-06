@@ -1,4 +1,6 @@
-import * as search from './modules/search.js';
+// TODO: rewrite the client search
+
+import * as search from '../lib/search/index.js';
 import config from './config.js';
 import * as util from './util.js';
 
@@ -21,17 +23,33 @@ export async function loadInfoIndex() {
 }
 
 
+
+// temporary function.
+function getFieldBiasingFactors() {
+  return {
+    'title':    config.F_TITLE,
+    'about':    config.F_ABOUT,
+    'content':  config.F_CONTENT,
+    'tags':     config.F_TAGS,
+    'authors':  config.F_AUTHORS,
+  };
+}
+
 /**
  * Perform a query.
  * @param text The query string.
  * @returns An array of documents, or null.
  */
 export function query(text) {
-  return Object.entries(new search.Search(searchIndex).fastSearch(text))
-    .map(([docRef, result]) => ({
+  const index = new search.SearchIndex(searchIndex);
+  const q = search.parseQueryString(text);
+  const results = q.matchAgainstIndex(index, getFieldBiasingFactors());
+
+  return Object.entries(results)
+    .map(([docRef, val]) => ({
       docUid: docRef,
       pageInfo: infoIndex[docRef],
-      ...result,
+      score: val,
     }));
 }
 
@@ -57,7 +75,7 @@ export function registerSortingFunc(name, fn) {
 
 /* Register some preset sorting funcs. */
 registerSortingFunc('relevance',
-  (a, b) => b.relevance - a.relevance);
+  (a, b) => b.score - a.score);
 registerSortingFunc('title',
   (a, b) => a.pageInfo.title < b.pageInfo.title ? -1 : 1);
 registerSortingFunc('published',
