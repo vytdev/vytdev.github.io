@@ -1,7 +1,7 @@
 import * as util from './util.js';
 import * as highlight from './modules/highlight.js';
 import * as events from './modules/events.js';
-import * as nlp from '../build/nlp.js';
+import * as nlp from '../lib/search/nlp.js';
 import * as srUtil from './search-utils.js';
 
 const queryText = util.query['q'];

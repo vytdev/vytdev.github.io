@@ -1,4 +1,4 @@
-import * as nlp  from '../../build/nlp.js';
+import * as nlp  from '../../lib/search/nlp.js';
 
 /**
  * Highlight the terms from a node.
