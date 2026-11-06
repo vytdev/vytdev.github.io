@@ -43,9 +43,20 @@ function getFieldBiasingFactors() {
 export function query(text) {
   const index = new search.SearchIndex(searchIndex);
   const q = search.parseQueryString(text, t => {
-    t = search.normalize(t);
-    if (search.isStopword(t)) return;
-    return search.stemmer(t);
+    const base = search.preprocess(t);
+    const substrs = [];
+
+    // TODO: optimize this
+    // partials must weight smaller
+    const termsInIndex = Object.keys(index.term2ref);
+    for (const term of termsInIndex) {
+      for (const v of base) {
+        if (v.includes(term))
+          substrs.push(v);
+      }
+    }
+
+    return base.concat(substrs);
   });
   const results = q.matchAgainstIndex(index, getFieldBiasingFactors());
 
