@@ -42,7 +42,11 @@ function getFieldBiasingFactors() {
  */
 export function query(text) {
   const index = new search.SearchIndex(searchIndex);
-  const q = search.parseQueryString(text);
+  const q = search.parseQueryString(text, t => {
+    t = search.normalize(t);
+    if (search.isStopword(t)) return;
+    return search.stemmer(t);
+  });
   const results = q.matchAgainstIndex(index, getFieldBiasingFactors());
 
   return Object.entries(results)
