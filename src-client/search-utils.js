@@ -44,18 +44,14 @@ export function query(text) {
   const index = new search.SearchIndex(searchIndex);
   const q = search.parseQueryString(text, t => {
     const base = search.preprocess(t);
-    base.push(t);
     const substrs = [];
 
     // TODO: optimize this
     // partials must weight smaller
     const termsInIndex = Object.keys(index.term2ref);
-    for (const term of termsInIndex) {
-      for (const v of base) {
-        if (term.includes(v))
-          substrs.push(v);
-      }
-    }
+    for (const term of termsInIndex)
+      if (term.includes(t))
+          substrs.push(term);
 
     return base.concat(substrs);
   });
