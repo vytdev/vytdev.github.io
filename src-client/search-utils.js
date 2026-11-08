@@ -55,7 +55,7 @@ export function query(text) {
 
     return base.concat(substrs);
   });
-  const results = q.matchAgainstIndex(index, getFieldBiasingFactors());
+  const results = search.match(q, index, getFieldBiasingFactors());
 
   return Object.entries(results)
     .map(([docRef, val]) => ({
