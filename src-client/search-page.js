@@ -1,11 +1,12 @@
 import * as util from './util.js';
 import * as highlight from './modules/highlight.js';
 import * as events from './modules/events.js';
-import * as nlp from '../lib/search/nlp.js';
+import * as nlp from '../lib/nlp/index.js';
 import * as srUtil from './search-utils.js';
 
 const queryText = util.query['q'];
-const queryTokens = queryText && nlp.split(queryText);
+const queryTokens = queryText &&
+    nlp.preTokenPipeline.transform(queryText);
 let stateEl;
 let resultEl;
 let searchResults;
@@ -52,7 +53,7 @@ function sortResults(sortFn, rev = false) {
 function makeTextExcerpt(text, terms, span = 140) {
   if (text.length == 0)
     return '';
-  const normText = nlp.normalize(text);
+  const normText = nlp.normalizeText(text);
 
   const lastQueryIdx = terms
     .map(kwd => normText.lastIndexOf(kwd))

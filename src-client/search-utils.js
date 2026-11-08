@@ -41,21 +41,34 @@ function getFieldBiasingFactors() {
  * @returns An array of documents, or null.
  */
 export function query(text) {
-  const index = new search.SearchIndex(searchIndex);
-  const q = search.parseQueryString(text, t => {
-    const base = search.preprocess(t);
-    const substrs = [];
+  const s = new search.Search(searchIndex);
+  const termsInIndex = s.index.getAllTerms();
 
-    // TODO: optimize this
-    // partials must weight smaller
-    const termsInIndex = Object.keys(index.term2ref);
+
+  const q = search.Query.parseQueryString(text, (q, t, options) => {
+    q.term(t, options);
+
+    /* allow partial matches */
+    const substrs = [];
+    const subOpts = {
+      weight: options.weight * 0.05,
+      presence: options.presence,
+      fields: options.fields,
+    };
+
+    if (subOpts.presence == search.Query.REQUIRE)
+      subOpts.presence = search.Query.OPTION;
+
     for (const term of termsInIndex)
       if (term.includes(t))
-          substrs.push(term);
-
-    return base.concat(substrs);
+        substrs.push(term);
+    q.term(substrs, subOpts);
   });
-  const results = search.match(q, index, getFieldBiasingFactors());
+
+
+  for (const [fieldName, weight] of Object.entries(getFieldBiasingFactors()))
+    s.setFieldWeight(fieldName, weight);
+  const results = s.match(q);
 
   return Object.entries(results)
     .map(([docRef, val]) => ({

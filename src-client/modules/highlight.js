@@ -1,4 +1,4 @@
-import * as nlp  from '../../lib/search/nlp.js';
+import * as nlp  from '../../lib/nlp/index.js';
 
 /**
  * Highlight the terms from a node.
@@ -6,7 +6,7 @@ import * as nlp  from '../../lib/search/nlp.js';
  * @param node The node.
  */
 export function highlight(text, node) {
-  const words = nlp.normalize(text).split(/\s+/g);
+  const words = nlp.normalizeText(text).split(/\s+/g);
 
   /* A text node. */
   if (node.nodeType == document.TEXT_NODE) {
@@ -17,7 +17,7 @@ export function highlight(text, node) {
       return;
 
     const org = node.nodeValue;
-    const norm = nlp.normalize(org);
+    const norm = nlp.normalizeText(org);
 
     /* Match and highlight words. */
     for (const term of words) {
@@ -30,7 +30,7 @@ export function highlight(text, node) {
       /* Fix: highlighting hangul was weird */
       const map = [];
       for (let i = 0; i < org.length; i++) {
-        const chLen = nlp.normalize(org[i]).length;
+        const chLen = nlp.normalizeText(org[i]).length;
         for (let j = 0; j < chLen; j++)
           map.push(i);
       }

@@ -1,6 +1,7 @@
 // TODO: migrate to new engine
 
 import * as search from '../lib/search/index.js';
+import * as nlp from '../lib/nlp/index.js';
 
 /** @type search.SearchStageIndex */
 let stage;
@@ -39,9 +40,9 @@ export function getRecord() {
  */
 export function updateDoc(docID, pageInfo, rawContent) {
   pageInfos[docID] = pageInfo;
-  stage.updateDocField(docID, 'title',   search.preprocess(pageInfo.title));
-  stage.updateDocField(docID, 'about',   search.preprocess(pageInfo.about));
-  stage.updateDocField(docID, 'content', search.preprocess(rawContent));
+  stage.updateDocField(docID, 'title',   nlp.preprocessText(pageInfo.title));
+  stage.updateDocField(docID, 'about',   nlp.preprocessText(pageInfo.about));
+  stage.updateDocField(docID, 'content', nlp.preprocessText(rawContent));
   stage.updateDocField(docID, 'tags',    pageInfo.tags);
   stage.updateDocField(docID, 'authors', pageInfo.authors);
 }
