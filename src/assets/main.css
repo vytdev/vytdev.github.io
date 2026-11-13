@@ -811,11 +811,6 @@ input#sidebar-toggle:checked ~ label[for=sidebar-toggle] > span::after {
   padding-right: 3px;
 }
 
-.navbar > p {
-  color: var(--color-text-primary);
-  font-weight: bold;
-}
-
 .navbar > .search {
   max-width: 600px;
 }
